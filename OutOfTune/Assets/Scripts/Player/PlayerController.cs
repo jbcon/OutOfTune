@@ -3,23 +3,29 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    public float maxSpeed = 10f;
-    public float jumpForce = 10f;
-    bool facingRight = true;
+    public float maxSpeed;
+    public float jumpForce;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 	
 	}
 
     void FixedUpdate()
     {
         CharacterMovement();
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //TODO: make character jump only once (or twice?) until they hit the ground
     }
 
     void CharacterMovement()
