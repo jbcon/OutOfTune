@@ -4,7 +4,7 @@ using System.Collections;
 public class WeaponProperties : MonoBehaviour {
 
     public GameObject projectile;
-    public int weaponForce;
+    public float weaponForce;
 
 	// Use this for initialization
 	void Start () {
@@ -14,8 +14,9 @@ public class WeaponProperties : MonoBehaviour {
     public void Fire(Vector2 direction)
     {
         GameObject b = Instantiate(projectile) as GameObject;
-        b.transform.position = transform.GetChild(0).position;
-        b.rigidbody2D.AddForce(direction * weaponForce, ForceMode2D.Impulse);
-        Debug.Log(direction.magnitude * weaponForce);
+        b.transform.SetParent(transform);
+        b.rigidbody2D.AddForce(direction*weaponForce, ForceMode2D.Impulse);
+        b.SetActive(true);
+		b.transform.localScale = new Vector3 (.5f, .5f, .5f);
     }
 }
