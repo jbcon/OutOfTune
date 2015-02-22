@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     {
         Jumping();
 
-        if (weapon && Input.GetButtonDown("Fire1")) UseWeapon();
+        if (weapon) UseWeapon();
 	}
 
     void FixedUpdate()
@@ -50,7 +50,9 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawLine(tf.position, mousePos);
         Vector2 direction = new Vector2(mousePos.x-tf.position.x, mousePos.y - tf.position.y);
         direction.Normalize();
-        weapon.GetComponent<WeaponProperties>().Fire(direction);
+        weapon.transform.LookAt(mousePos);
+        if (Input.GetButtonDown("Fire1"))
+            weapon.GetComponent<WeaponProperties>().Fire(direction);
     }
 
     void CharacterMovement()
