@@ -17,5 +17,6 @@ public class WeaponProperties : MonoBehaviour {
         b.transform.SetParent(transform);
         b.rigidbody2D.AddForce(direction*weaponForce, ForceMode2D.Impulse);
         b.SetActive(true);
+		b.transform.localScale = new Vector3 (.5f, .5f, .5f);
     }
 }
