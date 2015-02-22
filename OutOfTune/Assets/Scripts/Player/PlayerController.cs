@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour {
     public bool grounded = false;
     public Transform groundedEnd;
 
-    public int numJumps = 0;
+    uint numJumps = 0;
+
+    GameObject weapon;
     Transform tf;
 
 	// Use this for initialization
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour {
 	void Update ()
     {
         Jumping();
+
+        if (weapon && Input.GetButtonDown("Fire1")) UseWeapon();
 	}
 
     void FixedUpdate()
@@ -33,20 +37,23 @@ public class PlayerController : MonoBehaviour {
         //equip weapon
         if (collision.gameObject.CompareTag("Weapon"))
         {
-            collision.transform.SetParent(tf);
-            collision.transform.localPosition = Vector3.zero;
+            weapon = collision.gameObject;
+            weapon.transform.SetParent(tf);
+            weapon.transform.localPosition = Vector3.zero;
         }
-        //TODO: make character jump only once (or twice?) until they hit the ground
+    }
 
-
+    void UseWeapon()
+    {
+        //localizes mouse position to screen space
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.DrawLine(tf.position, mousePos);
+        Vector2 direction = new Vector2(mousePos.x-tf.position.x, mousePos.y - tf.position.y);
+        direction.Normalize();
+        weapon.GetComponent<WeaponProperties>().Fire(direction);
     }
 
     void CharacterMovement()
-    {
-        LeftRightMovement();
-    }
-
-    void LeftRightMovement()
     {
         float move = Input.GetAxis("Horizontal");
         rigidbody2D.velocity = new Vector2(move * maxSpeed,
@@ -55,6 +62,7 @@ public class PlayerController : MonoBehaviour {
     void Jumping()
     {
         //check for collision with ground
+        //player can double jump
         grounded = Physics2D.Linecast(tf.position, groundedEnd.position, 1 << LayerMask.NameToLayer("Ground"));
         if (grounded) numJumps = 0;
 
