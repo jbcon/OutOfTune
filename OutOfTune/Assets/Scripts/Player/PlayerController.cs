@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
         Jumping();
 
         if (weapon) UseWeapon();
+
 	}
 
     void FixedUpdate()
@@ -50,7 +51,12 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawLine(tf.position, mousePos);
         Vector2 direction = new Vector2(mousePos.x-tf.position.x, mousePos.y - tf.position.y);
         direction.Normalize();
-        weapon.transform.LookAt(mousePos);
+
+        //orient the weapon to mouse
+        //theta is in degrees
+        float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Debug.Log(theta);
+        weapon.transform.rotation = Quaternion.Euler(0, 0, theta);
         if (Input.GetButtonDown("Fire1"))
             weapon.GetComponent<WeaponProperties>().Fire(direction);
     }
@@ -58,8 +64,7 @@ public class PlayerController : MonoBehaviour {
     void CharacterMovement()
     {
         float move = Input.GetAxis("Horizontal");
-        rigidbody2D.velocity = new Vector2(move * maxSpeed,
-            rigidbody2D.velocity.y);
+        rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
     }
     void Jumping()
     {
