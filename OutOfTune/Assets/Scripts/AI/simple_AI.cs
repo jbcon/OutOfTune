@@ -13,7 +13,8 @@ public class simple_AI : MonoBehaviour {
 		jump = true;
 		index = 0;
 		player = GameObject.FindGameObjectWithTag ("Player");
-		jumping = 0;
+		jumping = .01f;
+		speed = .01f;
 
 	}
 	public void update_x(float new_x){
@@ -35,6 +36,9 @@ public class simple_AI : MonoBehaviour {
 			//play attack animation and stop jumping
 		}
 	}
+	void OnCollisionEnter2D(Collision2D collider){
+		rigidbody2D.AddForce(Vector3.up * 100);
+	}
 	void movement(){
 		/*
 		 * 
@@ -42,9 +46,11 @@ public class simple_AI : MonoBehaviour {
 		 * kinda of weird looking just leaving this here as a reminder
 		 * how not to realy do it
 		 * */
+		/*
 		index += Time.deltaTime;
 		//moving left into the player
-		jumping = .005f * Mathf.Sin(.5f * index);
+		//			rate it goes up		* curve up
+		jumping = .009f * Mathf.Sin(.5f * index);
 		Debug.Log (jumping);
 		attack ();
 		if (jump == true) {
@@ -55,6 +61,11 @@ public class simple_AI : MonoBehaviour {
 		} else {
 			transform.Translate (-speed, 0, 0);
 		}
-
+		*/
+		if (transform.position.y > 2){
+			jumping = jumping * -1;
+			Debug.Log("hi");
+		}
+		transform.Translate(-speed,jumping,0);
 	}
 }
