@@ -23,6 +23,7 @@ public class WeaponProperties : MonoBehaviour {
         transform.LookAt(transform.position, direction);
         GameObject b = Instantiate(projectile) as GameObject;
         b.transform.position = GameObject.FindGameObjectWithTag("Reticle").transform.position;
+        b.transform.rotation = Quaternion.Euler(new Vector3(b.transform.rotation.x, 90, transform.rotation.z));
         b.rigidbody2D.AddForce(transform.right * weaponForce, ForceMode2D.Impulse);
     }
 }
