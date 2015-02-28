@@ -9,27 +9,40 @@ public class PlayerController : MonoBehaviour {
     public bool grounded = false;
     public bool facingRight = true;
     public Transform groundedEnd;
-
-    uint numJumps = 0;
-
     //Player's weapon inventory
-    HashSet<GameObject> weapons;
-    GameObject currentWeapon;
-    Transform tf;
+    public int wepIndex = 0;
+
+    /*private record of inventory to instantiate
+     * the weapons in weapons[]*/
+    public List<GameObject> inventory;
+    private uint numJumps = 0;
+    private Transform tf;
 
 	// Use this for initialization
 	void Start ()
     {
+        inventory = new List<GameObject>();
         tf = GetComponent<Transform>();
-        weapons = new HashSet<GameObject>();
+        Transform[] ts = GetComponentsInChildren<Transform>();
+        for (int i = 0; i < ts.Length; i++)
+        {
+            GameObject tmp = ts[i].gameObject;
+            if (tmp.CompareTag("Weapon"))
+            {
+                inventory.Add(tmp);
+                tmp.SetActive(false);
+            }
+        }
+        inventory[0].SetActive(true);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        
         Jumping();
-
-        if (currentWeapon) UseWeapon();
+        processInput();
+        UseWeapon();
 
 	}
 
@@ -38,15 +51,34 @@ public class PlayerController : MonoBehaviour {
         CharacterMovement();
     }
 
+    void processInput()
+    {
+        //change, aim weapon
+        if (Input.GetKeyDown("tab"))
+        {
+            SwapWeapons();
+        }
+
+    }
+
+    void SwapWeapons()
+    {
+        inventory[wepIndex].SetActive(false);
+        wepIndex++;
+        if (wepIndex > inventory.Count-1) wepIndex = 0;
+        inventory[wepIndex].SetActive(true);
+
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         //equip weapon
         if (collision.gameObject.CompareTag("Weapon"))
         {
-            weapons.Add(collision.gameObject);
-            currentWeapon = collision.gameObject;
-            currentWeapon.transform.SetParent(tf);
-            currentWeapon.transform.localPosition = Vector3.zero;
+            /*if (!weapons.Contains(collision.gameObject))
+            {
+                weapons.Add(collision.gameObject);
+            }*/
         }
     }
 
@@ -63,23 +95,22 @@ public class PlayerController : MonoBehaviour {
         //orient the weapon to mouse
         //theta is in degrees
         float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Debug.Log("Theta: " + theta + ", mousePos: " + mousePos);
         if (theta > 90 || theta < -90) facingRight = false;
         else facingRight = true;
 
         //change direction of weapon
         if (!facingRight)
         {
-            currentWeapon.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
+            inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 180, 180-theta);
         }
         else
         {
-            currentWeapon.transform.rotation = Quaternion.Euler(0, 0, theta);
+            inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 0, theta);
         }
 
 
         if (Input.GetButtonDown("Fire1"))
-            currentWeapon.GetComponent<WeaponProperties>().Fire(direction);
+            inventory[wepIndex].GetComponent<WeaponProperties>().Fire(direction);
     }
 
     void CharacterMovement()
