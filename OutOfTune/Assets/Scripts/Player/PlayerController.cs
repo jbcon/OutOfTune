@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour {
         grounded = Physics2D.Linecast(tf.position, groundedEnd.position, 1 << LayerMask.NameToLayer("Ground"));
         if (grounded) numJumps = 0;
 
-        if (Input.GetButtonDown("Jump") && numJumps < 2)
+        if (Input.GetButtonDown("Jump") && numJumps < 1)
         {
             //this is done so both jumps have same total force
             //there's probably a better way
