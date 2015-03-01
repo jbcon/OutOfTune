@@ -15,12 +15,13 @@ public class PlayerController : MonoBehaviour {
     /*private record of inventory to instantiate
      * the weapons in weapons[]*/
     public List<GameObject> inventory;
-    private uint numJumps = 0;
+    public int numJumps = 0;
     private Transform tf;
 
 	// Use this for initialization
 	void Start ()
     {
+        //retrieve weapons in children, place in list, set active appropriately.
         inventory = new List<GameObject>();
         tf = GetComponent<Transform>();
         Transform[] ts = GetComponentsInChildren<Transform>();
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour {
         grounded = Physics2D.Linecast(tf.position, groundedEnd.position, 1 << LayerMask.NameToLayer("Ground"));
         if (grounded) numJumps = 0;
 
-        if (Input.GetButtonDown("Jump") && numJumps != 2)
+        if (Input.GetButtonDown("Jump") && numJumps < 2)
         {
             //this is done so both jumps have same total force
             //there's probably a better way
