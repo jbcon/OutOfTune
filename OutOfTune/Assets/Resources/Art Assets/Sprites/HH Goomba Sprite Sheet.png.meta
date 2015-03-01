@@ -1,0 +1,113 @@
+fileFormatVersion: 2
+guid: 969543671d8cb1d4cb555547f66b335a
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: HHGoomba_Eyes
+    21300002: HH Goomba Sprite Sheet_1
+    21300004: HHGoomba_BotHat
+    21300006: HHGoomba_L_Foot
+    21300008: HHGoomba_R_Foot
+    21300010: HHGoomba_TopHat
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: HHGoomba_Eyes
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 856
+        width: 213
+        height: 168
+      alignment: 9
+      pivot: {x: .39330855, y: .166335702}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: HH Goomba Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 685
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: HHGoomba_BotHat
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 262
+        width: 742
+        height: 149
+      alignment: 9
+      pivot: {x: .50000006, y: .805036902}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: HHGoomba_L_Foot
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 4
+        width: 297
+        height: 173
+      alignment: 9
+      pivot: {x: .244946569, y: .937866211}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: HHGoomba_R_Foot
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 12
+        width: 290
+        height: 168
+      alignment: 9
+      pivot: {x: .223117799, y: .932861865}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: HHGoomba_TopHat
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 540
+        width: 731
+        height: 213
+      alignment: 9
+      pivot: {x: .512418151, y: .0931899473}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
