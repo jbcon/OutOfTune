@@ -12,7 +12,7 @@ public class conductor_prototype : MonoBehaviour {
 	void Update () {
 		float[] spectrum = new float[1024];
 		audio.GetSpectrumData( spectrum, 0, FFTWindow.Hamming);
-		Debug.Log (spectrum [54]);
+		//Debug.Log (spectrum [54]);
 		float c1 = spectrum [3] + spectrum [2] + spectrum [4];
 
 		/*
