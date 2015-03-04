@@ -5,17 +5,20 @@ public class simple_AI : MonoBehaviour {
 	public float speed;
 	public GameObject player;
 	public int health;
-	public float index;
 	public float jumping;
 	bool jump;
 	// Use this for initialization
 	void Start () {
+		health = 10;
 		jump = true;
-		index = 0;
 		player = GameObject.FindGameObjectWithTag ("Player");
-		jumping = .01f;
+		jumping = 200;
 		speed = .01f;
+		InvokeRepeating ("leap", 0f, 2f);
 
+	}
+	public void defend(int dmg){
+		health -= dmg;
 	}
 	public void update_x(float new_x){
 		speed = new_x;
@@ -27,45 +30,35 @@ public class simple_AI : MonoBehaviour {
 	void Update () {
 		//move left
 		movement ();
+		attack ();
+		//destroying the ai when no health
+		if (health <= 0){
+			Destroy(gameObject);
+		}
 	}
 	void attack(){
 		//getting distance between game object and player 
 		float distance = Vector3.Distance (player.transform.position, gameObject.transform.position);
+		//play attack animation and stop jumping
 		if (distance < 3) {
 			jump = false;
-			//play attack animation and stop jumping
 		}
 	}
-	void OnCollisionEnter2D(Collision2D collider){
-		rigidbody2D.AddForce(Vector3.up * 100);
+	// bounce/ jump every time collide with something
+	/*void OnCollisionEnter2D(Collision2D collider){
+		if (jump == true) {
+			rigidbody2D.AddForce (Vector3.up * jumping);
+		}
+	}*/
+	void leap(){
+		if (jump == true) {
+			rigidbody2D.AddForce (Vector3.up * jumping);
+		}
 	}
 	void movement(){
-		/*
-		 * 
-		 * Using sin to jump up and down as the AI moves across the screen
-		 * kinda of weird looking just leaving this here as a reminder
-		 * how not to realy do it
-		 * */
-		/*
-		index += Time.deltaTime;
-		//moving left into the player
-		//			rate it goes up		* curve up
-		jumping = .009f * Mathf.Sin(.5f * index);
-		Debug.Log (jumping);
-		attack ();
-		if (jump == true) {
-			transform.Translate (-speed, jumping, 0);
-		} else if (jump == false && gameObject.transform.position.y > 0) {
 
-			transform.Translate (-speed, -1, 0);
-		} else {
-			transform.Translate (-speed, 0, 0);
-		}
-		*/
-		if (transform.position.y > 2){
-			jumping = jumping * -1;
-			Debug.Log("hi");
-		}
-		transform.Translate(-speed,jumping,0);
+		//transform.Translate(-speed,0,0);
+		transform.Translate (Vector3.left * speed);
+
 	}
 }
