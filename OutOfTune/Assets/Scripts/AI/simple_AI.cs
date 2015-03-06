@@ -2,18 +2,15 @@
 using System.Collections;
 
 public class simple_AI : MonoBehaviour {
-	public float speed;
+	public float speed = .01f;
 	public GameObject player;
-	public int health;
-	public float jumping;
+    public int health = 10;
+    public float jumping = 200;
 	bool jump;
 	// Use this for initialization
 	void Start () {
-		health = 10;
 		jump = true;
 		player = GameObject.FindGameObjectWithTag ("Player");
-		jumping = 200;
-		speed = .01f;
 		InvokeRepeating ("leap", 0f, 2f);
 
 	}
@@ -58,7 +55,7 @@ public class simple_AI : MonoBehaviour {
 	void movement(){
 
 		//transform.Translate(-speed,0,0);
-		transform.Translate (Vector3.left * speed);
+		transform.Translate (Vector3.left * speed * Time.deltaTime);
 
 	}
 }

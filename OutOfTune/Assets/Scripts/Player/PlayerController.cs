@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour {
     void CharacterMovement()
     {
         float move = Input.GetAxis("Horizontal");
-        rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+        rigidbody2D.velocity = new Vector2(move * maxSpeed * Time.deltaTime, rigidbody2D.velocity.y);
     }
     void Jumping()
     {
