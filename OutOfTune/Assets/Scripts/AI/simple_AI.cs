@@ -4,6 +4,7 @@ using System.Collections;
 public class simple_AI : MonoBehaviour {
 	public float speed = .01f;
 	public GameObject player;
+	public Transform player_loc;
     public int health = 10;
     public float jumping = 200;
 	bool jump;
@@ -11,7 +12,7 @@ public class simple_AI : MonoBehaviour {
 	void Start () {
 		jump = true;
 		player = GameObject.FindGameObjectWithTag ("Player");
-		InvokeRepeating ("leap", 0f, 2f);
+		//InvokeRepeating ("leap", 0f, 2f);
 
 	}
 	public void defend(int dmg){
@@ -23,8 +24,10 @@ public class simple_AI : MonoBehaviour {
 	public void update_y(float new_y){
 		jumping = new_y;
 	}
+
 	// Update is called once per frame
 	void Update () {
+
 		//move left
 		movement ();
 		attack ();
@@ -53,9 +56,15 @@ public class simple_AI : MonoBehaviour {
 		}
 	}
 	void movement(){
-
-		//transform.Translate(-speed,0,0);
-		transform.Translate (Vector3.left * speed * Time.deltaTime);
-
+		// using the point to determine if the ai is on the left or right side of the player
+		Vector3 point = player_loc.InverseTransformPoint (transform.position);
+		if (point.x > 0) {
+			//left side of the player move left
+			transform.Translate (Vector3.left * speed * Time.deltaTime);
+		} else if (point.x < 0) {
+			//right side of the player move right
+			transform.Translate (Vector3.right * speed * Time.deltaTime);
+		}
 	}
+
 }
