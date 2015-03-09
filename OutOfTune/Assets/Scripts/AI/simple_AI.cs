@@ -8,8 +8,12 @@ public class simple_AI : MonoBehaviour {
     public int health = 10;
     public float jumping = 200;
 	bool jump;
+	bool faceright;
+	float pos_scale;
 	// Use this for initialization
 	void Start () {
+		pos_scale = transform.localScale.x;
+		faceright = true;
 		jump = true;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		//InvokeRepeating ("leap", 0f, 2f);
@@ -56,6 +60,11 @@ public class simple_AI : MonoBehaviour {
 		}
 	}
 	void movement(){
+		if (faceright == true) {
+			//rotate the sprite to face the correct direction if hes on the left
+			transform.localScale = new Vector2 (-pos_scale, transform.localScale.y);
+			faceright = false;
+		} 
 		// using the point to determine if the ai is on the left or right side of the player
 		Vector3 point = player_loc.InverseTransformPoint (transform.position);
 		if (point.x > 0) {
