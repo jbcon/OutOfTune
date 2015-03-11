@@ -111,7 +111,21 @@ public class PlayerController : MonoBehaviour {
 
 
         if (Input.GetButtonDown("Fire1"))
-            inventory[wepIndex].GetComponent<WeaponProperties>().Fire(direction);
+        {
+            //check if melee or projectile weapon
+            WeaponProperties w = inventory[wepIndex].GetComponent<WeaponProperties>();
+            MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
+            //if it is a projectile weapon
+            if (w)
+            {
+                w.Fire(direction);
+            }
+            //if it is a melee weapon
+            else if (m)
+            {
+                m.Fire(direction);
+            }
+        }
     }
 
     void CharacterMovement()
