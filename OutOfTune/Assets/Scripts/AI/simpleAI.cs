@@ -7,7 +7,11 @@ public class simpleAI : MonoBehaviour {
 	public GameObject player;
 	public Transform player_loc;
     public int health = 10;
-    public float jumping = 200;
+    public float jumping = 200f;
+
+    //how far until it can't see the player
+    public float range = 50.0f;
+
     Animator animator;
 	bool jump;
 	bool faceright;
@@ -23,29 +27,32 @@ public class simpleAI : MonoBehaviour {
 	public void Defend(int dmg){
 		health -= dmg;
         animator.SetTrigger("Hurt");
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
 	}
 
 	// Update is called once per frame
 	void Update () {
-
-		//move left
-		Movement ();
-		Attack ();
+        float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
+        
+		//move only if not hurt
+        if (distance < range && !animator.GetBool("Hurt") && health > 0)
+        {
+            animator.SetBool("Walking", true);
+            animator.SetBool("Idle", false);
+            Movement();
+        }
+        else
+        {
+            animator.SetBool("Walking", false);
+            animator.SetBool("Idle", true);
+        }
 		//destroying the ai when no health
 		/*if (health <= 0){
 			Destroy(gameObject);
 		}*/
-	}
-	void Attack(){
-		//getting distance between game object and player 
-		float distance = Vector3.Distance (player.transform.position, gameObject.transform.position);
-		//play attack animation and stop jumping
-        animator.SetBool("Walking", true);
-        animator.SetBool("Idle", false);
-        if (distance < 3)
-        {
-			jump = false;
-		}
 	}
 
 	void Leap(){
@@ -55,6 +62,7 @@ public class simpleAI : MonoBehaviour {
 	}
 	void Movement(){
 		// using the point to determine if the ai is on the left or right side of the player
+        
 		Vector3 point = player_loc.InverseTransformPoint (transform.position);
 		if (point.x > 0) {
             if (player.GetComponent<PlayerController>().grounded)
