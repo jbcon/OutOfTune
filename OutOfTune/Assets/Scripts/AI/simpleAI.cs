@@ -22,6 +22,7 @@ public class simpleAI : MonoBehaviour {
 		faceright = true;
 		jump = true;
 		player = GameObject.FindGameObjectWithTag ("Player");
+        player_loc = player.transform;
         animator = GetComponentInChildren<Animator>();
 	}
 	public void Defend(int dmg){
