@@ -131,7 +131,8 @@ public class PlayerController : MonoBehaviour {
     void CharacterMovement()
     {
         float move = Input.GetAxis("Horizontal");
-        rigidbody2D.velocity = new Vector2(move * maxSpeed * Time.deltaTime, rigidbody2D.velocity.y);
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+
     }
     void Jumping()
     {
@@ -144,9 +145,9 @@ public class PlayerController : MonoBehaviour {
         {
             //this is done so both jumps have same total force
             //there's probably a better way
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
+			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
             
-            rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+			gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             numJumps++;
         }
     }

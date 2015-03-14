@@ -58,7 +58,8 @@ public class simpleAI : MonoBehaviour {
 
 	void Leap(){
 		if (jump == true) {
-			rigidbody2D.AddForce (Vector3.up * jumping);
+			gameObject.GetComponent<Rigidbody2D>().AddForce (Vector3.up * jumping);
+			//rigidbody2D.AddForce (Vector3.up * jumping);
 		}
 	}
 	void Movement(){
