@@ -27,33 +27,36 @@ public class ConductorV2 : MonoBehaviour {
 		secondsPerBeat = 1 / beatsPerSecond;
 		lastBeat = 0;
 		nextBeat = secondsPerBeat;
-	}
-	IEnumerator Beats(){
-		//every frame
-		/*
-		 *basically gotta do a beat per second
-		 *after calculating it
-		 *this function will do a send message all
-		 *for enemies to move 
-		 *for loop and every 8th beat or something send out a messafe
-		 *
-		 *
-		  */
 
-		yield return null;
+		// calculate the seconds for each type of beat
+		float Quarter = secondsPerBeat / 4;
+
+		//then load the cooroutine for the beats of the song
+		StartCoroutine ("Beats",secondsPerBeat);
+		StartCoroutine ("QuarterBeat",Quarter);
+	}
+	IEnumerator Beats(float delta_time){
+
+		//While the game is running for each beat
+		//either print out the beat every beat
+		while (true) {
+			Debug.Log ("Beat"+ delta_time);
+			//BroadcastMessage ("Attack", 2);
+			yield return new WaitForSeconds (delta_time);
+		}
+	}
+	IEnumerator QuarterBeat(float delta_time){
+		//while game is true
+		while (true) {
+			//every quarterbeat cann either broadcast message or print stuff
+			Debug.Log ("quaterBeat" + delta_time);
+			//BroadcastMessage ("QuarterAttack", 10);
+			yield return new WaitForSeconds (.125f);
+		}
 	}
 	// Update is called once per frame
 	void Update () {
-		currTime = audio.time;
-		//if we have arrived at next beat
-		if (currTime > nextBeat+secondsPerBeat)
-		{
-			lastBeat += secondsPerBeat;
-			nextBeat += secondsPerBeat;
-			Debug.Log("BEAT " + beat);
-			
-			if (beat < beatsPerMeasure-1) beat++;
-			else beat = 0;
-		}
+
+
 	}
 }
