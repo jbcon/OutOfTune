@@ -6,6 +6,9 @@ public class ConductorV2 : MonoBehaviour {
 	public float beatsPerMinute = 120.0f;
 	public int beatsPerMeasure = 4;
 	public int beat = 0;
+
+    //delay in starting the song
+    public float startDelay = 1.0f;
 	
 	private AudioSource audio;
 	
@@ -16,20 +19,27 @@ public class ConductorV2 : MonoBehaviour {
 	//get point t between these two to interpolate between current and last beats
 	private float nextBeat;
 	private float lastBeat;
-	private float t;
+    private float t;
 
 	// Use this for initialization
 	void Start () {
 		audio = gameObject.GetComponent<AudioSource>();
-		audio.PlayDelayed(1);
+		audio.PlayDelayed(startDelay);
 		currTime = 0;
 		beatsPerSecond = beatsPerMinute / 60.0f;
 		secondsPerBeat = 1 / beatsPerSecond;
 		lastBeat = 0;
 		nextBeat = secondsPerBeat;
+        Invoke("BeginBeats", startDelay);
 	}
+
+    void BeginBeats()
+    {
+        StartCoroutine(Beats());
+    }
+
 	IEnumerator Beats(){
-		//every frame
+		//every beat interval
 		/*
 		 *basically gotta do a beat per second
 		 *after calculating it
@@ -39,21 +49,20 @@ public class ConductorV2 : MonoBehaviour {
 		 *
 		 *
 		  */
+        lastBeat += secondsPerBeat;
+        nextBeat += secondsPerBeat;
+        Debug.Log("BEAT " + beat);
 
-		yield return null;
+        if (beat < beatsPerMeasure - 1) beat++;
+        else beat = 0;
+
+		yield return new WaitForSeconds(secondsPerBeat);
 	}
 	// Update is called once per frame
 	void Update () {
 		currTime = audio.time;
 		//if we have arrived at next beat
-		if (currTime > nextBeat+secondsPerBeat)
-		{
-			lastBeat += secondsPerBeat;
-			nextBeat += secondsPerBeat;
-			Debug.Log("BEAT " + beat);
-			
-			if (beat < beatsPerMeasure-1) beat++;
-			else beat = 0;
-		}
+        t = currTime / secondsPerBeat;
 	}
+
 }
