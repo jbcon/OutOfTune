@@ -6,9 +6,6 @@ public class ConductorV2 : MonoBehaviour {
 	public float beatsPerMinute = 120.0f;
 	public int beatsPerMeasure = 4;
 	public int beat = 0;
-
-    //delay in starting the song
-    public float startDelay = 1.0f;
 	
 	private AudioSource audio;
 	
@@ -19,50 +16,47 @@ public class ConductorV2 : MonoBehaviour {
 	//get point t between these two to interpolate between current and last beats
 	private float nextBeat;
 	private float lastBeat;
-    private float t;
+	private float t;
 
 	// Use this for initialization
 	void Start () {
 		audio = gameObject.GetComponent<AudioSource>();
-		audio.PlayDelayed(startDelay);
+		audio.PlayDelayed(1);
 		currTime = 0;
 		beatsPerSecond = beatsPerMinute / 60.0f;
 		secondsPerBeat = 1 / beatsPerSecond;
 		lastBeat = 0;
 		nextBeat = secondsPerBeat;
-        Invoke("BeginBeats", startDelay);
+
+		// calculate the seconds for each type of beat
+		float Quarter = secondsPerBeat / 4;
+
+		//then load the cooroutine for the beats of the song
+		StartCoroutine ("Beats",secondsPerBeat);
+		StartCoroutine ("QuarterBeat",Quarter);
 	}
+	IEnumerator Beats(float delta_time){
 
-    void BeginBeats()
-    {
-        StartCoroutine(Beats());
-    }
-
-	IEnumerator Beats(){
-		//every beat interval
-		/*
-		 *basically gotta do a beat per second
-		 *after calculating it
-		 *this function will do a send message all
-		 *for enemies to move 
-		 *for loop and every 8th beat or something send out a messafe
-		 *
-		 *
-		  */
-        lastBeat += secondsPerBeat;
-        nextBeat += secondsPerBeat;
-        Debug.Log("BEAT " + beat);
-
-        if (beat < beatsPerMeasure - 1) beat++;
-        else beat = 0;
-
-		yield return new WaitForSeconds(secondsPerBeat);
+		//While the game is running for each beat
+		//either print out the beat every beat
+		while (true) {
+			Debug.Log ("Beat"+ delta_time);
+			//BroadcastMessage ("Attack", 2);
+			yield return new WaitForSeconds (delta_time);
+		}
+	}
+	IEnumerator QuarterBeat(float delta_time){
+		//while game is true
+		while (true) {
+			//every quarterbeat cann either broadcast message or print stuff
+			Debug.Log ("quaterBeat" + delta_time);
+			//BroadcastMessage ("QuarterAttack", 10);
+			yield return new WaitForSeconds (.125f);
+		}
 	}
 	// Update is called once per frame
 	void Update () {
-		currTime = audio.time;
-		//if we have arrived at next beat
-        t = currTime / secondsPerBeat;
-	}
 
+
+	}
 }
