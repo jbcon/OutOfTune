@@ -32,7 +32,7 @@ public class ConductorV2 : MonoBehaviour {
 		float Quarter = secondsPerBeat / 4;
 
 		//then load the cooroutine for the beats of the song
-		StartCoroutine ("Beats",secondsPerBeat);
+		//StartCoroutine ("Beats",secondsPerBeat);
 		StartCoroutine ("QuarterBeat",Quarter);
 	}
 	IEnumerator Beats(float delta_time){
@@ -49,9 +49,11 @@ public class ConductorV2 : MonoBehaviour {
 		//while game is true
 		while (true) {
 			//every quarterbeat cann either broadcast message or print stuff
-			Debug.Log ("quaterBeat" + delta_time);
+			Debug.Log ("quaterBeat" + beat);
+            beat++;
+            if (beat >= beatsPerMeasure) beat = 0;
 			//BroadcastMessage ("QuarterAttack", 10);
-			yield return new WaitForSeconds (.125f);
+			yield return new WaitForSeconds (delta_time*4);
 		}
 	}
 	// Update is called once per frame

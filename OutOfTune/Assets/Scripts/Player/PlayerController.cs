@@ -64,11 +64,16 @@ public class PlayerController : MonoBehaviour {
 
     void SwapWeapons()
     {
-        inventory[wepIndex].SetActive(false);
+        /*inventory[wepIndex].SetActive(false);
         wepIndex++;
         if (wepIndex > inventory.Count-1) wepIndex = 0;
         inventory[wepIndex].SetActive(true);
-
+        */
+        SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
+        if (w.weaponType == WeaponType.FullAuto)
+            w.weaponType = WeaponType.SemiAuto;
+        else
+            w.weaponType = WeaponType.FullAuto;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -85,6 +90,10 @@ public class PlayerController : MonoBehaviour {
 
     void UseWeapon()
     {
+
+        SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
+
+        /* AIM */
         //localizes mouse position to screen space
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 1;
@@ -109,23 +118,34 @@ public class PlayerController : MonoBehaviour {
             inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 0, theta);
         }
 
-
-        if (Input.GetButtonDown("Fire1"))
+        //full auto weapon, keep firing as long as button held down
+        if (w.weaponType == WeaponType.FullAuto)
         {
-            //check if melee or projectile weapon
-            WeaponProperties w = inventory[wepIndex].GetComponent<WeaponProperties>();
-            MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
-            //if it is a projectile weapon
-            if (w)
+            if (Input.GetButton("Fire1"))
             {
-                w.Fire(direction);
-            }
-            //if it is a melee weapon
-            else if (m)
-            {
-                m.Fire(direction);
+                w.Fire(direction, true);
             }
         }
+        //semi-auto weapon
+        else
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                //check if melee or projectile weapon
+                //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
+                //if it is a projectile weapon
+                if (w)
+                {
+                    w.Fire(direction, true);
+                }
+                //if it is a melee weapon
+                /*else if (m)
+                {
+                    m.Fire(direction);
+                }*/
+            }
+        }
+        
     }
 
     void CharacterMovement()
