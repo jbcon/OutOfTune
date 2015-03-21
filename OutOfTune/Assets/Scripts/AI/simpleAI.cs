@@ -27,10 +27,12 @@ public class simpleAI : MonoBehaviour {
 	}
 	public void Defend(int dmg){
 		health -= dmg;
-        animator.SetTrigger("Hurt");
         if (health <= 0)
         {
-            Destroy(gameObject);
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            animator.SetTrigger("Hurt");
+            //Destroy(gameObject);
         }
 	}
 
