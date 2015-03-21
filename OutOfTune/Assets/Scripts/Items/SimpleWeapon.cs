@@ -41,7 +41,7 @@ public class SimpleWeapon : MonoBehaviour {
             GameObject b = Instantiate(projectile) as GameObject;
             b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
             b.transform.rotation = Quaternion.Euler(new Vector3(b.transform.rotation.x, 0, transform.rotation.z));
-            float spreadModifier = Random.Range(-weaponSpread, weaponSpread);
+            float spreadModifier = Random.Range(-bulletSpread, bulletSpread);
             Vector3 spreadVector = new Vector3(0.0f, spreadModifier, 0.0f);
             b.GetComponent<Rigidbody2D>().AddForce((transform.right + spreadVector)* weaponForce, ForceMode2D.Impulse);
             if (spin)
