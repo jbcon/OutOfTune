@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: 05f87fbb7bd69df44850f9878d772213
+timeCreated: 1426879284
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Peter_Head
+    21300002: Peter_Arm_R
+    21300004: Peter_Arm_L
+    21300006: Peter_Body
+    21300008: Peter_Leg_R
+    21300010: Peter_Leg_L
+    21300012: Peter_Face_1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Peter_Head
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 1557
+        width: 335
+        height: 385
+      alignment: 9
+      pivot: {x: .437822491, y: .0427445844}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Peter_Arm_R
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 1228
+        width: 216
+        height: 520
+      alignment: 9
+      pivot: {x: .22794427, y: .887994409}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Peter_Arm_L
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 854
+        width: 249
+        height: 583
+      alignment: 9
+      pivot: {x: .413466483, y: .889745176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Peter_Body
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 808
+        width: 370
+        height: 699
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Peter_Leg_R
+      rect:
+        serializedVersion: 2
+        x: 1541
+        y: 150
+        width: 248
+        height: 752
+      alignment: 9
+      pivot: {x: .255149096, y: .9792822}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Peter_Leg_L
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 3
+        width: 251
+        height: 826
+      alignment: 9
+      pivot: {x: .656080127, y: .990514398}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Peter_Face_1
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 1634
+        width: 172
+        height: 162
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
