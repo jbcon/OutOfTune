@@ -31,8 +31,7 @@ public class simpleAI : MonoBehaviour {
         {
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            animator.SetTrigger("Hurt");
-            //Destroy(gameObject);
+            StartCoroutine("Die");
         }
 	}
 
@@ -91,4 +90,10 @@ public class simpleAI : MonoBehaviour {
         }
 	}
 
+    private IEnumerator Die()
+    {
+        animator.SetTrigger("Hurt");
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
+    }
 }
