@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
     public int numJumps = 0;
     private Transform tf;
     private Vector2 direction;
-
+    private bool firingAxisInUse = false;
 
 	// Use this for initialization
 	void Start ()
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
     void processInput()
     {
         //change, aim weapon
-        if (Input.GetKeyDown("tab"))
+        if (Input.GetButtonDown("Swap"))
         {
             SwapWeapons();
         }
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour {
             direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
         }
 
-        //direction.Normalize();
+        direction.Normalize();
         //orient the weapon to mouse
         //theta is in degrees
         float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -133,6 +133,9 @@ public class PlayerController : MonoBehaviour {
             inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 0, theta);
         }
 
+        float analogFire = Input.GetAxisRaw("AnalogFire");
+        
+
         //full auto weapon, keep firing as long as button held down
         if (w.weaponType == WeaponType.FullAuto)
         {
@@ -140,10 +143,16 @@ public class PlayerController : MonoBehaviour {
             {
                 w.Fire(direction, true);
             }
+            //if the controller input is firing
+            else if (analogFire < 0)
+            {
+                w.Fire(direction, true);
+            }
         }
         //semi-auto weapon
         else
         {
+            Debug.Log(firingAxisInUse + ", " + analogFire);
             if (Input.GetButtonDown("Fire1"))
             {
                 //check if melee or projectile weapon
@@ -159,6 +168,17 @@ public class PlayerController : MonoBehaviour {
                     m.Fire(direction);
                 }*/
             }
+            else if (analogFire < 0 && !firingAxisInUse)
+            {
+                Debug.Log("Right");
+                w.Fire(direction, true);
+                firingAxisInUse = true;
+            }
+            
+            else if (analogFire == 0 && firingAxisInUse)
+            {
+                firingAxisInUse = false;
+            }
         }
         
     }
@@ -166,6 +186,7 @@ public class PlayerController : MonoBehaviour {
     void CharacterMovement()
     {
         float move = Input.GetAxis("Movement");
+
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
     }
