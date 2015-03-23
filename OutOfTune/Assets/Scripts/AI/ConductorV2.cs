@@ -18,6 +18,20 @@ public class ConductorV2 : MonoBehaviour {
 	private float lastBeat;
 	private float t;
 
+	//metronome variables
+	public int Base;//the beat number
+	public int Step;//acts as the beats per measure
+	public float BPM;
+	public int CurrentStep;
+	public int CurrentMeasure;
+
+	private float interval;
+	private float nextTime;
+	//eight beat work in progress
+
+	private float EightInterval;
+	private float EightNexttime;
+	public int EightCurrentStep;
 	// Use this for initialization
 	void Start () {
 		audio = gameObject.GetComponent<AudioSource>();
@@ -33,7 +47,51 @@ public class ConductorV2 : MonoBehaviour {
 
 		//then load the cooroutine for the beats of the song
 		//StartCoroutine ("Beats",secondsPerBeat);
-		StartCoroutine ("QuarterBeat",Quarter);
+		//StartCoroutine ("QuarterBeat",Quarter);
+
+		//start metronome version
+		BPM =120;
+		Step = 4;
+		Base = 4;
+		StartMetronome();
+	}
+	public void StartMetronome(){
+		StopCoroutine("Beating");
+		CurrentStep = 1;	//start first step of new measure
+		EightCurrentStep = 1;
+
+		var multiplier = Base/4f; //multiplier based on quarter note with signature Base 4
+		var tmpInterval = 60f/BPM; //getting scecond per beat
+		interval = tmpInterval/multiplier; //modify interval based on multiplier
+
+		EightInterval = (60f/BPM)/((Base+1)/4f);
+		EightNexttime = Time.time;
+		nextTime = Time.time;
+
+		StartCoroutine("Beating");
+	}
+	IEnumerator EightBeat(){
+		for (;;){
+			EightNexttime += EightInterval;
+			yield return new WaitForSeconds(EightNexttime - Time.time);
+			EightCurrentStep++;
+			if ( EightCurrentStep > Step){
+				EightCurrentStep = 1;
+			}
+		}
+	}
+	IEnumerator Beating(){
+		for(;;){
+			//this is where Broadcast messag eshould be
+			nextTime +=interval;
+			yield return new WaitForSeconds(nextTime - Time.time); //asd
+			CurrentStep ++;
+			Debug.Log(CurrentStep);
+			if ( CurrentStep > Step){
+				CurrentStep = 1;
+				CurrentMeasure ++;
+			}
+		}
 	}
 	IEnumerator Beats(float delta_time){
 
