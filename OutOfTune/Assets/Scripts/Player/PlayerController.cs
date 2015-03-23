@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
     public List<GameObject> inventory;
     public int numJumps = 0;
     private Transform tf;
+    private Vector2 direction;
+
 
 	// Use this for initialization
 	void Start ()
@@ -94,14 +96,27 @@ public class PlayerController : MonoBehaviour {
         SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
 
         /* AIM */
-        //localizes mouse position to screen space
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 1;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawLine(tf.position, mousePos);
-        Vector2 direction = new Vector2(mousePos.x-tf.position.x, mousePos.y - tf.position.y);
-        direction.Normalize();
 
+        //if gamepad is connected
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            Vector2 newDirection = new Vector2(Input.GetAxis("AimX"), Input.GetAxis("AimY"));
+            if (newDirection.magnitude > 0)
+            {
+                direction = newDirection;
+            }
+        }
+        else
+        {
+            //localizes mouse position to screen space
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 1;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Debug.DrawLine(tf.position, mousePos);
+            direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
+        }
+
+        //direction.Normalize();
         //orient the weapon to mouse
         //theta is in degrees
         float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -150,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
     void CharacterMovement()
     {
-        float move = Input.GetAxis("Horizontal");
+        float move = Input.GetAxis("Movement");
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
     }

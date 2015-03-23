@@ -40,7 +40,7 @@ public class ConductorV2 : MonoBehaviour {
 		//While the game is running for each beat
 		//either print out the beat every beat
 		while (true) {
-			Debug.Log ("Beat"+ delta_time);
+			//Debug.Log ("Beat"+ delta_time);
 			//BroadcastMessage ("Attack", 2);
 			yield return new WaitForSeconds (delta_time);
 		}
@@ -49,7 +49,7 @@ public class ConductorV2 : MonoBehaviour {
 		//while game is true
 		while (true) {
 			//every quarterbeat cann either broadcast message or print stuff
-			Debug.Log ("quaterBeat" + beat);
+			//Debug.Log ("quaterBeat" + beat);
             beat++;
             if (beat >= beatsPerMeasure) beat = 0;
 			//BroadcastMessage ("QuarterAttack", 10);
