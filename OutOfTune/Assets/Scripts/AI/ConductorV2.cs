@@ -56,6 +56,7 @@ public class ConductorV2 : MonoBehaviour {
 		StartMetronome();
 	}
 	public void StartMetronome(){
+		StopCoroutine("EightBeat");
 		StopCoroutine("Beating");
 		CurrentStep = 1;	//start first step of new measure
 		EightCurrentStep = 1;
@@ -63,19 +64,22 @@ public class ConductorV2 : MonoBehaviour {
 		var multiplier = Base/4f; //multiplier based on quarter note with signature Base 4
 		var tmpInterval = 60f/BPM; //getting scecond per beat
 		interval = tmpInterval/multiplier; //modify interval based on multiplier
-
-		EightInterval = (60f/BPM)/((Base+1)/4f);
+		//kind like 16 notes for the bottom
+		//EightInterval = (60f/BPM)/4;
+		EightInterval = (60f/BPM)/1.8f;
 		EightNexttime = Time.time;
 		nextTime = Time.time;
 
 		StartCoroutine("Beating");
+		StartCoroutine("EightBeat");
 	}
 	IEnumerator EightBeat(){
 		for (;;){
 			EightNexttime += EightInterval;
+			Debug.Log ("eight " +EightCurrentStep);
 			yield return new WaitForSeconds(EightNexttime - Time.time);
 			EightCurrentStep++;
-			if ( EightCurrentStep > Step){
+			if ( EightCurrentStep > (8)){
 				EightCurrentStep = 1;
 			}
 		}
