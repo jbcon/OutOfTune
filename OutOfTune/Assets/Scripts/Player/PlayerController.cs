@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
     public List<GameObject> inventory;
     public int numJumps = 0;
     private Transform tf;
+    private Vector2 direction;
+
 
 	// Use this for initialization
 	void Start ()
@@ -64,11 +66,16 @@ public class PlayerController : MonoBehaviour {
 
     void SwapWeapons()
     {
-        inventory[wepIndex].SetActive(false);
+        /*inventory[wepIndex].SetActive(false);
         wepIndex++;
         if (wepIndex > inventory.Count-1) wepIndex = 0;
         inventory[wepIndex].SetActive(true);
-
+        */
+        SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
+        if (w.weaponType == WeaponType.FullAuto)
+            w.weaponType = WeaponType.SemiAuto;
+        else
+            w.weaponType = WeaponType.FullAuto;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -85,14 +92,31 @@ public class PlayerController : MonoBehaviour {
 
     void UseWeapon()
     {
-        //localizes mouse position to screen space
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 1;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawLine(tf.position, mousePos);
-        Vector2 direction = new Vector2(mousePos.x-tf.position.x, mousePos.y - tf.position.y);
-        direction.Normalize();
 
+        SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
+
+        /* AIM */
+
+        //if gamepad is connected
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            Vector2 newDirection = new Vector2(Input.GetAxis("AimX"), Input.GetAxis("AimY"));
+            if (newDirection.magnitude > 0)
+            {
+                direction = newDirection;
+            }
+        }
+        else
+        {
+            //localizes mouse position to screen space
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 1;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Debug.DrawLine(tf.position, mousePos);
+            direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
+        }
+
+        //direction.Normalize();
         //orient the weapon to mouse
         //theta is in degrees
         float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -109,28 +133,39 @@ public class PlayerController : MonoBehaviour {
             inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 0, theta);
         }
 
-
-        if (Input.GetButtonDown("Fire1"))
+        //full auto weapon, keep firing as long as button held down
+        if (w.weaponType == WeaponType.FullAuto)
         {
-            //check if melee or projectile weapon
-            WeaponProperties w = inventory[wepIndex].GetComponent<WeaponProperties>();
-            MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
-            //if it is a projectile weapon
-            if (w)
+            if (Input.GetButton("Fire1"))
             {
-                w.Fire(direction);
-            }
-            //if it is a melee weapon
-            else if (m)
-            {
-                m.Fire(direction);
+                w.Fire(direction, true);
             }
         }
+        //semi-auto weapon
+        else
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                //check if melee or projectile weapon
+                //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
+                //if it is a projectile weapon
+                if (w)
+                {
+                    w.Fire(direction, true);
+                }
+                //if it is a melee weapon
+                /*else if (m)
+                {
+                    m.Fire(direction);
+                }*/
+            }
+        }
+        
     }
 
     void CharacterMovement()
     {
-        float move = Input.GetAxis("Horizontal");
+        float move = Input.GetAxis("Movement");
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
     }
