@@ -10,11 +10,8 @@ public class PlayerController : MonoBehaviour {
     public bool facingRight = true;
     public Transform groundedEnd;
     //Player's weapon inventory
-    public int wepIndex = 0;
-
-    /*private record of inventory to instantiate
-     * the weapons in weapons[]*/
-    public List<GameObject> inventory;
+    public bool gamepadConnected = false;
+    public WeaponManager weaponManager;
     public int numJumps = 0;
     private Transform tf;
     private Vector2 direction;
@@ -23,20 +20,8 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        //retrieve weapons in children, place in list, set active appropriately.
-        inventory = new List<GameObject>();
-        tf = GetComponent<Transform>();
-        Transform[] ts = GetComponentsInChildren<Transform>();
-        for (int i = 0; i < ts.Length; i++)
-        {
-            GameObject tmp = ts[i].gameObject;
-            if (tmp.CompareTag("Weapon"))
-            {
-                inventory.Add(tmp);
-                tmp.SetActive(false);
-            }
-        }
-        inventory[0].SetActive(true);
+        tf = gameObject.transform;
+        weaponManager = FindObjectOfType<WeaponManager>();
 	}
 	
 	// Update is called once per frame
@@ -59,23 +44,9 @@ public class PlayerController : MonoBehaviour {
         //change, aim weapon
         if (Input.GetButtonDown("Swap"))
         {
-            SwapWeapons();
+            weaponManager.SwapWeapons();
         }
 
-    }
-
-    void SwapWeapons()
-    {
-        /*inventory[wepIndex].SetActive(false);
-        wepIndex++;
-        if (wepIndex > inventory.Count-1) wepIndex = 0;
-        inventory[wepIndex].SetActive(true);
-        */
-        SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
-        if (w.weaponType == WeaponType.FullAuto)
-            w.weaponType = WeaponType.SemiAuto;
-        else
-            w.weaponType = WeaponType.FullAuto;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -92,13 +63,12 @@ public class PlayerController : MonoBehaviour {
 
     void UseWeapon()
     {
-
-        SimpleWeapon w = inventory[wepIndex].GetComponent<SimpleWeapon>();
+        Weapon w = weaponManager.currentWeapon;
 
         /* AIM */
 
         //if gamepad is connected
-        if (Input.GetJoystickNames().Length > 0)
+        if (gamepadConnected)
         {
             Vector2 newDirection = new Vector2(Input.GetAxis("AimX"), Input.GetAxis("AimY"));
             if (newDirection.magnitude > 0)
@@ -126,11 +96,11 @@ public class PlayerController : MonoBehaviour {
         //change direction of weapon
         if (!facingRight)
         {
-            inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 180, 180-theta);
+            weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
         }
         else
         {
-            inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 0, theta);
+            weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
         }
 
         float analogFire = Input.GetAxisRaw("AnalogFire");
@@ -141,27 +111,23 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetButton("Fire1"))
             {
-                w.Fire(direction, true);
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
             }
             //if the controller input is firing
             else if (analogFire < 0)
             {
-                w.Fire(direction, true);
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
             }
         }
         //semi-auto weapon
         else
         {
-            Debug.Log(firingAxisInUse + ", " + analogFire);
             if (Input.GetButtonDown("Fire1"))
             {
                 //check if melee or projectile weapon
                 //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
                 //if it is a projectile weapon
-                if (w)
-                {
-                    w.Fire(direction, true);
-                }
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
                 //if it is a melee weapon
                 /*else if (m)
                 {
@@ -171,7 +137,7 @@ public class PlayerController : MonoBehaviour {
             else if (analogFire < 0 && !firingAxisInUse)
             {
                 Debug.Log("Right");
-                w.Fire(direction, true);
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
                 firingAxisInUse = true;
             }
             
