@@ -43,7 +43,8 @@ public class WeaponManager : MonoBehaviour {
     {
         canFire = true;
         weapons.Add(new Trombone(projectiles[0]));
-        currentWeapon = weapons[0];
+        weapons.Add(new CymbalMineThrower(projectiles[1]));
+        currentWeapon = weapons[1];
 	}
 
     void Update()
@@ -70,7 +71,6 @@ public class WeaponManager : MonoBehaviour {
 
     IEnumerator Cooldown()
     {
-        Debug.Log("Cooling down");
         canFire = false;
         yield return new WaitForSeconds(currentWeapon.delay);
         canFire = true;

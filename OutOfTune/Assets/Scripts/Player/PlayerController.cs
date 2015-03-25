@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
-    public int numJumps = 0;
+    private int numJumps = 0;
     private Transform tf;
     private Vector2 direction;
     private bool firingAxisInUse = false;
