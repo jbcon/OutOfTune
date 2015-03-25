@@ -76,7 +76,7 @@ public class ConductorV2 : MonoBehaviour {
 	IEnumerator EightBeat(){
 		for (;;){
 			EightNexttime += EightInterval;
-			Debug.Log ("eight " +EightCurrentStep);
+			//Debug.Log ("eight " +EightCurrentStep);
 			yield return new WaitForSeconds(EightNexttime - Time.time);
 			EightCurrentStep++;
 			if ( EightCurrentStep > (8)){
@@ -90,7 +90,7 @@ public class ConductorV2 : MonoBehaviour {
 			nextTime +=interval;
 			yield return new WaitForSeconds(nextTime - Time.time); //asd
 			CurrentStep ++;
-			Debug.Log(CurrentStep);
+			//Debug.Log(CurrentStep);
 			if ( CurrentStep > Step){
 				CurrentStep = 1;
 				CurrentMeasure ++;
