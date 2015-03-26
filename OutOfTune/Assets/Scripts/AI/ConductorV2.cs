@@ -86,7 +86,7 @@ public class ConductorV2 : MonoBehaviour {
 			nextTime +=interval;
 			yield return new WaitForSeconds(nextTime - Time.time); //asd
 			CurrentStep ++;
-			Debug.Log(CurrentStep);
+			//Debug.Log(CurrentStep);
 			if ( CurrentStep > Step){
 				CurrentStep = 1;
 				CurrentMeasure ++;

@@ -20,13 +20,13 @@ public class CymbalMine : MonoBehaviour
 
         if (collision.gameObject.layer == enemyLayer)
         {
-            Debug.Log("HIT!");
+            //Debug.Log("HIT!");
             collision.gameObject.GetComponent<simpleAI>().Defend(damage);
             Destroy(gameObject);
         }
         if (collision.gameObject.layer == groundLayer)
         {
-            Debug.Log("Mine placed on ground");
+            //Debug.Log("Mine placed on ground");
         }
     }
 

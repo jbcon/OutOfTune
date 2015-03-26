@@ -9,7 +9,7 @@ public class Trombone : Weapon {
     public Trombone(GameObject proj)
     {
         weaponType = WeaponType.SemiAuto;
-        delay = 1.0f;
+        cooldown = 1.0f;
         weaponForce = 6f;
         spin = true;
         bulletSpread = 30.0f;

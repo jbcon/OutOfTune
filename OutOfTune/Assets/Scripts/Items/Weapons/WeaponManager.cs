@@ -8,7 +8,7 @@ public class Weapon
 {
     public WeaponType weaponType;
     public GameObject projectile;
-    public float delay;
+    public float cooldown;
     public float weaponForce;
     public float bulletSpread;
     public bool spin;
@@ -44,17 +44,31 @@ public class WeaponManager : MonoBehaviour {
         canFire = true;
         weapons.Add(new Trombone(projectiles[0]));
         weapons.Add(new CymbalMineThrower(projectiles[1]));
-        currentWeapon = weapons[1];
+        currentWeapon = weapons[0];
 	}
 
     void Update()
     {
-
+        SwapWeapons();
     }
 
-    public void SwapWeapons()
+    void SwapWeapons()
     {
-
+        if (Input.GetButtonDown("Weapon1"))
+        {
+            Debug.Log("Weapon Switch: 1");
+            currentWeapon = weapons[0];
+        }
+        if (Input.GetButtonDown("Weapon2"))
+        {
+            Debug.Log("Weapon Switch: 2");
+            currentWeapon = weapons[1];
+        }
+        /*if (Input.GetButtonDown("Weapon2"))
+        {
+            Debug.Log("Weapon Switch: 2");
+            currentWeapon = weapons[2];
+        }*/
     }
 
     public void FireCurrentWeapon(Vector2 direction, bool spin)
@@ -72,7 +86,7 @@ public class WeaponManager : MonoBehaviour {
     IEnumerator Cooldown()
     {
         canFire = false;
-        yield return new WaitForSeconds(currentWeapon.delay);
+        yield return new WaitForSeconds(currentWeapon.cooldown);
         canFire = true;
     }
 }

@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class CymbalMineThrower : Weapon
 {
     public uint maxActiveMines = 2;
-    private Queue<GameObject> mines = new Queue<GameObject>();
+    private LinkedList<GameObject> mines = new LinkedList<GameObject>();
 
     public CymbalMineThrower(GameObject proj)
     {
         weaponType = WeaponType.SemiAuto;
-        delay = 1f;
+        cooldown = 2f;
         weaponForce = 20f;
         spin = true;
         bulletSpread = 0f;
@@ -28,10 +28,32 @@ public class CymbalMineThrower : Weapon
         //make sure there is a limited number of mines
         if (mines.Count == maxActiveMines)
         {
-            GameObject tmp = mines.Dequeue();
-            GameObject.Destroy(tmp);
+            //removes mines that have been detonated
+            LinkedListNode<GameObject> itr, next;
+
+            /* iterate using linked list nodes
+             * This allows for O(n) removal of all null nodes,
+             * probably the best we can get, even though it's not
+             * that many mines at once anyway
+             * ...why did I overthink this? */
+            for (itr = mines.First; itr != null;)
+            {
+                next = itr.Next;
+                if (itr.Value == null)
+                {
+                    mines.Remove(itr);
+                }
+                itr = next;
+            }
+            //if it is still too big
+            if (mines.Count == maxActiveMines)
+            {
+                //remove oldest mine
+                GameObject.Destroy(mines.First.Value);
+                mines.RemoveFirst();
+            }
         }
-        mines.Enqueue(b);
+        mines.AddLast(b);
 
     }
 

@@ -27,26 +27,13 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        
         Jumping();
-        processInput();
         UseWeapon();
-
 	}
 
     void FixedUpdate()
     {
         CharacterMovement();
-    }
-
-    void processInput()
-    {
-        //change, aim weapon
-        if (Input.GetButtonDown("Swap"))
-        {
-            weaponManager.SwapWeapons();
-        }
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
