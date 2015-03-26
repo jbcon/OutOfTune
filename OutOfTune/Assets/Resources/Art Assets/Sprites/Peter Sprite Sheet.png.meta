@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 05f87fbb7bd69df44850f9878d772213
-timeCreated: 1426879284
+timeCreated: 1427326829
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -26,7 +26,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: .25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
@@ -52,7 +52,7 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
-  textureType: 8
+  textureType: 5
   buildTargetSettings: []
   spriteSheet:
     sprites:
@@ -60,9 +60,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 902
-        y: 1557
+        y: 1556
         width: 335
-        height: 385
+        height: 386
       alignment: 9
       pivot: {x: .437822491, y: .0427445844}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -81,7 +81,7 @@ TextureImporter:
         serializedVersion: 2
         x: 117
         y: 854
-        width: 249
+        width: 210
         height: 583
       alignment: 9
       pivot: {x: .413466483, y: .889745176}
@@ -109,9 +109,9 @@ TextureImporter:
     - name: Peter_Leg_L
       rect:
         serializedVersion: 2
-        x: 222
+        x: 216
         y: 3
-        width: 251
+        width: 257
         height: 826
       alignment: 9
       pivot: {x: .656080127, y: .990514398}
