@@ -6,7 +6,6 @@ public class simpleAI : MonoBehaviour {
 	public float speed = .01f;
 	public GameObject player;
 	public Transform player_loc;
-    public int health = 10;
     public float jumping = 200f;
 
     //how far until it can't see the player
@@ -16,6 +15,7 @@ public class simpleAI : MonoBehaviour {
 	bool jump;
 	bool faceright;
 	float pos_scale;
+    Health health;
 	// Use this for initialization
 	void Start () {
 		pos_scale = transform.localScale.x;
@@ -24,23 +24,16 @@ public class simpleAI : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
         player_loc = player.transform;
         animator = GetComponentInChildren<Animator>();
+        health = GetComponent<Health>();
 	}
-	public void Defend(int dmg){
-		health -= dmg;
-        if (health <= 0)
-        {
-            gameObject.GetComponent<CircleCollider2D>().enabled = false;
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-            StartCoroutine("Die");
-        }
-	}
+	
 
 	// Update is called once per frame
 	void Update () {
         float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
         
 		//move only if not hurt
-        if (distance < range && !animator.GetBool("Hurt") && health > 0)
+        if (distance < range && !animator.GetBool("Die") && health.health > 0)
         {
             animator.SetBool("Walking", true);
             animator.SetBool("Idle", false);
@@ -90,10 +83,5 @@ public class simpleAI : MonoBehaviour {
         }
 	}
 
-    private IEnumerator Die()
-    {
-        animator.SetTrigger("Hurt");
-        yield return new WaitForSeconds(1.0f);
-        Destroy(gameObject);
-    }
+    
 }

@@ -18,7 +18,7 @@ public class BulletProperties : MonoBehaviour {
         if (collision.gameObject.layer == enemyLayer)
         {
             Debug.Log("HIT!");
-            collision.gameObject.GetComponent<simpleAI>().Defend(damage);
+            collision.gameObject.GetComponent<Health>().Defend(damage);
         }
         Destroy(gameObject);
     }

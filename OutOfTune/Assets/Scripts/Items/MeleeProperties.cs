@@ -22,7 +22,7 @@ public class MeleeProperties : MonoBehaviour {
         if (collision.gameObject.layer == enemyLayer)
         {
             Debug.Log("HIT!");
-            collision.GetComponent<simpleAI>().Defend(2);
+            collision.GetComponent<Health>().Defend(2);
         }
     }
 
