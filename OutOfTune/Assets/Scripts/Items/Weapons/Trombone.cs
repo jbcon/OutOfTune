@@ -4,14 +4,14 @@ using System.Collections;
 public class Trombone : Weapon {
 
 
-    public uint numProjectiles = 5;
+    public uint numProjectiles = 3;
 
     public Trombone(GameObject proj)
     {
         weaponType = WeaponType.SemiAuto;
         cooldown = 1.0f;
         weaponForce = 6f;
-        spin = true;
+        spin = false;
         bulletSpread = 30.0f;
         projectile = proj;
     }

@@ -25,6 +25,8 @@ public class Weapon
         Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, spreadModifier) * direction;
         
         b.GetComponent<Rigidbody2D>().AddForce(spreadVector * weaponForce, ForceMode2D.Impulse);
+        b.transform.rotation = Quaternion.LookRotation(Vector3.forward, 
+                                Quaternion.Euler(0f, 0f, 90f) * spreadVector);
         if (spin)
             b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
     }
@@ -44,6 +46,7 @@ public class WeaponManager : MonoBehaviour {
         canFire = true;
         weapons.Add(new Trombone(projectiles[0]));
         weapons.Add(new CymbalMineThrower(projectiles[1]));
+        weapons.Add(new Tuba(projectiles[2]));
         currentWeapon = weapons[0];
 	}
 
