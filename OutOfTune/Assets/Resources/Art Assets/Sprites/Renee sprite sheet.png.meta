@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: 6b1cd01b98007ff48b88d1b260b126d7
+timeCreated: 1427505644
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Head
+    21300002: Renee sprite sheet_1
+    21300004: L_Shoulder
+    21300006: R_Shoulder
+    21300008: L_Bicep
+    21300010: Chest
+    21300012: R_Bicep
+    21300014: L_Forearm
+    21300016: R_Forearm
+    21300018: L_Hand
+    21300020: L_Thigh
+    21300022: Hip
+    21300024: R_Hand
+    21300026: Renee sprite sheet_13
+    21300028: R_Thigh
+    21300030: L_Leg
+    21300032: R_Leg
+    21300034: L_Foot
+    21300036: R_Foot
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 3046
+        width: 531
+        height: 759
+      alignment: 9
+      pivot: {x: .476460665, y: .413541734}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Shoulder
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 3383
+        width: 191
+        height: 225
+      alignment: 9
+      pivot: {x: .773024976, y: .781433403}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Shoulder
+      rect:
+        serializedVersion: 2
+        x: 3232
+        y: 3435
+        width: 198
+        height: 292
+      alignment: 9
+      pivot: {x: .33287096, y: .802202642}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Bicep
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 2790
+        width: 235
+        height: 431
+      alignment: 9
+      pivot: {x: .597763777, y: .833266139}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Chest
+      rect:
+        serializedVersion: 2
+        x: 1249
+        y: 2224
+        width: 556
+        height: 724
+      alignment: 9
+      pivot: {x: .466555148, y: .0954734832}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Bicep
+      rect:
+        serializedVersion: 2
+        x: 3304
+        y: 2911
+        width: 218
+        height: 377
+      alignment: 9
+      pivot: {x: .35558635, y: .828281045}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Forearm
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 2312
+        width: 322
+        height: 384
+      alignment: 9
+      pivot: {x: .844797671, y: .903652191}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Forearm
+      rect:
+        serializedVersion: 2
+        x: 3489
+        y: 2414
+        width: 168
+        height: 422
+      alignment: 9
+      pivot: {x: .378509521, y: .906665981}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Hand
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 1984
+        width: 209
+        height: 220
+      alignment: 9
+      pivot: {x: .81603682, y: .840519547}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Thigh
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 1419
+        width: 353
+        height: 706
+      alignment: 9
+      pivot: {x: .438808024, y: .951290846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hip
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 1593
+        width: 609
+        height: 501
+      alignment: 9
+      pivot: {x: .423102111, y: .576480091}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Hand
+      rect:
+        serializedVersion: 2
+        x: 3531
+        y: 2052
+        width: 180
+        height: 289
+      alignment: 9
+      pivot: {x: .488825142, y: .875820279}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Thigh
+      rect:
+        serializedVersion: 2
+        x: 2679
+        y: 1345
+        width: 433
+        height: 612
+      alignment: 9
+      pivot: {x: .492684245, y: .876615822}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Leg
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 437
+        width: 318
+        height: 829
+      alignment: 9
+      pivot: {x: .0603178963, y: .898359597}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Leg
+      rect:
+        serializedVersion: 2
+        x: 3242
+        y: 474
+        width: 305
+        height: 992
+      alignment: 9
+      pivot: {x: .0969518423, y: .928162992}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Foot
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 108
+        width: 396
+        height: 213
+      alignment: 9
+      pivot: {x: .78181088, y: .801231563}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Foot
+      rect:
+        serializedVersion: 2
+        x: 2921
+        y: 187
+        width: 426
+        height: 227
+      alignment: 9
+      pivot: {x: .783629537, y: .738439739}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
