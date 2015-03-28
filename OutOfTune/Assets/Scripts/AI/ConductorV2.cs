@@ -32,7 +32,10 @@ public class ConductorV2 : MonoBehaviour {
 	private float EightInterval;
 	private float EightNexttime;
 	public int EightCurrentStep;
-	// Use this for initialization
+
+
+	// getting the list of AI that correspond to it
+	public GameObject[] BrassyObj;
 	void Start () {
 		audio = gameObject.GetComponent<AudioSource>();
 		audio.PlayDelayed(1);
@@ -48,6 +51,9 @@ public class ConductorV2 : MonoBehaviour {
 		//then load the cooroutine for the beats of the song
 		//StartCoroutine ("Beats",secondsPerBeat);
 		//StartCoroutine ("QuarterBeat",Quarter);
+
+		//collect/ fill the brassy ai list wiht the objecets
+		BrassyObj = (GameObject[])GameObject.FindGameObjectsWithTag("Brassy");
 
 		//start metronome version
 		BPM =120;
@@ -77,6 +83,10 @@ public class ConductorV2 : MonoBehaviour {
 		for (;;){
 			EightNexttime += EightInterval;
 			//Debug.Log ("eight " +EightCurrentStep);
+			foreach (GameObject BrassyAiObj in BrassyObj){
+				//Debug.Log("asd");
+				BrassyAiObj.gameObject.BroadcastMessage("BrassyFire");
+			}
 			yield return new WaitForSeconds(EightNexttime - Time.time);
 			EightCurrentStep++;
 			if ( EightCurrentStep > (8)){

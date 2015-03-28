@@ -4,6 +4,7 @@ using System.Collections;
 public class BrassyAI : MonoBehaviour {
 	//walking forward and shooting at different 
 	public GameObject player;
+	public GameObject projectile;
 	public int speed = 20;
 	public Transform player_loc;
 	public int health = 10;
@@ -32,7 +33,27 @@ public class BrassyAI : MonoBehaviour {
 			StartCoroutine("Die");
 		}
 	}
-	
+	public void BrassyFire(){
+		GameObject b = GameObject.Instantiate(projectile) as GameObject;
+		//assuming the object is facing right 
+		//moving it out of collision zone
+		b.transform.position = new Vector3(gameObject.transform.position.x - 6,gameObject.transform.position.y ,gameObject.transform.position.z);  
+
+		//Debug.Log(b.transform.position);
+		//b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
+
+		//treat it as an angle
+		//float spreadModifier = Random.Range(-2, 2);
+
+		//Vector2 direction = new Vector2(2,3);
+		//rotates direction by amount of spread
+		//Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, spreadModifier) * direction;
+
+		b.GetComponent<Rigidbody2D>().AddForce(Vector3.left, ForceMode2D.Impulse);
+		if (true)
+			b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
+		 
+	}
 	// Update is called once per frame
 	void Update () {
 		float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
@@ -43,6 +64,7 @@ public class BrassyAI : MonoBehaviour {
 			//animator.SetBool("Walking", true);
 			//animator.SetBool("Idle", false);
 			Movement();
+			//BrassyFire();
 		}
 		else
 		{
@@ -59,7 +81,6 @@ public class BrassyAI : MonoBehaviour {
 	}
 	void Movement(){
 		// using the point to determine if the ai is on the left or right side of the player
-		
 		Vector3 point = player_loc.InverseTransformPoint (transform.position);
 		if (point.x > 0) {
 			if (player.GetComponent<PlayerController>().grounded)
