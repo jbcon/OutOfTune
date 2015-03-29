@@ -66,12 +66,12 @@ public class BrassyAI : MonoBehaviour {
 			Movement();
 			//BrassyFire();
 		}
-		else
+		/*else
 		{
 			Debug.Log("doing nothing");
 			//animator.SetBool("Walking", false);
 			//animator.SetBool("Idle", true);
-		}
+		}*/
 	}
 	void Leap(){
 		if (jump == true) {

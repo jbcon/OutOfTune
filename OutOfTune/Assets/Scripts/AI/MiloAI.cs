@@ -15,11 +15,10 @@ public class MiloAI : MonoBehaviour {
 	}
 	IEnumerator MiloFire(){
 		while (fire == true){
-
 			GameObject b = GameObject.Instantiate(projectile) as GameObject;
 			//assuming the object is facing right 
 			//moving it out of collision zone
-			b.transform.position = new Vector3 (gameObject.transform.position.x -9, gameObject.transform.position.y,gameObject.transform.position.z);
+			b.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y,gameObject.transform.position.z);
 			Vector3 playerpos = player.transform.position;
 			playerpos.z = 1;
 			playerpos = Camera.main.ScreenToWorldPoint(playerpos);
@@ -39,11 +38,10 @@ public class MiloAI : MonoBehaviour {
 			//Vector2 direction = new Vector2(2,3);
 			//rotates direction by amount of spread
 			Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, 1f) * direction;
-			Debug.Log ("firing");
 			b.GetComponent<Rigidbody2D>().AddForce(spreadVector *2f, ForceMode2D.Impulse);
 			if (true)
 				b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
-			yield return new WaitForSeconds(4);
+			yield return new WaitForSeconds(2);
 		}
 	}
 	// Update is called once per frame
@@ -52,8 +50,10 @@ public class MiloAI : MonoBehaviour {
 		if ( distance < range && fire == false){
 			fire = true;
 			StartCoroutine("MiloFire");
-		}else{
+		}else if (fire == true && distance > range){
 			fire = false;
+			//Debug.Log("safd");
+			//StopCoroutine("MiloFire");
 		}
 	}
 }
