@@ -9,7 +9,8 @@ public class BrassyAI : MonoBehaviour {
 	public Transform player_loc;
 	public int health = 10;
 	public float jumping = 200f;
-	
+	public Health currenthealth;
+
 	//how far until it can't see the player
 	public float range = 50.0f;
 
@@ -18,6 +19,8 @@ public class BrassyAI : MonoBehaviour {
 	float pos_scale;
 	// Use this for initialization
 	void Start () {
+		currenthealth = new Health();
+		//Health currenthealth = gameObject.GetComponent<Health();
 		pos_scale = transform.localScale.x;
 		faceright = true;
 		jump = true;
