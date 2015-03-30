@@ -51,7 +51,7 @@ public class ConductorV2 : MonoBehaviour {
 			//every quarterbeat cann either broadcast message or print stuff
 			Debug.Log ("quaterBeat" + delta_time);
 			//BroadcastMessage ("QuarterAttack", 10);
-			yield return new WaitForSeconds (.125f);
+			yield return new WaitForSeconds (delta_time);
 		}
 	}
 	// Update is called once per frame
