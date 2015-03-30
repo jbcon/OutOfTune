@@ -10,65 +10,30 @@ public class PlayerController : MonoBehaviour {
     public bool facingRight = true;
     public Transform groundedEnd;
     //Player's weapon inventory
-    public int wepIndex = 0;
-
-    /*private record of inventory to instantiate
-     * the weapons in weapons[]*/
-    public List<GameObject> inventory;
-    public int numJumps = 0;
+    public bool gamepadConnected = false;
+    public WeaponManager weaponManager;
+    private int numJumps = 0;
     private Transform tf;
+    private Vector2 direction;
+    private bool firingAxisInUse = false;
 
 	// Use this for initialization
 	void Start ()
     {
-        //retrieve weapons in children, place in list, set active appropriately.
-        inventory = new List<GameObject>();
-        tf = GetComponent<Transform>();
-        Transform[] ts = GetComponentsInChildren<Transform>();
-        for (int i = 0; i < ts.Length; i++)
-        {
-            GameObject tmp = ts[i].gameObject;
-            if (tmp.CompareTag("Weapon"))
-            {
-                inventory.Add(tmp);
-                tmp.SetActive(false);
-            }
-        }
-        inventory[0].SetActive(true);
+        tf = gameObject.transform;
+        weaponManager = FindObjectOfType<WeaponManager>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        
         Jumping();
-        processInput();
         UseWeapon();
-
 	}
 
     void FixedUpdate()
     {
         CharacterMovement();
-    }
-
-    void processInput()
-    {
-        //change, aim weapon
-        if (Input.GetKeyDown("tab"))
-        {
-            SwapWeapons();
-        }
-
-    }
-
-    void SwapWeapons()
-    {
-        inventory[wepIndex].SetActive(false);
-        wepIndex++;
-        if (wepIndex > inventory.Count-1) wepIndex = 0;
-        inventory[wepIndex].SetActive(true);
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -85,14 +50,30 @@ public class PlayerController : MonoBehaviour {
 
     void UseWeapon()
     {
-        //localizes mouse position to screen space
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 1;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawLine(tf.position, mousePos);
-        Vector2 direction = new Vector2(mousePos.x-tf.position.x, mousePos.y - tf.position.y);
-        direction.Normalize();
+        Weapon w = weaponManager.currentWeapon;
 
+        /* AIM */
+
+        //if gamepad is connected
+        if (gamepadConnected)
+        {
+            Vector2 newDirection = new Vector2(Input.GetAxis("AimX"), Input.GetAxis("AimY"));
+            if (newDirection.magnitude > 0)
+            {
+                direction = newDirection;
+            }
+        }
+        else
+        {
+            //localizes mouse position to screen space
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 1;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Debug.DrawLine(tf.position, mousePos);
+            direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
+        }
+
+        direction.Normalize();
         //orient the weapon to mouse
         //theta is in degrees
         float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -102,35 +83,63 @@ public class PlayerController : MonoBehaviour {
         //change direction of weapon
         if (!facingRight)
         {
-            inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 180, 180-theta);
+            weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
         }
         else
         {
-            inventory[wepIndex].transform.rotation = Quaternion.Euler(0, 0, theta);
+            weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
         }
 
+        float analogFire = Input.GetAxisRaw("AnalogFire");
+        
 
-        if (Input.GetButtonDown("Fire1"))
+        //full auto weapon, keep firing as long as button held down
+        if (w.weaponType == WeaponType.FullAuto)
         {
-            //check if melee or projectile weapon
-            WeaponProperties w = inventory[wepIndex].GetComponent<WeaponProperties>();
-            MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
-            //if it is a projectile weapon
-            if (w)
+            if (Input.GetButton("Fire1"))
             {
-                w.Fire(direction);
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
             }
-            //if it is a melee weapon
-            else if (m)
+            //if the controller input is firing
+            else if (analogFire < 0)
             {
-                m.Fire(direction);
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
             }
         }
+        //semi-auto weapon
+        else
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                //check if melee or projectile weapon
+                //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
+                //if it is a projectile weapon
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
+                //if it is a melee weapon
+                /*else if (m)
+                {
+                    m.Fire(direction);
+                }*/
+            }
+            else if (analogFire < 0 && !firingAxisInUse)
+            {
+                Debug.Log("Right");
+                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
+                firingAxisInUse = true;
+            }
+            
+            else if (analogFire == 0 && firingAxisInUse)
+            {
+                firingAxisInUse = false;
+            }
+        }
+        
     }
 
     void CharacterMovement()
     {
-        float move = Input.GetAxis("Horizontal");
+        float move = Input.GetAxis("Movement");
+
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
     }

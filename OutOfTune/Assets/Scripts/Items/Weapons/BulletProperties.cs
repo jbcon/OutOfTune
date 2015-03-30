@@ -5,6 +5,7 @@ public class BulletProperties : MonoBehaviour {
 
     //lifetime of bullet if it doesn't collide with anything
     public float lifetime = 1.0f;
+    public int damage = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,7 @@ public class BulletProperties : MonoBehaviour {
         if (collision.gameObject.layer == enemyLayer)
         {
             Debug.Log("HIT!");
-            collision.gameObject.GetComponent<simpleAI>().Defend(2);
+            collision.gameObject.GetComponent<Health>().Defend(damage);
         }
         Destroy(gameObject);
     }
