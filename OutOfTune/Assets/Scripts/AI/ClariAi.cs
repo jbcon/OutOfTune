@@ -3,8 +3,7 @@ using System.Collections;
 
 public class ClariAi : MonoBehaviour {
 	//Koopa behavior AI 
-	//patroling a platform
-	public float offsetorigin;// the offset in the x direction to the platform
+    //patroling a platform
 	public int duration; // the duration on how long the AI wants to keep patroling
 	public int movementspeed; // the speed at which the object is going to move at
 	public GameObject player;
@@ -19,7 +18,6 @@ public class ClariAi : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		pos_scale = transform.localScale.x;
-		offsetorigin = 40;
 		duration = 30;
 		speed = 5;
 		movementspeed = 5;
@@ -29,7 +27,7 @@ public class ClariAi : MonoBehaviour {
 		faceright = true;
 		chased = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
-		original_position = gameObject.transform.position;
+		original_position = gameObject.transform.localPosition;
 	}
 	void Movement(){
 		// using the point to determine if the ai is on the left or right side of the player
@@ -73,12 +71,12 @@ public class ClariAi : MonoBehaviour {
 				lerpposition += Time.deltaTime/lerptime;
 				transform.position= Vector3.Lerp(gameObject.transform.position, original_position, lerpposition);
 			}else{
-				gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + offsetorigin,gameObject.transform.position.y,gameObject.transform.position.z);
+				gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.position.y,gameObject.transform.position.z);
 		
 			}
 		}
-		/*//move only if not hurt
-		if (distance < range && !animator.GetBool("Hurt") && health > 0)
+		//move only if not hurt
+		/*if (distance < range && !animator.GetBool("Hurt") && health > 0)
 		{
 			animator.SetBool("Walking", true);
 			animator.SetBool("Idle", false);
