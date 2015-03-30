@@ -5,7 +5,7 @@ public class NoteBullet : MonoBehaviour {
 
     //lifetime of bullet if it doesn't collide with anything
     public float lifetime = 0.1f;
-    public int damage = 2;
+    public float damage = 0.1f;
 
 	// Use this for initialization
     void Start()

@@ -44,9 +44,10 @@ public class WeaponManager : MonoBehaviour {
 	void Start ()
     {
         canFire = true;
-        weapons.Add(new Trombone(projectiles[0]));
-        weapons.Add(new CymbalMineThrower(projectiles[1]));
-        weapons.Add(new Tuba(projectiles[2]));
+        weapons.Add(new Trumpet(projectiles[0]));
+        weapons.Add(new Trombone(projectiles[1]));
+        weapons.Add(new CymbalMineThrower(projectiles[2]));
+        weapons.Add(new Tuba(projectiles[3]));
         currentWeapon = weapons[0];
 	}
 
@@ -67,11 +68,11 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 2");
             currentWeapon = weapons[1];
         }
-        /*if (Input.GetButtonDown("Weapon2"))
+        if (Input.GetButtonDown("Weapon3"))
         {
-            Debug.Log("Weapon Switch: 2");
+            Debug.Log("Weapon Switch: 3");
             currentWeapon = weapons[2];
-        }*/
+        }
     }
 
     public void FireCurrentWeapon(Vector2 direction, bool spin)

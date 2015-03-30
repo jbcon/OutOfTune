@@ -4,14 +4,14 @@ using System.Collections;
 public class Health : MonoBehaviour {
 
     Animator animator;
-    public int health = 10;
+    public float health = 10;
 
 	// Use this for initialization
 	void Start () {
         animator = gameObject.GetComponentInChildren<Animator>();
 	}
 
-    public void Defend(int dmg)
+    public void Defend(float dmg)
     {
         health -= dmg;
         if (health <= 0)
