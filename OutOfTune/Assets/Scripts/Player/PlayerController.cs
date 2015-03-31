@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     public float maxSpeed;
+    public float health = 3;
+    public float invincibilityTime = 1f;
     public float jumpForce;
     public bool grounded = false;
     public bool facingRight = true;
@@ -12,6 +14,8 @@ public class PlayerController : MonoBehaviour {
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
+
+    private bool invincible = false;
     private int numJumps = 0;
     private Transform tf;
     private Vector2 direction;
@@ -36,15 +40,14 @@ public class PlayerController : MonoBehaviour {
         CharacterMovement();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
         //equip weapon
-        if (collision.gameObject.CompareTag("Weapon"))
+        if (collision.gameObject.layer == enemyLayer && !invincible)
         {
-            /*if (!weapons.Contains(collision.gameObject))
-            {
-                weapons.Add(collision.gameObject);
-            }*/
+            health--;
+            StartCoroutine(Invincibility());
         }
     }
 
@@ -53,6 +56,10 @@ public class PlayerController : MonoBehaviour {
         Weapon w = weaponManager.currentWeapon;
 
         /* AIM */
+
+        //if shaking, stabilize before calculations
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
 
         //if gamepad is connected
         if (gamepadConnected)
@@ -159,5 +166,14 @@ public class PlayerController : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             numJumps++;
         }
+    }
+
+    private IEnumerator Invincibility()
+    {
+        invincible = true;
+        gameObject.GetComponentInChildren<SpriteRenderer>().material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
+        yield return new WaitForSeconds(invincibilityTime);
+        gameObject.GetComponentInChildren<SpriteRenderer>().material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        invincible = false;
     }
 }

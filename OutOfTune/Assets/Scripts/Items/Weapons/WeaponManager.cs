@@ -13,6 +13,8 @@ public class Weapon
     public float bulletSpread;
     public bool spin;
 
+    public bool canFire = true;
+
     public virtual void Fire(Vector2 direction, Transform transform)
     {
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
@@ -29,6 +31,13 @@ public class Weapon
                                 Quaternion.Euler(0f, 0f, 90f) * spreadVector);
         if (spin)
             b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
+    }
+
+    public IEnumerator Cooldown()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(cooldown);
+        canFire = true;
     }
 }
 
@@ -73,24 +82,22 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 3");
             currentWeapon = weapons[2];
         }
+        if (Input.GetButtonDown("Weapon4"))
+        {
+            Debug.Log("Weapon Switch: 4");
+            currentWeapon = weapons[3];
+        }
     }
 
     public void FireCurrentWeapon(Vector2 direction, bool spin)
     {
         transform.LookAt(transform.position, direction);
 
-        if (canFire)
+        if (currentWeapon.canFire)
         {
             currentWeapon.Fire(direction, transform);
-            StartCoroutine(Cooldown());
+            StartCoroutine(currentWeapon.Cooldown());
         }
 
-    }
-
-    IEnumerator Cooldown()
-    {
-        canFire = false;
-        yield return new WaitForSeconds(currentWeapon.cooldown);
-        canFire = true;
     }
 }

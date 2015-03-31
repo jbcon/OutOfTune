@@ -6,13 +6,6 @@ public class CymbalMine : MonoBehaviour
 
     public int damage = 5;
 
-    //lifetime of bullet if it doesn't collide with anything
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
