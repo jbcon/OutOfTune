@@ -57,6 +57,10 @@ public class PlayerController : MonoBehaviour {
 
         /* AIM */
 
+        //if shaking, stabilize before calculations
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+
         //if gamepad is connected
         if (gamepadConnected)
         {
