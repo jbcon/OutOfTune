@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour {
     public bool grounded = false;
     public bool facingRight = true;
     public Transform groundedEnd;
+    public Transform headEnd;
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
 
+    private int ignoredPlatformMask;
     private bool invincible = false;
     private int numJumps = 0;
     private Transform tf;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour {
     {
         tf = gameObject.transform;
         weaponManager = FindObjectOfType<WeaponManager>();
+        ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
 	}
 	
 	// Update is called once per frame
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        //VerifyPlatforms();
         CharacterMovement();
     }
 
@@ -48,6 +52,22 @@ public class PlayerController : MonoBehaviour {
         {
             health--;
             StartCoroutine(Invincibility());
+        }
+    }
+
+    void VerifyPlatforms()
+    {
+        RaycastHit2D below = Physics2D.Raycast(groundedEnd.position, -Vector2.up,
+            1f, ignoredPlatformMask);
+        if (below.transform != null)
+        {
+            below.collider.isTrigger = false;
+        }
+        RaycastHit2D above = Physics2D.Raycast(headEnd.position, Vector2.up,
+            1f, ignoredPlatformMask);
+        if (above.transform != null)
+        {
+            above.collider.isTrigger = true;
         }
     }
 
@@ -154,7 +174,8 @@ public class PlayerController : MonoBehaviour {
     {
         //check for collision with ground
         //player can double jump
-        grounded = Physics2D.Linecast(tf.position, groundedEnd.position, 1 << LayerMask.NameToLayer("Ground"));
+        grounded = Physics2D.Linecast(tf.position, groundedEnd.position, (1 << LayerMask.NameToLayer("Ground")) 
+            | (1 << LayerMask.NameToLayer("Platform")));
         if (grounded) numJumps = 0;
 
         if (Input.GetButtonDown("Jump") && numJumps < 1)
