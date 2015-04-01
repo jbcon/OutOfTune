@@ -4,7 +4,6 @@ using System.Collections;
 public class TestMilo : MonoBehaviour {
 	public GameObject player;
 	public GameObject projectile;
-	public int health;
 	public float range;
 	public bool fire;
 	// Use this for initialization
