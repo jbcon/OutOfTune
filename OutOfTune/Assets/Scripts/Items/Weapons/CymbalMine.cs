@@ -4,7 +4,7 @@ using System.Collections;
 public class CymbalMine : MonoBehaviour
 {
 
-    public int damage = 5;
+    public float damage = 5;
 
     void OnCollisionEnter2D(Collision2D collision)
     {

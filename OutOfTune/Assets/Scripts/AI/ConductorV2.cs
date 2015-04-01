@@ -86,7 +86,8 @@ public class ConductorV2 : MonoBehaviour {
 
 			foreach (GameObject BrassyAiObj in BrassyObj){
 				//Debug.Log("asd");
-				BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
+                if (BrassyAiObj != null)
+				    BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
 			}
 			yield return new WaitForSeconds(EightNexttime - Time.time);
 			EightCurrentStep++;

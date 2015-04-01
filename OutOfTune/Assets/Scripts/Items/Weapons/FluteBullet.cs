@@ -1,26 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StaffBullet : MonoBehaviour {
+public class FluteBullet : MonoBehaviour {
 
-    //lifetime of bullet if it doesn't collide with anything
-    public float lifetime = 0.1f;
-    public float damage = 2;
+    public float lifetime = 1.0f;
+    public float damage = 4f;
 
-	// Use this for initialization
     void Start()
     {
         Destroy(gameObject, lifetime);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    //ricochets off walls and enemies, just dies after time
+    void OnCollisionEnter2D(Collision2D collision)
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         if (collision.gameObject.layer == enemyLayer)
         {
-            Debug.Log("HIT!");
             collision.gameObject.GetComponent<Health>().Defend(damage);
         }
+        //Destroy(gameObject);
     }
-
 }

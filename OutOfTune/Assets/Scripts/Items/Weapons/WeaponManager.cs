@@ -47,17 +47,23 @@ public class WeaponManager : MonoBehaviour {
     public Weapon currentWeapon;
     public List<Weapon> weapons = new List<Weapon>();
     public GameObject[] projectiles = new GameObject[10];
+    public Sprite[] sprites = new Sprite[10];
+    private SpriteRenderer renderer;
     private bool canFire;
 
 	// Use this for initialization
 	void Start ()
     {
+        renderer = GetComponentInChildren<SpriteRenderer>();
         canFire = true;
         weapons.Add(new Trumpet(projectiles[0]));
         weapons.Add(new Trombone(projectiles[1]));
         weapons.Add(new CymbalMineThrower(projectiles[2]));
         weapons.Add(new Tuba(projectiles[3]));
+        weapons.Add(new Flute(projectiles[4]));
         currentWeapon = weapons[0];
+        renderer.sprite = sprites[0];
+        
 	}
 
     void Update()
@@ -71,21 +77,31 @@ public class WeaponManager : MonoBehaviour {
         {
             Debug.Log("Weapon Switch: 1");
             currentWeapon = weapons[0];
+            renderer.sprite = sprites[0];
         }
         if (Input.GetButtonDown("Weapon2"))
         {
             Debug.Log("Weapon Switch: 2");
             currentWeapon = weapons[1];
+            renderer.sprite = sprites[1];
         }
         if (Input.GetButtonDown("Weapon3"))
         {
             Debug.Log("Weapon Switch: 3");
             currentWeapon = weapons[2];
+            renderer.sprite = sprites[2];
         }
         if (Input.GetButtonDown("Weapon4"))
         {
             Debug.Log("Weapon Switch: 4");
             currentWeapon = weapons[3];
+            renderer.sprite = sprites[3];
+        }
+        if (Input.GetButtonDown("Weapon5"))
+        {
+            Debug.Log("Weapon Switch: 5");
+            currentWeapon = weapons[4];
+            renderer.sprite = sprites[4];
         }
     }
 

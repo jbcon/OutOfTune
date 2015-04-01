@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        //VerifyPlatforms();
         CharacterMovement();
     }
 
@@ -52,22 +51,6 @@ public class PlayerController : MonoBehaviour {
         {
             health--;
             StartCoroutine(Invincibility());
-        }
-    }
-
-    void VerifyPlatforms()
-    {
-        RaycastHit2D below = Physics2D.Raycast(groundedEnd.position, -Vector2.up,
-            1f, ignoredPlatformMask);
-        if (below.transform != null)
-        {
-            below.collider.isTrigger = false;
-        }
-        RaycastHit2D above = Physics2D.Raycast(headEnd.position, Vector2.up,
-            1f, ignoredPlatformMask);
-        if (above.transform != null)
-        {
-            above.collider.isTrigger = true;
         }
     }
 
