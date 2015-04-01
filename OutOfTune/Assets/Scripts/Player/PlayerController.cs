@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     private Transform tf;
     private Vector2 direction;
     private bool firingAxisInUse = false;
+    private GameObject playerSprite;
 
 	// Use this for initialization
 	void Start ()
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour {
         tf = gameObject.transform;
         weaponManager = FindObjectOfType<WeaponManager>();
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
+        playerSprite = transform.Find("Sprite").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -94,10 +96,13 @@ public class PlayerController : MonoBehaviour {
         if (!facingRight)
         {
             weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
+            playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
             weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
+            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+
         }
 
         float analogFire = Input.GetAxisRaw("AnalogFire");
