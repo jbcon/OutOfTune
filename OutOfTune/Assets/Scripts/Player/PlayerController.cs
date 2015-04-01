@@ -96,12 +96,12 @@ public class PlayerController : MonoBehaviour {
         if (!facingRight)
         {
             weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
-            playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
+            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
-            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+            playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
 
         }
 
@@ -180,9 +180,12 @@ public class PlayerController : MonoBehaviour {
     private IEnumerator Invincibility()
     {
         invincible = true;
-        gameObject.GetComponentInChildren<SpriteRenderer>().material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
+
+        foreach (SpriteRenderer sr in playerSprite.GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
         yield return new WaitForSeconds(invincibilityTime);
-        gameObject.GetComponentInChildren<SpriteRenderer>().material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        foreach (SpriteRenderer sr in playerSprite.GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
         invincible = false;
     }
 }
