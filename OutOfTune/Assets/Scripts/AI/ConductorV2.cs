@@ -83,9 +83,10 @@ public class ConductorV2 : MonoBehaviour {
 		for (;;){
 			EightNexttime += EightInterval;
 			//Debug.Log ("eight " +EightCurrentStep);
+
 			foreach (GameObject BrassyAiObj in BrassyObj){
 				//Debug.Log("asd");
-				BrassyAiObj.gameObject.BroadcastMessage("BrassyFire");
+				BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
 			}
 			yield return new WaitForSeconds(EightNexttime - Time.time);
 			EightCurrentStep++;

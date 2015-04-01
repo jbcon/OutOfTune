@@ -24,8 +24,11 @@ public class Health : MonoBehaviour {
 
     private IEnumerator Die()
     {
-        animator.SetTrigger("Die");
-        yield return new WaitForSeconds(1.0f);
+        if (animator)
+        {
+            animator.SetTrigger("Die");
+            yield return new WaitForSeconds(1.0f);
+        }
         Destroy(gameObject);
     }
 }

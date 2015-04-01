@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        VerifyPlatforms();
+        //VerifyPlatforms();
         CharacterMovement();
     }
 
@@ -174,7 +174,8 @@ public class PlayerController : MonoBehaviour {
     {
         //check for collision with ground
         //player can double jump
-        grounded = Physics2D.Linecast(tf.position, groundedEnd.position, 1 << LayerMask.NameToLayer("Ground"));
+        grounded = Physics2D.Linecast(tf.position, groundedEnd.position, (1 << LayerMask.NameToLayer("Ground")) 
+            | (1 << LayerMask.NameToLayer("Platform")));
         if (grounded) numJumps = 0;
 
         if (Input.GetButtonDown("Jump") && numJumps < 1)
