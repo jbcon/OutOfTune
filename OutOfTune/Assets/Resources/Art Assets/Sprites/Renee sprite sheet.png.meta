@@ -1,11 +1,11 @@
 fileFormatVersion: 2
 guid: 6b1cd01b98007ff48b88d1b260b126d7
-timeCreated: 1427505644
+timeCreated: 1427994061
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Head
-    21300002: Renee sprite sheet_1
+    21300002: Head
     21300004: L_Shoulder
     21300006: R_Shoulder
     21300008: L_Bicep
@@ -23,6 +23,11 @@ TextureImporter:
     21300032: R_Leg
     21300034: L_Foot
     21300036: R_Foot
+    21300038: Renee sprite sheet_16
+    21300040: Renee sprite sheet_21
+    21300042: Face_Smile
+    21300044: Face_Neutral
+    21300046: Hair
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -68,175 +73,205 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Head
-      rect:
-        serializedVersion: 2
-        x: 1732
-        y: 3046
-        width: 531
-        height: 759
-      alignment: 9
-      pivot: {x: .476460665, y: .413541734}
-      border: {x: 0, y: 0, z: 0, w: 0}
     - name: L_Shoulder
       rect:
         serializedVersion: 2
-        x: 585
-        y: 3383
-        width: 191
-        height: 225
+        x: 481
+        y: 3567
+        width: 192
+        height: 223
       alignment: 9
-      pivot: {x: .773024976, y: .781433403}
+      pivot: {x: .784771264, y: .843257368}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 3091
+        width: 433
+        height: 760
+      alignment: 9
+      pivot: {x: .600000024, y: .400000006}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Shoulder
       rect:
         serializedVersion: 2
-        x: 3232
-        y: 3435
-        width: 198
-        height: 292
+        x: 3148
+        y: 3515
+        width: 197
+        height: 290
       alignment: 9
-      pivot: {x: .33287096, y: .802202642}
+      pivot: {x: .28488484, y: .865322769}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: L_Bicep
       rect:
         serializedVersion: 2
-        x: 453
-        y: 2790
-        width: 235
-        height: 431
+        x: 375
+        y: 3021
+        width: 208
+        height: 382
       alignment: 9
-      pivot: {x: .597763777, y: .833266139}
+      pivot: {x: .622670531, y: .843514144}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Chest
       rect:
         serializedVersion: 2
-        x: 1249
-        y: 2224
-        width: 556
-        height: 724
+        x: 2019
+        y: 2452
+        width: 554
+        height: 725
       alignment: 9
-      pivot: {x: .466555148, y: .0954734832}
+      pivot: {x: .507918239, y: .0695642531}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Bicep
       rect:
         serializedVersion: 2
-        x: 3304
-        y: 2911
-        width: 218
-        height: 377
+        x: 3194
+        y: 3005
+        width: 217
+        height: 378
       alignment: 9
-      pivot: {x: .35558635, y: .828281045}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: L_Forearm
-      rect:
-        serializedVersion: 2
-        x: 272
-        y: 2312
-        width: 322
-        height: 384
-      alignment: 9
-      pivot: {x: .844797671, y: .903652191}
+      pivot: {x: .347158968, y: .825900614}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Forearm
       rect:
         serializedVersion: 2
-        x: 3489
-        y: 2414
+        x: 2841
+        y: 2591
         width: 168
-        height: 422
+        height: 416
       alignment: 9
-      pivot: {x: .378509521, y: .906665981}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: L_Hand
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 1984
-        width: 209
-        height: 220
-      alignment: 9
-      pivot: {x: .81603682, y: .840519547}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: L_Thigh
-      rect:
-        serializedVersion: 2
-        x: 632
-        y: 1419
-        width: 353
-        height: 706
-      alignment: 9
-      pivot: {x: .438808024, y: .951290846}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Hip
-      rect:
-        serializedVersion: 2
-        x: 1458
-        y: 1593
-        width: 609
-        height: 501
-      alignment: 9
-      pivot: {x: .423102111, y: .576480091}
+      pivot: {x: .35353741, y: .9429245}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Hand
       rect:
         serializedVersion: 2
-        x: 3531
-        y: 2052
-        width: 180
-        height: 289
+        x: 3530
+        y: 2575
+        width: 181
+        height: 287
       alignment: 9
-      pivot: {x: .488825142, y: .875820279}
+      pivot: {x: .492195606, y: .931092799}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Forearm
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 2468
+        width: 250
+        height: 293
+      alignment: 9
+      pivot: {x: .80618602, y: .922977388}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Hand
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 2069
+        width: 199
+        height: 217
+      alignment: 9
+      pivot: {x: .774754047, y: .83595103}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hip
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 1792
+        width: 610
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Thigh
       rect:
         serializedVersion: 2
-        x: 2679
-        y: 1345
+        x: 2614
+        y: 1734
         width: 433
-        height: 612
+        height: 611
       alignment: 9
-      pivot: {x: .492684245, y: .876615822}
+      pivot: {x: .49231267, y: .870464444}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: L_Leg
+    - name: L_Thigh
       rect:
         serializedVersion: 2
-        x: 841
-        y: 437
-        width: 318
-        height: 829
+        x: 433
+        y: 1028
+        width: 349
+        height: 703
       alignment: 9
-      pivot: {x: .0603178963, y: .898359597}
+      pivot: {x: .509537935, y: .930888593}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Leg
       rect:
         serializedVersion: 2
-        x: 3242
-        y: 474
-        width: 305
-        height: 992
+        x: 3222
+        y: 805
+        width: 304
+        height: 991
       alignment: 9
-      pivot: {x: .0969518423, y: .928162992}
+      pivot: {x: .302903831, y: .950101197}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: L_Foot
       rect:
         serializedVersion: 2
-        x: 216
-        y: 108
-        width: 396
-        height: 213
+        x: 444
+        y: 239
+        width: 395
+        height: 214
       alignment: 9
-      pivot: {x: .78181088, y: .801231563}
+      pivot: {x: .778096735, y: .717767894}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Leg
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 341
+        width: 319
+        height: 831
+      alignment: 9
+      pivot: {x: .301737159, y: .948637784}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Foot
       rect:
         serializedVersion: 2
-        x: 2921
-        y: 187
-        width: 426
+        x: 3101
+        y: 356
+        width: 423
         height: 227
       alignment: 9
-      pivot: {x: .783629537, y: .738439739}
+      pivot: {x: .783296645, y: .690632403}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Face_Smile
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 2417
+        width: 263
+        height: 277
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Face_Neutral
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 2815
+        width: 262
+        height: 248
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hair
+      rect:
+        serializedVersion: 2
+        x: 1825
+        y: 3201
+        width: 499
+        height: 755
+      alignment: 9
+      pivot: {x: .600000024, y: .400000006}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
