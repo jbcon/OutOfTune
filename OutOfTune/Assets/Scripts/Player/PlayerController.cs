@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     public float maxSpeed;
-    public float health = 3;
+    public float health = 5;
     public float invincibilityTime = 1f;
     public float jumpForce;
     public bool grounded = false;
@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour {
         {
             health--;
             StartCoroutine(Invincibility());
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+                Application.Quit();
+            }
         }
     }
 
