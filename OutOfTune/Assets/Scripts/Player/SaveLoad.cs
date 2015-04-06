@@ -11,6 +11,7 @@ public class SaveLoad: MonoBehaviour{
 	public float health = 10;
 	public int level = 1;
 	public Vector3 checkpointlocation = new Vector3(0,0,0);
+	public PlayerData theplayer = new PlayerData();
 
 	public void Load(){
 		if(File.Exists("playervariables.gd")) {
@@ -19,6 +20,8 @@ public class SaveLoad: MonoBehaviour{
 			BinaryFormatter bformatter = new BinaryFormatter();          
 			UnityEngine.Debug.Log("Loading variables");
 			playervalues = (PlayerData)bformatter.Deserialize(stream);
+			level = playervalues.level;
+			health = playervalues.health;
 			Debug.Log(" level " +playervalues.level);
 			Debug.Log("healhe " + playervalues.health);
 			stream.Close();
@@ -29,7 +32,6 @@ public class SaveLoad: MonoBehaviour{
 		playervalues.health = health;
 		playervalues.level = level;
 		//playervalues.checkpointlocation = checkpointlocation;
-
 		Stream stream = File.Open("playervariables.gd", FileMode.Create);
 		BinaryFormatter bformatter = new BinaryFormatter();            
 		Debug.Log("Saving variables");
@@ -45,7 +47,6 @@ public class SaveLoad: MonoBehaviour{
 }
 [System.Serializable]
 public class PlayerData{
-	public static PlayerData current;
 	public float health;
 	public int level;
 	public float checkpoint;
