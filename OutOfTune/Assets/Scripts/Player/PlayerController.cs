@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
 
+    private Animator animator;
     private int ignoredPlatformMask;
     private bool invincible = false;
     private int numJumps = 0;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour {
         weaponManager = FindObjectOfType<WeaponManager>();
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
         playerSprite = transform.Find("Sprite").gameObject;
+        animator = GetComponentInChildren<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -161,6 +163,17 @@ public class PlayerController : MonoBehaviour {
         float move = Input.GetAxis("Movement");
 
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        
+        //transition between idle and walking animations if moving left or right
+        //NOT based solely on input
+        if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.x) > 0 )
+        {
+            animator.SetBool("Idle", false);
+        }
+        else
+        {
+            animator.SetBool("Idle", true);
+        }
 
     }
     void Jumping()
