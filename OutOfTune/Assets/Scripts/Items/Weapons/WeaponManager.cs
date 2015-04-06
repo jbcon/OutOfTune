@@ -49,13 +49,11 @@ public class WeaponManager : MonoBehaviour {
     public GameObject[] projectiles = new GameObject[10];
     public Sprite[] sprites = new Sprite[10];
     private SpriteRenderer renderer;
-    private bool canFire;
 
 	// Use this for initialization
 	void Start ()
     {
         renderer = GetComponentInChildren<SpriteRenderer>();
-        canFire = true;
         weapons.Add(new Trumpet(projectiles[0]));
         weapons.Add(new Trombone(projectiles[1]));
         weapons.Add(new CymbalMineThrower(projectiles[2]));
