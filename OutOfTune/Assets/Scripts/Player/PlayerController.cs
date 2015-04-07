@@ -10,20 +10,21 @@ public class PlayerController : MonoBehaviour {
     public float jumpForce;
     public bool grounded = false;
     public bool facingRight = true;
-    public Transform groundedEnd;
-    public Transform headEnd;
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
 
     private Animator animator;
+    private Transform tf;
+    private Vector2 direction;
+    private GameObject playerSprite;
+    private CircleCollider2D footCollider;
+    private BoxCollider2D bodyCollider;
     private int ignoredPlatformMask;
     private bool invincible = false;
     private int numJumps = 0;
-    private Transform tf;
-    private Vector2 direction;
+
     private bool firingAxisInUse = false;
-    private GameObject playerSprite;
 
 	// Use this for initialization
 	void Start ()
@@ -33,6 +34,8 @@ public class PlayerController : MonoBehaviour {
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
         playerSprite = transform.Find("Sprite").gameObject;
         animator = GetComponentInChildren<Animator>();
+        footCollider = GetComponentInChildren<CircleCollider2D>();
+        bodyCollider = GetComponentInChildren<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -47,8 +50,26 @@ public class PlayerController : MonoBehaviour {
         CharacterMovement();
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+
+    //checks if foot collider is on the ground
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        int groundLayer = LayerMask.NameToLayer("Ground");
+        int platLayer = LayerMask.NameToLayer("Platform");
+        if (collision.gameObject.layer == groundLayer || collision.gameObject.layer == platLayer)
+        {
+            //Determine if it was on the body or the feet
+            ContactPoint2D[] cps = collision.contacts;
+            foreach (ContactPoint2D cp in cps)
+            {
+                if (cp.otherCollider == footCollider)
+                {
+                    grounded = true;
+                }
+            }
+        }
+
+        //enemy checking
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         //equip weapon
         if (collision.gameObject.layer == enemyLayer && !invincible)
@@ -61,6 +82,7 @@ public class PlayerController : MonoBehaviour {
                 Application.Quit();
             }
         }
+
     }
 
     void UseWeapon()
@@ -166,7 +188,7 @@ public class PlayerController : MonoBehaviour {
         
         //transition between idle and walking animations if moving left or right
         //NOT based solely on input
-        if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.x) > 0 )
+        if (Mathf.Abs(move) > 0 )
         {
             animator.SetBool("Idle", false);
         }
@@ -180,8 +202,11 @@ public class PlayerController : MonoBehaviour {
     {
         //check for collision with ground
         //player can double jump
-        grounded = Physics2D.Linecast(tf.position, groundedEnd.position, (1 << LayerMask.NameToLayer("Ground")) 
+        /*grounded = Physics2D.Linecast(tf.position, groundedEnd.position, (1 << LayerMask.NameToLayer("Ground")) 
             | (1 << LayerMask.NameToLayer("Platform")));
+        */
+
+        
         if (grounded) numJumps = 0;
 
         if (Input.GetButtonDown("Jump") && numJumps < 1)
