@@ -13,6 +13,20 @@ public class SaveLoad: MonoBehaviour{
 	public Vector3 checkpointlocation = new Vector3(0,0,0);
 	public PlayerData theplayer = new PlayerData();
 
+	public void Awake(){
+		DontDestroyOnLoad(gameObject);
+	}
+	public void OnLevelWasLoaded(int level){
+		if (level == 1 ){
+			Debug.Log ("worked");
+			//loading the checkpoint
+			/*the way this would work is to previously store  locations of eveyr check point 
+			 * or get the locations of it and store it preivously like getting component
+			 * 
+			 * 
+			 */
+		}
+	}
 	public void Load(){
 		if(File.Exists("playervariables.gd")) {
 			PlayerData playervalues = new PlayerData();
@@ -22,9 +36,26 @@ public class SaveLoad: MonoBehaviour{
 			playervalues = (PlayerData)bformatter.Deserialize(stream);
 			level = playervalues.level;
 			health = playervalues.health;
+			theplayer.health = playervalues.health;
+			theplayer.level = playervalues.level;
 			Debug.Log(" level " +playervalues.level);
 			Debug.Log("healhe " + playervalues.health);
 			stream.Close();
+			//loading the necessary files
+			switch(level){
+			case 1:
+				Application.LoadLevel("Level 1");
+				break;
+			case 2: 
+				Application.LoadLevel("Level 2");
+				break;
+			case 3:
+				Application.LoadLevel("Level 3");
+				break;
+			default:
+				break;
+			}
+
 		}
 	}
 	public void Save(){
@@ -38,21 +69,23 @@ public class SaveLoad: MonoBehaviour{
 		bformatter.Serialize(stream, playervalues);
 		stream.Close();
 	}
+	//debuggin / testing functions
 	public void increase(){
-		health +=10;
+		level +=1;
 	}
 	public void printinfo(){
-		Debug.Log (health);
+		Debug.Log (level);
 	}
 }
 [System.Serializable]
 public class PlayerData{
-	public float health;
-	public int level;
-	public float checkpoint;
+	public float health;		//stores the health of the object
+	public int level;			//Stores the level the player was on
+	public float checkpoint;	//stores the number checkpoint
 	//public Vector3 checkpointlocation;
 	public PlayerData(){
-		this.health = 10;
+		//seting default values
+		this.health = 10;		
 		this.level = 1;
 		this.checkpoint = 1;
 		//this.checkpointlocation = new Vector3(0,0,0);
