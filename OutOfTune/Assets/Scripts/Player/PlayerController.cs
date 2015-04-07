@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     private BoxCollider2D bodyCollider;
     private int ignoredPlatformMask;
     private bool invincible = false;
-    private int numJumps = 0;
+    public int numJumps = 0;
 
     private bool firingAxisInUse = false;
 
@@ -209,8 +209,9 @@ public class PlayerController : MonoBehaviour {
         
         if (grounded) numJumps = 0;
 
-        if (Input.GetButtonDown("Jump") && numJumps < 1)
+        if (Input.GetButtonDown("Jump") && numJumps < 2)
         {
+            grounded = false;
             //this is done so both jumps have same total force
             //there's probably a better way
 			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
