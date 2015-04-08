@@ -16,16 +16,28 @@ public class SaveLoad: MonoBehaviour{
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);
 	}
-	public void OnLevelWasLoaded(int level){
-		if (level == 1 ){
-			Debug.Log ("worked");
-			//loading the checkpoint
-			/*the way this would work is to previously store  locations of eveyr check point 
+	public void OnLevelWasLoaded(int level_loaded){
+		//loading the checkpoint
+		/*the way this would work is to previously store  locations of eveyr check point 
 			 * or get the locations of it and store it preivously like getting component
-			 * 
+			 * reposition the player according to the player
 			 * 
 			 */
+		switch(level_loaded){
+		case 1:
+			theplayer.level = 1;
+			break;
+		case 2:
+			theplayer.level = 2;
+			break;
+		case 3:
+			theplayer.level = 3;
+			break;
 		}
+	}
+	public void setCheckpoint(Vector3 newlocation){
+		//upon player death or checkkpoint reach set it as new checkpoint location
+		checkpointlocation = newlocation;
 	}
 	public void Load(){
 		if(File.Exists("playervariables.gd")) {

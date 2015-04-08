@@ -6,41 +6,35 @@ public class TestMilo : MonoBehaviour {
 	public GameObject projectile;
 	public float range;
 	public bool fire;
+	//Immboile doesn't move just shooots
 	// Use this for initialization
 	void Start () {
 		fire = false;
-		range = 20f;
+		range = 50f;
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	IEnumerator MiloFire(){
 		while (fire == true){
+			Vector2 direction = new Vector2(player.transform.position.x - gameObject.transform.position.x,player.transform.position.y - gameObject.transform.position.y);
 			GameObject b = GameObject.Instantiate(projectile) as GameObject;
-			//assuming the object is facing right 
-			//moving it out of collision zone
-			b.transform.position = new Vector3 (gameObject.transform.position.x- 8, gameObject.transform.position.y,gameObject.transform.position.z);
-			Vector3 playerpos = player.transform.position;
-			playerpos.z = 1;
-			playerpos = Camera.main.ScreenToWorldPoint(playerpos);
-			//Debug.DrawLine(gameObject.transform, playerpos);
-			Vector2 direction = new Vector2(playerpos.x - gameObject.transform.position.x, playerpos.y - gameObject.transform.position.y);
-			direction.Normalize();
-			//b.transform.position = new Vector3(gameObject.transform.position.x - 10,gameObject.transform.position.y ,gameObject.transform.position.z);  
-			
-			
-			//Vector3 direction = transform.TransformDirection(Vector3.forward);
-			//Debug.Log(b.transform.position);
-			//b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
-			
+
+			//if the player is on the left or right side spawn the bullet on the correct side
+			Vector3 point = player.gameObject.transform.InverseTransformPoint (gameObject.transform.position);
+			if (point.x > 0){
+				b.transform.position = new Vector3(gameObject.transform.position.x - 6,gameObject.transform.position.y ,gameObject.transform.position.z);  
+			}else if (point.x < 0){
+				b.transform.position = new Vector3(gameObject.transform.position.x + 6,gameObject.transform.position.y ,gameObject.transform.position.z);  
+			}
+
 			//treat it as an angle
-			//float spreadModifier = Random.Range(-2, 2);
+			float spreadModifier = Random.Range(-1, 1);
 			
-			//Vector2 direction = new Vector2(2,3);
 			//rotates direction by amount of spread
-			Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, 1f) * direction;
-			b.GetComponent<Rigidbody2D>().AddForce(spreadVector *2f, ForceMode2D.Impulse);
-			if (true)
-				b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
-			yield return new WaitForSeconds(2);
+			Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, spreadModifier) * direction;
+			
+			b.GetComponent<Rigidbody2D>().AddForce(spreadVector * 1f, ForceMode2D.Impulse);
+			b.transform.rotation = Quaternion.LookRotation(Vector3.forward, Quaternion.Euler(0f, 0f, 90f) * spreadVector);
+			yield return new WaitForSeconds(1);
 		}
 	}
 	// Update is called once per frame

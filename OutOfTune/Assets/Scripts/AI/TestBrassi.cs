@@ -7,6 +7,8 @@ public class TestBrassi : MonoBehaviour {
 	public GameObject projectile;
 	public GameObject play;
 	public BrassiTest testing = new BrassiTest();
+	//ai shoot bullet on arbituary beat
+
 	void Start ()
 	{
 		play = GameObject.FindGameObjectWithTag ("Player");

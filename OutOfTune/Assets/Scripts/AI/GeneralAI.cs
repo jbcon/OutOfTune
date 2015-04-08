@@ -68,8 +68,16 @@ public class GeneralAI {
 		GameObject b = GameObject.Instantiate(projectile) as GameObject;
 		//assuming the object is facing right 
 		//moving it out of collision zone
-		b.transform.position = new Vector3(self.transform.position.x - 6,self.transform.position.y ,self.transform.position.z);  
-		b.GetComponent<Rigidbody2D>().AddForce(Vector3.left, ForceMode2D.Impulse);
+
+		Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
+		if (point.x > 0){
+			b.transform.position = new Vector3(self.transform.position.x - 6,self.transform.position.y ,self.transform.position.z);  
+			b.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 10, ForceMode2D.Impulse);
+		}else if (point.x < 0){
+			b.transform.position = new Vector3(self.transform.position.x + 6,self.transform.position.y ,self.transform.position.z);  
+			b.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 10, ForceMode2D.Impulse);
+		}
+
 		if (true)
 			b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100)); 
 	}

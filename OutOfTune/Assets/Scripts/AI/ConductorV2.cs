@@ -84,11 +84,7 @@ public class ConductorV2 : MonoBehaviour {
 			EightNexttime += EightInterval;
 			//Debug.Log ("eight " +EightCurrentStep);
 
-			foreach (GameObject BrassyAiObj in BrassyObj){
-				//Debug.Log("asd");
-                if (BrassyAiObj != null)
-				    BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
-			}
+
 			yield return new WaitForSeconds(EightNexttime - Time.time);
 			EightCurrentStep++;
 			if ( EightCurrentStep > (8)){
@@ -100,6 +96,11 @@ public class ConductorV2 : MonoBehaviour {
 		for(;;){
 			//this is where Broadcast messag eshould be
 			nextTime +=interval;
+			foreach (GameObject BrassyAiObj in BrassyObj){
+				//Debug.Log("asd");
+				if (BrassyAiObj != null)
+					BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
+			}
 			yield return new WaitForSeconds(nextTime - Time.time); //asd
 			CurrentStep ++;
 			//Debug.Log(CurrentStep);
