@@ -32,10 +32,10 @@ public class PlayerController : MonoBehaviour {
         tf = gameObject.transform;
         weaponManager = FindObjectOfType<WeaponManager>();
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
-        playerSprite = transform.Find("Sprite").gameObject;
+        playerSprite = transform.Find("Renee").gameObject;
         animator = GetComponentInChildren<Animator>();
-        footCollider = GetComponentInChildren<CircleCollider2D>();
-        bodyCollider = GetComponentInChildren<BoxCollider2D>();
+        footCollider = GetComponent<CircleCollider2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
