@@ -4,7 +4,8 @@ using System.Collections;
 public class CymbalMine : MonoBehaviour
 {
 
-    public float damage = 5;
+    public float damage = 5f;
+    public float launchForce = 200f;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,6 +16,7 @@ public class CymbalMine : MonoBehaviour
         {
             //Debug.Log("HIT!");
             collision.gameObject.GetComponent<Health>().Defend(damage);
+            collision.rigidbody.AddForce(Vector2.up * launchForce, ForceMode2D.Impulse);
             Destroy(gameObject);
         }
         if (collision.gameObject.layer == groundLayer)
