@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public float health = 5;
     public float invincibilityTime = 1f;
     public float jumpForce;
+    public float aimRange;
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
@@ -102,11 +103,15 @@ public class PlayerController : MonoBehaviour {
     {
         Weapon w = weaponManager.currentWeapon;
 
+        
+
         /* AIM */
 
         //if shaking, stabilize before calculations
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+
+        
 
         //if gamepad is connected
         if (gamepadConnected)
@@ -119,10 +124,22 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            //localizes mouse position to screen space
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = 1;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            //if the weapon is a flute, do some camera stuff
+            if (w is Flute)
+            {
+                Vector3 mouseRelPos = tf.InverseTransformPoint(mousePos)*aimRange;
+                Debug.Log(mouseRelPos);
+                camera.transform.localPosition = new Vector3(mouseRelPos.x, mouseRelPos.y, camera.transform.localPosition.z);
+            }
+            else
+            {
+                camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+            }
+            //localizes mouse position to screen space
+           
             Debug.DrawLine(tf.position, mousePos);
             direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
         }
