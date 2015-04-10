@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(Health))]
 public class simpleAI : MonoBehaviour {
 
 	public float speed = .01f;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Health))]
 public class GeneralAI {
 	public GameObject projectile;
 	public GameObject player;
