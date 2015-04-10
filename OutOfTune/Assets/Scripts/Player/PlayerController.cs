@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour {
     public float health = 5;
     public float invincibilityTime = 1f;
     public float jumpForce;
-    public bool grounded = false;
-    public bool facingRight = true;
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
@@ -22,7 +20,12 @@ public class PlayerController : MonoBehaviour {
     private BoxCollider2D bodyCollider;
     private int ignoredPlatformMask;
     private bool invincible = false;
-    public int numJumps = 0;
+    private int numJumps = 0;
+    
+    //States
+    public bool facingRight = true;
+    public bool grounded = false;
+    private bool attacking = false;     //melee attacking
 
     private bool firingAxisInUse = false;
 
@@ -43,6 +46,7 @@ public class PlayerController : MonoBehaviour {
     {
         Jumping();
         UseWeapon();
+        UseMeleeWeapon();
 	}
 
     void FixedUpdate()
@@ -83,6 +87,15 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+    }
+
+    void UseMeleeWeapon()
+    {
+        //player does melee attack
+        if (Input.GetButtonDown("Fire2"))
+        {
+            animator.SetTrigger("Attacking");
+        }
     }
 
     void UseWeapon()
