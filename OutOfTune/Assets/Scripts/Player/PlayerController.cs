@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
     private GameObject playerSprite;
     private CircleCollider2D footCollider;
     private BoxCollider2D bodyCollider;
+    private GameObject violin;
     private int ignoredPlatformMask;
     private bool invincible = false;
     private int numJumps = 0;
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour {
     //States
     public bool facingRight = true;
     public bool grounded = false;
-    private bool attacking = false;     //melee attacking
+    public bool attacking = false;     //melee attacking
 
     private bool firingAxisInUse = false;
 
@@ -35,6 +36,9 @@ public class PlayerController : MonoBehaviour {
     {
         tf = gameObject.transform;
         weaponManager = FindObjectOfType<WeaponManager>();
+        violin = GameObject.FindGameObjectWithTag("Violin");
+        violin.SetActive(false);
+
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
         playerSprite = transform.Find("Renee").gameObject;
         animator = GetComponentInChildren<Animator>();
@@ -97,14 +101,12 @@ public class PlayerController : MonoBehaviour {
         {
             animator.SetTrigger("Attacking");
         }
+        violin.SetActive(attacking);
     }
 
     void UseWeapon()
     {
         Weapon w = weaponManager.currentWeapon;
-
-        
-
         /* AIM */
 
         //if shaking, stabilize before calculations
