@@ -5,6 +5,7 @@ public class Health : MonoBehaviour {
 
     Animator animator;
     public float health = 10;
+    public ParticleSystem particles;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,8 @@ public class Health : MonoBehaviour {
             animator.SetTrigger("Die");
             yield return new WaitForSeconds(1.0f);
         }
+        particles = Instantiate(particles, gameObject.transform.position, new Quaternion()) as ParticleSystem;
+        Destroy(particles, 5.0f);
         Destroy(gameObject);
     }
 }
