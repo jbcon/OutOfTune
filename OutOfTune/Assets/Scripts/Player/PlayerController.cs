@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour {
     public float health = 5;
     public float invincibilityTime = 1f;
     public float jumpForce;
-    public bool grounded = false;
-    public bool facingRight = true;
+    public float aimRange;
     //Player's weapon inventory
     public bool gamepadConnected = false;
     public WeaponManager weaponManager;
@@ -20,9 +19,15 @@ public class PlayerController : MonoBehaviour {
     private GameObject playerSprite;
     private CircleCollider2D footCollider;
     private BoxCollider2D bodyCollider;
+    private GameObject violin;
     private int ignoredPlatformMask;
     private bool invincible = false;
-    public int numJumps = 0;
+    private int numJumps = 0;
+    
+    //States
+    public bool facingRight = true;
+    public bool grounded = false;
+    public bool attacking = false;     //melee attacking
 
     private bool firingAxisInUse = false;
 
@@ -31,6 +36,9 @@ public class PlayerController : MonoBehaviour {
     {
         tf = gameObject.transform;
         weaponManager = FindObjectOfType<WeaponManager>();
+        violin = GameObject.FindGameObjectWithTag("Violin");
+        violin.SetActive(false);
+
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
         playerSprite = transform.Find("Renee").gameObject;
         animator = GetComponentInChildren<Animator>();
@@ -43,6 +51,7 @@ public class PlayerController : MonoBehaviour {
     {
         Jumping();
         UseWeapon();
+        UseMeleeWeapon();
 	}
 
     void FixedUpdate()
@@ -85,15 +94,26 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void UseMeleeWeapon()
+    {
+        //player does melee attack
+        if (Input.GetButtonDown("Fire2"))
+        {
+            animator.SetTrigger("Attacking");
+        }
+        violin.SetActive(attacking);
+    }
+
     void UseWeapon()
     {
         Weapon w = weaponManager.currentWeapon;
-
         /* AIM */
 
         //if shaking, stabilize before calculations
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+
+        
 
         //if gamepad is connected
         if (gamepadConnected)
@@ -106,10 +126,22 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            //localizes mouse position to screen space
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = 1;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            //if the weapon is a flute, do some camera stuff
+            if (w is Flute)
+            {
+                Vector3 mouseRelPos = tf.InverseTransformPoint(mousePos)*aimRange;
+                Debug.Log(mouseRelPos);
+                camera.transform.localPosition = new Vector3(mouseRelPos.x, mouseRelPos.y, camera.transform.localPosition.z);
+            }
+            else
+            {
+                camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+            }
+            //localizes mouse position to screen space
+           
             Debug.DrawLine(tf.position, mousePos);
             direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
         }

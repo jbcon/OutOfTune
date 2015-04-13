@@ -1,9 +1,15 @@
 fileFormatVersion: 2
 guid: 0c14e439735313247a893fd9c08d22a7
-timeCreated: 1428256164
+timeCreated: 1428865714
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Trombone_horn
+    21300002: Trombone_base
+    21300004: Flute
+    21300006: Violin_Viola
+    21300008: weapons 1 sprite sheet1_6
+    21300010: Trombone_slide
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +36,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +54,57 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Trombone_horn
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 1042
+        width: 127
+        height: 169
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Trombone_base
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 864
+        width: 351
+        height: 126
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Flute
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 340
+        width: 374
+        height: 37
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Violin_Viola
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 80
+        width: 165
+        height: 535
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Trombone_slide
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 716
+        width: 466
+        height: 50
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

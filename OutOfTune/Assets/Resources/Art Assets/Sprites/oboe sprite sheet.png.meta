@@ -1,9 +1,16 @@
 fileFormatVersion: 2
 guid: 844b99792c523eb4892660963c571fb2
-timeCreated: 1427944923
+timeCreated: 1428864916
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: L_eye
+    21300002: Body
+    21300004: R_eye
+    21300006: R_eyebrow
+    21300008: L_eyebrow
+    21300010: L_foot
+    21300012: R_foot
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +37,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +55,77 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: L_eye
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1641
+        width: 356
+        height: 268
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Body
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 335
+        width: 603
+        height: 1737
+      alignment: 9
+      pivot: {x: .38500309, y: .15961948}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_eye
+      rect:
+        serializedVersion: 2
+        x: 2067
+        y: 1719
+        width: 526
+        height: 354
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_eyebrow
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 1200
+        width: 209
+        height: 77
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_eyebrow
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 1047
+        width: 152
+        height: 94
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_foot
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 188
+        width: 333
+        height: 229
+      alignment: 9
+      pivot: {x: .763036788, y: .834682941}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_foot
+      rect:
+        serializedVersion: 2
+        x: 2189
+        y: 146
+        width: 361
+        height: 249
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
