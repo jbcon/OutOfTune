@@ -111,6 +111,25 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        int groundLayer = LayerMask.NameToLayer("Ground");
+        int platLayer = LayerMask.NameToLayer("Platform");
+        if (collision.gameObject.layer == groundLayer || collision.gameObject.layer == platLayer)
+        {
+            //Determine if it was on the body or the feet
+            ContactPoint2D[] cps = collision.contacts;
+            foreach (ContactPoint2D cp in cps)
+            {
+                if (cp.otherCollider == footCollider)
+                {
+                    grounded = false;
+                }
+            }
+        }
+
+    }
+
     void UseMeleeWeapon()
     {
         //player does melee attack
@@ -255,12 +274,8 @@ public class PlayerController : MonoBehaviour {
             | (1 << LayerMask.NameToLayer("Platform")));
         */
 
-        
-        if (grounded) numJumps = 0;
-
-        if (Input.GetButtonDown("Jump") && numJumps < 2)
+        if (Input.GetButtonDown("Jump") && numJumps < 1)
         {
-            grounded = false;
             //this is done so both jumps have same total force
             //there's probably a better way
 			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
@@ -268,6 +283,10 @@ public class PlayerController : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             numJumps++;
         }
+
+        //put afterwards to allow only one jump in midair
+        if (grounded) numJumps = 0;
+
     }
 
     private IEnumerator Invincibility()

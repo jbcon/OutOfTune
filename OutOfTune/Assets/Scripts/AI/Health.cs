@@ -21,6 +21,10 @@ public class Health : MonoBehaviour {
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
             StartCoroutine("Die");
         }
+        else
+        {
+            gameObject.SendMessage("OnReceiveDamage");
+        }
     }
 
     private IEnumerator Die()
@@ -31,7 +35,6 @@ public class Health : MonoBehaviour {
             yield return new WaitForSeconds(1.0f);
         }
         particles = Instantiate(particles, gameObject.transform.position, new Quaternion()) as ParticleSystem;
-        Destroy(particles, 5.0f);
         Destroy(gameObject);
     }
 }
