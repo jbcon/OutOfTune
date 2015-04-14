@@ -78,7 +78,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 1");
             currentWeapon = weapons[0];
             renderer.sprite = sprites[0];
-			weaponname = "bigtrumpet";
+			weaponname = "bigtrumpet";		//everytime change weapon must also change the name of the selected weapon
         }
         if (Input.GetButtonDown("Weapon2"))
         {
@@ -97,7 +97,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 4");
             currentWeapon = weapons[3];
             renderer.sprite = sprites[3];
-			weaponname = "tuba";
+			weaponname = "tuba";			//tuba weapon must change the name of the selected weapon
         }
         if (Input.GetButtonDown("Weapon5"))
         {

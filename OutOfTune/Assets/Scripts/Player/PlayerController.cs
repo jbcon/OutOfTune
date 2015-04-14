@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour {
             StartCoroutine(Invincibility());
             if (health <= 0)
             {
+				//load last save checkpoint
 				loadCheckpoint();
                 //Destroy(gameObject);
                 //Application.Quit();

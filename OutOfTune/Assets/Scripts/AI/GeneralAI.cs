@@ -11,7 +11,7 @@ public class GeneralAI {
 	public bool faceright;
 	public float pos_scale;
 	public float speed;
-
+	public bool stun = false;		//boolean for stunned enemies
 	public GeneralAI(){
 		range = 20f;
 		speed = 20f;
@@ -41,45 +41,49 @@ public class GeneralAI {
 		return player;
 	}
 	public virtual void Movement(){
-		// using the point to determine if the ai is on the left or right side of the player
-		Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
-		if (point.x > 0) {
-			if (player.GetComponent<PlayerController>().grounded)
-				faceright = true;
-		} else if (point.x < 0) {
-			if(player.GetComponent<PlayerController>().grounded)
-				faceright = false;
-		}
-		
-		if (faceright == true)
-		{
-			//rotate the sprite to face the correct direction if hes on the left
-			self.transform.localScale = new Vector2(-pos_scale, self.transform.localScale.y);
-			//left side of the player move left
-			self.transform.Translate (Vector3.left * speed * Time.deltaTime);
-		}
-		else
-		{
-			self.transform.localScale = new Vector2(pos_scale, self.transform.localScale.y);
-			//right side of the player move right
-			self.transform.Translate(Vector3.right * speed * Time.deltaTime);
+		if (stun == false){
+			// using the point to determine if the ai is on the left or right side of the player
+			Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
+			if (point.x > 0) {
+				if (player.GetComponent<PlayerController>().grounded)
+					faceright = true;
+			} else if (point.x < 0) {
+				if(player.GetComponent<PlayerController>().grounded)
+					faceright = false;
+			}
+			
+			if (faceright == true)
+			{
+				//rotate the sprite to face the correct direction if hes on the left
+				self.transform.localScale = new Vector2(-pos_scale, self.transform.localScale.y);
+				//left side of the player move left
+				self.transform.Translate (Vector3.left * speed * Time.deltaTime);
+			}
+			else
+			{
+				self.transform.localScale = new Vector2(pos_scale, self.transform.localScale.y);
+				//right side of the player move right
+				self.transform.Translate(Vector3.right * speed * Time.deltaTime);
+			}
 		}
 	}
 	public virtual void FireBullet(){
-		GameObject b = GameObject.Instantiate(projectile) as GameObject;
-		//assuming the object is facing right 
-		//moving it out of collision zone
+		if (stun == false){
+			GameObject b = GameObject.Instantiate(projectile) as GameObject;
+			//assuming the object is facing right 
+			//moving it out of collision zone
 
-		Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
-		if (point.x > 0){
-			b.transform.position = new Vector3(self.transform.position.x - 6,self.transform.position.y ,self.transform.position.z);  
-			b.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 10, ForceMode2D.Impulse);
-		}else if (point.x < 0){
-			b.transform.position = new Vector3(self.transform.position.x + 6,self.transform.position.y ,self.transform.position.z);  
-			b.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 10, ForceMode2D.Impulse);
+			Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
+			if (point.x > 0){
+				b.transform.position = new Vector3(self.transform.position.x - 6,self.transform.position.y ,self.transform.position.z);  
+				b.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 10, ForceMode2D.Impulse);
+			}else if (point.x < 0){
+				b.transform.position = new Vector3(self.transform.position.x + 6,self.transform.position.y ,self.transform.position.z);  
+				b.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 10, ForceMode2D.Impulse);
+			}
+
+			if (true)
+				b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100)); 
 		}
-
-		if (true)
-			b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100)); 
 	}
 }
