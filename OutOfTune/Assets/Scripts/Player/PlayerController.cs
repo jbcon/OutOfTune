@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
     private int ignoredPlatformMask;
     private bool invincible = false;
     private int numJumps = 0;
-    
+	private Vector3 checkpointpos; //used to do saving the positon of player
+
     //States
     public bool facingRight = true;
     public bool grounded = false;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponentInChildren<Animator>();
         footCollider = GetComponent<CircleCollider2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
+
 	}
 	
 	// Update is called once per frame
@@ -58,7 +60,21 @@ public class PlayerController : MonoBehaviour {
     {
         CharacterMovement();
     }
+	void OnLevelWasLoaded(int level){
+		//when level is loaded save the objects position
+		checkpointpos = gameObject.transform.position;
+	}
+	void loadCheckpoint(){
+		gameObject.transform.position = checkpointpos;
+	}
+	public void newcheckpoint(){
 
+		checkpointpos = gameObject.transform.position;
+	}
+
+	public float gethealth(){
+		return health;
+	}
 
     //checks if foot collider is on the ground
     void OnCollisionEnter2D(Collision2D collision)
@@ -87,8 +103,9 @@ public class PlayerController : MonoBehaviour {
             StartCoroutine(Invincibility());
             if (health <= 0)
             {
-                Destroy(gameObject);
-                Application.Quit();
+				loadCheckpoint();
+                //Destroy(gameObject);
+                //Application.Quit();
             }
         }
 
