@@ -65,10 +65,11 @@ public class PlayerController : MonoBehaviour {
 		checkpointpos = gameObject.transform.position;
 	}
 	void loadCheckpoint(){
+		//moving player to save checkpoint location
 		gameObject.transform.position = checkpointpos;
 	}
 	public void newcheckpoint(){
-
+		//upon reaching a new checkpoint save it
 		checkpointpos = gameObject.transform.position;
 	}
 
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour {
             StartCoroutine(Invincibility());
             if (health <= 0)
             {
+				//load last save checkpoint
 				loadCheckpoint();
                 //Destroy(gameObject);
                 //Application.Quit();

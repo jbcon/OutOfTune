@@ -45,6 +45,7 @@ public class Weapon
 public class WeaponManager : MonoBehaviour {
 
     public Weapon currentWeapon;
+	public string weaponname;// added this to identify it for ui manager
     public List<Weapon> weapons = new List<Weapon>();
     public GameObject[] projectiles = new GameObject[10];
     public Sprite[] sprites = new Sprite[10];
@@ -61,6 +62,7 @@ public class WeaponManager : MonoBehaviour {
         weapons.Add(new Flute(projectiles[4]));
         currentWeapon = weapons[0];
         renderer.sprite = sprites[0];
+		weaponname = "bigtrumpet";
         
 	}
 
@@ -76,6 +78,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 1");
             currentWeapon = weapons[0];
             renderer.sprite = sprites[0];
+			weaponname = "bigtrumpet";		//everytime change weapon must also change the name of the selected weapon
         }
         if (Input.GetButtonDown("Weapon2"))
         {
@@ -94,6 +97,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 4");
             currentWeapon = weapons[3];
             renderer.sprite = sprites[3];
+			weaponname = "tuba";			//tuba weapon must change the name of the selected weapon
         }
         if (Input.GetButtonDown("Weapon5"))
         {
