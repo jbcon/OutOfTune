@@ -65,10 +65,11 @@ public class PlayerController : MonoBehaviour {
 		checkpointpos = gameObject.transform.position;
 	}
 	void loadCheckpoint(){
+		//moving player to save checkpoint location
 		gameObject.transform.position = checkpointpos;
 	}
 	public void newcheckpoint(){
-
+		//upon reaching a new checkpoint save it
 		checkpointpos = gameObject.transform.position;
 	}
 
