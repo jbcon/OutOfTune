@@ -8,7 +8,9 @@ public class UIManager : MonoBehaviour {
 	public Animator Save;
 	public bool clicked = false;
 	public GameObject player;
-	//private List<string> buttonnames = new List<string>(); possible use using keyboard input to select htings
+	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
+	private int iterator;
+	private bool axisuse;	
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
 	private GameObject health;							//Going to be the canvas GUI object that will stay throughout the levels
@@ -20,6 +22,11 @@ public class UIManager : MonoBehaviour {
 	public void Start(){
 		settings.enabled = true;
 		Save.enabled = true;
+		buttonnames.Add ("newgame");
+		buttonnames.Add("LoadButton");
+		buttonnames.Add ("Level 2");
+		buttonnames.Add("Level 3");
+		iterator = 0;
 		health = GameObject.Find("storysetting");
 		//Debug.Log(health.GetComponentsInChildren<Text>());
 		healthlist = new List<Image>(health.GetComponentsInChildren<Image>());	//grabs all the images on the canvas for the GUI
@@ -57,7 +64,10 @@ public class UIManager : MonoBehaviour {
 			}
 
 		}
-
+		/*
+		for (int kop  =0; kop < buttonnames.Count(); kop++){
+			Debug.Log (buttonnames[kop]);
+		}*/
 
 	}
 	public void StartGame(){
@@ -108,10 +118,27 @@ public class UIManager : MonoBehaviour {
 		{
 			//bringing down the setting menu
 			clicked = !clicked;
-
 			settings.SetBool("escPressed",clicked);
 			Debug.Log("display settings" + clicked);
 			Save.SetBool("escPressed",clicked);
+		
+		}else if (Input.GetAxisRaw("Vertical") == 1){
+			if (axisuse == false){
+
+				axisuse = true;
+				iterator += 1;
+				Debug.Log("up" + buttonnames[iterator]);
+				GUI.FocusControl(buttonnames[iterator]);
+				GUI.SetNextControlName(buttonnames[iterator]);
+			}
+		}else if (Input.GetAxisRaw("Vertical") == -1){
+			if (axisuse == false){
+				axisuse = true;
+				iterator--;
+				GUI.SetNextControlName(buttonnames[iterator]);
+			}
+		}else if (Input.GetAxisRaw("Vertical") == 0){
+			axisuse = false;
 		}
 		//grab the player object
 		player = GameObject.FindGameObjectWithTag("Player");
