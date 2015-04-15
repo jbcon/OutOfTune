@@ -14,16 +14,16 @@ public class Health : MonoBehaviour {
 
     public void Defend(float dmg)
     {
-        health -= dmg;
+        gameObject.SendMessage("OnReceiveDamage", dmg);
+    }
+
+    void Update()
+    {
         if (health <= 0)
         {
             gameObject.GetComponent<Collider2D>().enabled = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
             StartCoroutine("Die");
-        }
-        else
-        {
-            gameObject.SendMessage("OnReceiveDamage");
         }
     }
 

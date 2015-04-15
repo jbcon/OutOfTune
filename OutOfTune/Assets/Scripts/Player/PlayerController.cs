@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             animator.SetTrigger("Attacking");
+            attacking = true;
         }
         violin.SetActive(attacking);
     }
@@ -192,16 +193,20 @@ public class PlayerController : MonoBehaviour {
         else facingRight = true;
 
         //change direction of weapon
-        if (!facingRight)
+        if (!attacking)
         {
-            weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
-            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
-            playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
 
+            if (!facingRight)
+            {
+                weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
+                playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
+                playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            }
         }
 
         float analogFire = Input.GetAxisRaw("AnalogFire");

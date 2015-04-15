@@ -6,7 +6,7 @@ public class StaffBullet : MonoBehaviour {
     //lifetime of bullet if it doesn't collide with anything
     public float lifetime = 0.1f;
     public float damage = 2;
-    public float force = 20f;
+    public float force = 10f;
 
     private Rigidbody2D rb;
 
