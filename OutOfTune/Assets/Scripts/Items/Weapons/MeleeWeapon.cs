@@ -10,7 +10,11 @@ public class MeleeWeapon : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        collider.gameObject.GetComponent<Health>().Defend(1f);
+        Health health = collider.gameObject.GetComponent<Health>();
+        if (health)
+        {
+            health.Defend(1f);
+        }
     }
 	
 	// Update is called once per frame

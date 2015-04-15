@@ -14,7 +14,11 @@ public class Health : MonoBehaviour {
 
     public void Defend(float dmg)
     {
-        health -= dmg;
+        gameObject.SendMessage("OnReceiveDamage", dmg);
+    }
+
+    void Update()
+    {
         if (health <= 0)
         {
             gameObject.GetComponent<Collider2D>().enabled = false;
@@ -31,7 +35,6 @@ public class Health : MonoBehaviour {
             yield return new WaitForSeconds(1.0f);
         }
         particles = Instantiate(particles, gameObject.transform.position, new Quaternion()) as ParticleSystem;
-        Destroy(particles, 5.0f);
         Destroy(gameObject);
     }
 }

@@ -17,11 +17,15 @@ public class simpleAI : MonoBehaviour {
 	bool faceright;
 	float pos_scale;
     Health health;
-	// Use this for initialization
+    private bool stunned;
+    private bool grounded;      //go to your room young man
+    // Use this for initialization
 	void Start () {
 		pos_scale = transform.localScale.x;
 		faceright = true;
 		jump = true;
+        stunned = false;
+        grounded = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
         player_loc = player.transform;
         animator = GetComponentInChildren<Animator>();
@@ -45,11 +49,35 @@ public class simpleAI : MonoBehaviour {
             animator.SetBool("Walking", false);
             animator.SetBool("Idle", true);
         }
+
 		//destroying the ai when no health
 		/*if (health <= 0){
 			Destroy(gameObject);
 		}*/
 	}
+
+    //check if grounding box says it's grounded
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground")
+            || collider.gameObject.layer == LayerMask.NameToLayer("Platform"))
+        {
+            grounded = true;
+        }   
+    }
+
+    void OnReceiveDamage(float dmg)
+    {        
+        if (!stunned)
+        {
+            health.health -= dmg;
+            if (health.health > 0)
+            {
+                StartCoroutine(Stun());
+                Debug.Log("AI script received damage");
+            }
+        }
+    }
 
 	void Leap(){
 		if (jump == true) {
@@ -84,5 +112,19 @@ public class simpleAI : MonoBehaviour {
         }
 	}
 
+    IEnumerator Stun()
+    {
+        animator.SetTrigger("Stun");
+        stunned = true;
+        if (!grounded)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        stunned = false;
+    }
     
 }

@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
     private int ignoredPlatformMask;
     private bool invincible = false;
     private int numJumps = 0;
-    
+	private Vector3 checkpointpos; //used to do saving the positon of player
+
     //States
     public bool facingRight = true;
     public bool grounded = false;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponentInChildren<Animator>();
         footCollider = GetComponent<CircleCollider2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
+
 	}
 	
 	// Update is called once per frame
@@ -58,7 +60,22 @@ public class PlayerController : MonoBehaviour {
     {
         CharacterMovement();
     }
+	void OnLevelWasLoaded(int level){
+		//when level is loaded save the objects position
+		checkpointpos = gameObject.transform.position;
+	}
+	void loadCheckpoint(){
+		//moving player to save checkpoint location
+		gameObject.transform.position = checkpointpos;
+	}
+	public void newcheckpoint(){
+		//upon reaching a new checkpoint save it
+		checkpointpos = gameObject.transform.position;
+	}
 
+	public float gethealth(){
+		return health;
+	}
 
     //checks if foot collider is on the ground
     void OnCollisionEnter2D(Collision2D collision)
@@ -87,8 +104,29 @@ public class PlayerController : MonoBehaviour {
             StartCoroutine(Invincibility());
             if (health <= 0)
             {
-                Destroy(gameObject);
-                Application.Quit();
+				//load last save checkpoint
+				loadCheckpoint();
+                //Destroy(gameObject);
+                //Application.Quit();
+            }
+        }
+
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        int groundLayer = LayerMask.NameToLayer("Ground");
+        int platLayer = LayerMask.NameToLayer("Platform");
+        if (collision.gameObject.layer == groundLayer || collision.gameObject.layer == platLayer)
+        {
+            //Determine if it was on the body or the feet
+            ContactPoint2D[] cps = collision.contacts;
+            foreach (ContactPoint2D cp in cps)
+            {
+                if (cp.otherCollider == footCollider)
+                {
+                    grounded = false;
+                }
             }
         }
 
@@ -100,6 +138,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             animator.SetTrigger("Attacking");
+            attacking = true;
         }
         violin.SetActive(attacking);
     }
@@ -154,16 +193,20 @@ public class PlayerController : MonoBehaviour {
         else facingRight = true;
 
         //change direction of weapon
-        if (!facingRight)
+        if (!attacking)
         {
-            weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180-theta);
-            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
-            playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
 
+            if (!facingRight)
+            {
+                weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
+                playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
+                playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            }
         }
 
         float analogFire = Input.GetAxisRaw("AnalogFire");
@@ -238,12 +281,8 @@ public class PlayerController : MonoBehaviour {
             | (1 << LayerMask.NameToLayer("Platform")));
         */
 
-        
-        if (grounded) numJumps = 0;
-
-        if (Input.GetButtonDown("Jump") && numJumps < 2)
+        if (Input.GetButtonDown("Jump") && numJumps < 1)
         {
-            grounded = false;
             //this is done so both jumps have same total force
             //there's probably a better way
 			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
@@ -251,6 +290,10 @@ public class PlayerController : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             numJumps++;
         }
+
+        //put afterwards to allow only one jump in midair
+        if (grounded) numJumps = 0;
+
     }
 
     private IEnumerator Invincibility()
