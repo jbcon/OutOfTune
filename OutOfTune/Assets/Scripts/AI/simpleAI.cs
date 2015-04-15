@@ -49,6 +49,7 @@ public class simpleAI : MonoBehaviour {
             animator.SetBool("Walking", false);
             animator.SetBool("Idle", true);
         }
+
 		//destroying the ai when no health
 		/*if (health <= 0){
 			Destroy(gameObject);
@@ -65,12 +66,16 @@ public class simpleAI : MonoBehaviour {
         }   
     }
 
-    void OnReceiveDamage()
-    {
-        if (grounded)
+    void OnReceiveDamage(float dmg)
+    {        
+        if (!stunned)
         {
-            Debug.Log("AI script received damage");
-            StartCoroutine(Stun());
+            health.health -= dmg;
+            if (health.health > 0)
+            {
+                StartCoroutine(Stun());
+                Debug.Log("AI script received damage");
+            }
         }
     }
 
@@ -117,7 +122,7 @@ public class simpleAI : MonoBehaviour {
         }
         else
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
         stunned = false;
     }
