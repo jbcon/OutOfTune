@@ -85,6 +85,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 2");
             currentWeapon = weapons[1];
             renderer.sprite = sprites[1];
+			weaponname = "trombone";
         }
         if (Input.GetButtonDown("Weapon3"))
         {
@@ -104,6 +105,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 5");
             currentWeapon = weapons[4];
             renderer.sprite = sprites[4];
+			weaponname = "flute";
         }
     }
 
