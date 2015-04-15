@@ -28,7 +28,10 @@ public class UIManager : MonoBehaviour {
 			//Debug.Log(healthlist[i].sprite.name+ "asdfdasf"+ healthlist[i] + i);
 			if (healthlist[i].sprite.name != "Health1"){						//if the image isn't health store index
 				temp.Add(i);
-				if (healthlist[i].sprite.name == "tuba" || healthlist[i].sprite.name == "bigtrumpet" ){// if it happens to be a weapon
+				if (healthlist[i].sprite.name == "tuba" || healthlist[i].sprite.name == "bigtrumpet" ||healthlist[i].sprite.name == "flute"
+				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "violin"
+
+				    ){// if it happens to be a weapon
 					weaponimg = healthlist[i];															// store inside weapon list 
 					weaponimg.GetComponent<Outline>().enabled = false;									//disable outline
 					weapons.Add(weaponimg);																//add it to weapon list
@@ -58,7 +61,7 @@ public class UIManager : MonoBehaviour {
 
 	}
 	public void StartGame(){
-		Application.LoadLevel("Level 1");
+		Application.LoadLevel("Level 1_alpha");
 		//Enable the hearts to be seen
 		for (int i = 0; i < healthlist.Count(); i++){
 			healthlist[i].enabled = true;
@@ -69,10 +72,10 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void LoadLevel2(){
-		Application.LoadLevel("Level 2");
+		Application.LoadLevel("Level 2_alpha");
 	}
 	public void LoadLevel3(){
-		Application.LoadLevel("Level 3");
+		Application.LoadLevel("Level 3_alpha");
 	}
 	void checkinghealth(float playerhealth){
 		float temphealth = playerhealth;

@@ -56,13 +56,13 @@ public class SaveLoad: MonoBehaviour{
 			//loading the necessary files
 			switch(level){
 			case 1:
-				Application.LoadLevel("Level 1");
+				Application.LoadLevel("Level 1_alpha");
 				break;
 			case 2: 
-				Application.LoadLevel("Level 2");
+				Application.LoadLevel("Level 2_alpha");
 				break;
 			case 3:
-				Application.LoadLevel("Level 3");
+				Application.LoadLevel("Level 3_alpha");
 				break;
 			default:
 				break;
