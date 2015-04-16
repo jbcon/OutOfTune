@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour {
 	public Animator settings;
 	public Animator Save;
@@ -22,9 +23,9 @@ public class UIManager : MonoBehaviour {
 	public void Start(){
 		settings.enabled = true;
 		Save.enabled = true;
-		buttonnames.Add ("newgame");
+		buttonnames.Add("newgame");
 		buttonnames.Add("LoadButton");
-		buttonnames.Add ("Level 2");
+		buttonnames.Add("Level2");
 		buttonnames.Add("Level 3");
 		iterator = 0;
 		health = GameObject.Find("storysetting");
@@ -42,7 +43,9 @@ public class UIManager : MonoBehaviour {
 					weaponimg = healthlist[i];															// store inside weapon list 
 					weaponimg.GetComponent<Outline>().enabled = false;									//disable outline
 					weapons.Add(weaponimg);																//add it to weapon list
-				}else if (healthlist[i].sprite.name == "UISprite"){										//ignore the setting buttons
+				}else if (healthlist[i].sprite.name == "UISprite" ||healthlist[i].sprite.name =="button_newGame" ||
+				          healthlist[i].sprite.name == "button_settings"
+				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
 					continue;
 				}
@@ -64,11 +67,13 @@ public class UIManager : MonoBehaviour {
 			}
 
 		}
+
+		//GUI.SetNextControlName(buttonnames[iterator]);
+		//GUI.FocusControl(buttonnames[iterator]);
 		/*
 		for (int kop  =0; kop < buttonnames.Count(); kop++){
-			Debug.Log (buttonnames[kop]);
+			Debug.Log (kop +buttonnames[kop]);
 		}*/
-
 	}
 	public void StartGame(){
 		Application.LoadLevel("Level 1_alpha");
@@ -122,24 +127,36 @@ public class UIManager : MonoBehaviour {
 			Debug.Log("display settings" + clicked);
 			Save.SetBool("escPressed",clicked);
 		
-		}else if (Input.GetAxisRaw("Vertical") == 1){
+		}
+		/*else if (Input.GetAxisRaw("Vertical") == 1){
 			if (axisuse == false){
-
 				axisuse = true;
-				iterator += 1;
-				Debug.Log("up" + buttonnames[iterator]);
-				GUI.FocusControl(buttonnames[iterator]);
-				GUI.SetNextControlName(buttonnames[iterator]);
+				iterator --;
+				if (iterator < 0){
+					iterator = buttonnames.Count() - 1;
+				}
+				Debug.Log(buttonnames.Count() + "up" + buttonnames[iterator]);
+
+				//GUI.SetNextControlName(buttonnames[iterator]);
+				//GUI.FocusControl(buttonnames[iterator]);
 			}
 		}else if (Input.GetAxisRaw("Vertical") == -1){
 			if (axisuse == false){
 				axisuse = true;
-				iterator--;
-				GUI.SetNextControlName(buttonnames[iterator]);
+
+				iterator++;
+				if (iterator >= buttonnames.Count()){
+					iterator = 0;
+				}
+				//GUI.SetNextControlName("level2");
+				//GUI.FocusControl("level2");
+				Debug.Log(buttonnames.Count() + "udown" + buttonnames[iterator]);
+				//GUI.SetNextControlName(buttonnames[iterator]);
+				//GUI.FocusControl(buttonnames[iterator]);
 			}
 		}else if (Input.GetAxisRaw("Vertical") == 0){
 			axisuse = false;
-		}
+		}*/
 		//grab the player object
 		player = GameObject.FindGameObjectWithTag("Player");
 		if (player != null){
