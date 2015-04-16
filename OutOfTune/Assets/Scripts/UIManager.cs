@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour {
 	public Animator settings;
 	public Animator Save;
 	public bool clicked = false;
 	public GameObject player;
-	//private List<string> buttonnames = new List<string>(); possible use using keyboard input to select htings
+	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
+	private int iterator;
+	private bool axisuse;	
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
 	private GameObject health;							//Going to be the canvas GUI object that will stay throughout the levels
@@ -20,6 +23,11 @@ public class UIManager : MonoBehaviour {
 	public void Start(){
 		settings.enabled = true;
 		Save.enabled = true;
+		buttonnames.Add("newgame");
+		buttonnames.Add("LoadButton");
+		buttonnames.Add("Level2");
+		buttonnames.Add("Level 3");
+		iterator = 0;
 		health = GameObject.Find("storysetting");
 		//Debug.Log(health.GetComponentsInChildren<Text>());
 		healthlist = new List<Image>(health.GetComponentsInChildren<Image>());	//grabs all the images on the canvas for the GUI
@@ -35,7 +43,9 @@ public class UIManager : MonoBehaviour {
 					weaponimg = healthlist[i];															// store inside weapon list 
 					weaponimg.GetComponent<Outline>().enabled = false;									//disable outline
 					weapons.Add(weaponimg);																//add it to weapon list
-				}else if (healthlist[i].sprite.name == "UISprite"){										//ignore the setting buttons
+				}else if (healthlist[i].sprite.name == "UISprite" ||healthlist[i].sprite.name =="button_newGame" ||
+				          healthlist[i].sprite.name == "button_settings"
+				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
 					continue;
 				}
@@ -58,7 +68,12 @@ public class UIManager : MonoBehaviour {
 
 		}
 
-
+		//GUI.SetNextControlName(buttonnames[iterator]);
+		//GUI.FocusControl(buttonnames[iterator]);
+		/*
+		for (int kop  =0; kop < buttonnames.Count(); kop++){
+			Debug.Log (kop +buttonnames[kop]);
+		}*/
 	}
 	public void StartGame(){
 		Application.LoadLevel("Level 1_alpha");
@@ -108,11 +123,40 @@ public class UIManager : MonoBehaviour {
 		{
 			//bringing down the setting menu
 			clicked = !clicked;
-
 			settings.SetBool("escPressed",clicked);
 			Debug.Log("display settings" + clicked);
 			Save.SetBool("escPressed",clicked);
+		
 		}
+		/*else if (Input.GetAxisRaw("Vertical") == 1){
+			if (axisuse == false){
+				axisuse = true;
+				iterator --;
+				if (iterator < 0){
+					iterator = buttonnames.Count() - 1;
+				}
+				Debug.Log(buttonnames.Count() + "up" + buttonnames[iterator]);
+
+				//GUI.SetNextControlName(buttonnames[iterator]);
+				//GUI.FocusControl(buttonnames[iterator]);
+			}
+		}else if (Input.GetAxisRaw("Vertical") == -1){
+			if (axisuse == false){
+				axisuse = true;
+
+				iterator++;
+				if (iterator >= buttonnames.Count()){
+					iterator = 0;
+				}
+				//GUI.SetNextControlName("level2");
+				//GUI.FocusControl("level2");
+				Debug.Log(buttonnames.Count() + "udown" + buttonnames[iterator]);
+				//GUI.SetNextControlName(buttonnames[iterator]);
+				//GUI.FocusControl(buttonnames[iterator]);
+			}
+		}else if (Input.GetAxisRaw("Vertical") == 0){
+			axisuse = false;
+		}*/
 		//grab the player object
 		player = GameObject.FindGameObjectWithTag("Player");
 		if (player != null){

@@ -2,8 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class PlayerController : MonoBehaviour {
 
+    [System.Serializable]
+    public class GroundComponents
+    {
+        /* this class contains three empty GameObjects, where
+         * they are positioned left, center and right of the player.
+         * Linecasts are used to determine if it is grounded
+         */
+        public GameObject groundLeft;
+        public GameObject groundCenter;
+        public GameObject groundRight;
+    }
+
+    public WeaponManager weaponManager;
+    public GroundComponents groundComponents;
     public float maxSpeed;
     public float health = 5;
     public float invincibilityTime = 1f;
@@ -11,13 +26,12 @@ public class PlayerController : MonoBehaviour {
     public float aimRange;
     //Player's weapon inventory
     public bool gamepadConnected = false;
-    public WeaponManager weaponManager;
-
+    
     private Animator animator;
     private Transform tf;
     private Vector2 direction;
     private GameObject playerSprite;
-    private CircleCollider2D footCollider;
+    //private CircleCollider2D footCollider;
     private BoxCollider2D bodyCollider;
     private GameObject violin;
     private int ignoredPlatformMask;
@@ -39,11 +53,10 @@ public class PlayerController : MonoBehaviour {
         weaponManager = FindObjectOfType<WeaponManager>();
         violin = GameObject.FindGameObjectWithTag("Violin");
         violin.SetActive(false);
-
         ignoredPlatformMask = 1 << LayerMask.NameToLayer("Platform");
         playerSprite = transform.Find("Renee").gameObject;
         animator = GetComponentInChildren<Animator>();
-        footCollider = GetComponent<CircleCollider2D>();
+        //footCollider = GetComponent<CircleCollider2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
 
 	}
@@ -51,6 +64,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        CheckGround();
         Jumping();
         UseWeapon();
         UseMeleeWeapon();
@@ -77,23 +91,31 @@ public class PlayerController : MonoBehaviour {
 		return health;
 	}
 
+    void CheckGround()
+    {
+        int groundLayer = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform");
+        
+        RaycastHit2D right = Physics2D.Linecast(transform.position, groundComponents.groundRight.transform.position, groundLayer);
+        RaycastHit2D left = Physics2D.Linecast(transform.position, groundComponents.groundLeft.transform.position, groundLayer);
+        RaycastHit2D center = Physics2D.Linecast(transform.position, groundComponents.groundCenter.transform.position, groundLayer);
+
+        Debug.DrawLine(transform.position, groundComponents.groundRight.transform.position);
+        Debug.DrawLine(transform.position, groundComponents.groundLeft.transform.position);
+        Debug.DrawLine(transform.position, groundComponents.groundCenter.transform.position);
+
+        if (right || left || center)
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+    }
+
     //checks if foot collider is on the ground
     void OnCollisionEnter2D(Collision2D collision)
     {
-        int groundLayer = LayerMask.NameToLayer("Ground");
-        int platLayer = LayerMask.NameToLayer("Platform");
-        if (collision.gameObject.layer == groundLayer || collision.gameObject.layer == platLayer)
-        {
-            //Determine if it was on the body or the feet
-            ContactPoint2D[] cps = collision.contacts;
-            foreach (ContactPoint2D cp in cps)
-            {
-                if (cp.otherCollider == footCollider)
-                {
-                    grounded = true;
-                }
-            }
-        }
 
         //enemy checking
         int enemyLayer = LayerMask.NameToLayer("Enemy");
@@ -112,26 +134,7 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        int groundLayer = LayerMask.NameToLayer("Ground");
-        int platLayer = LayerMask.NameToLayer("Platform");
-        if (collision.gameObject.layer == groundLayer || collision.gameObject.layer == platLayer)
-        {
-            //Determine if it was on the body or the feet
-            ContactPoint2D[] cps = collision.contacts;
-            foreach (ContactPoint2D cp in cps)
-            {
-                if (cp.otherCollider == footCollider)
-                {
-                    grounded = false;
-                }
-            }
-        }
-
-    }
-
+       
     void UseMeleeWeapon()
     {
         //player does melee attack
