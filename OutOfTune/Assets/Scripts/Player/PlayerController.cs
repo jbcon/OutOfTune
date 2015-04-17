@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour {
 
         //if shaking, stabilize before calculations
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-        camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+        //camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
 
         
 
@@ -168,13 +168,15 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 1;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 100f));
             //if the weapon is a flute, do some camera stuff
-            if (w is Flute)
+            //TODO: improve
+
+
+            /*if (w is Flute)
             {
-                Vector3 mouseRelPos = tf.InverseTransformPoint(mousePos)*aimRange;
+                Vector2 mouseRelPos = tf.InverseTransformPoint(mousePos)*aimRange;
                 Debug.Log(mouseRelPos);
                 camera.transform.localPosition = new Vector3(mouseRelPos.x, mouseRelPos.y, camera.transform.localPosition.z);
             }
@@ -182,6 +184,7 @@ public class PlayerController : MonoBehaviour {
             {
                 camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
             }
+             */
             //localizes mouse position to screen space
            
             Debug.DrawLine(tf.position, mousePos);
