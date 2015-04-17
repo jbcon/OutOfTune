@@ -1,9 +1,21 @@
 fileFormatVersion: 2
 guid: 7c2cb4c92a4778b4a9ad4337fba64e05
-timeCreated: 1427839407
+timeCreated: 1429221468
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Beak_closed
+    21300002: Eye
+    21300004: Head
+    21300006: Front_bowtie
+    21300008: Beak_open
+    21300010: No_clue
+    21300012: Back_bowtie
+    21300014: Body
+    21300016: Baton
+    21300018: Front_arm
+    21300020: Foot
+    21300022: Tail
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +42,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +60,127 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Beak_closed
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 1518
+        width: 66
+        height: 94
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Eye
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 1528
+        width: 109
+        height: 99
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 1182
+        width: 620
+        height: 590
+      alignment: 9
+      pivot: {x: .545498192, y: .0329161547}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Front_bowtie
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 1478
+        width: 511
+        height: 192
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Beak_open
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 1330
+        width: 70
+        height: 94
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: No_clue
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1374
+        width: 155
+        height: 92
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Back_bowtie
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 1052
+        width: 66
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Body
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 182
+        width: 861
+        height: 903
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Baton
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 481
+        width: 209
+        height: 343
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Front_arm
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 575
+        width: 397
+        height: 477
+      alignment: 9
+      pivot: {x: .713278651, y: .897863865}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Foot
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 6
+        width: 468
+        height: 127
+      alignment: 9
+      pivot: {x: .693399549, y: .936807513}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Tail
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 107
+        width: 357
+        height: 239
+      alignment: 9
+      pivot: {x: .172433034, y: .725827932}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

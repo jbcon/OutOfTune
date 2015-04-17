@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0c14e439735313247a893fd9c08d22a7
-timeCreated: 1428865714
+timeCreated: 1429217067
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -58,9 +58,9 @@ TextureImporter:
     - name: Trombone_horn
       rect:
         serializedVersion: 2
-        x: 273
+        x: 270
         y: 1042
-        width: 127
+        width: 133
         height: 169
       alignment: 0
       pivot: {x: .5, y: .5}
