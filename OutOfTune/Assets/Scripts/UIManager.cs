@@ -135,15 +135,32 @@ public class UIManager : MonoBehaviour {
 			loadbutton.SetBool("escPressed",clicked);
 			level2button.SetBool("escPressed",clicked);
 			level3button.SetBool("escPressed",clicked);
+
+			//list all the enemies
+			GameObject[] enemies;
+			enemies = GameObject.FindGameObjectsWithTag("enemy");
+
 			if (clicked){
 				//settings menu set selected menu to the the save button
 				EventSystem tempevent = EventSystem.current;
 				EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(tempevent));
+
+				//disabling all enemies
+				for (int disable = 0; disable < enemies.Count(); disable ++){
+					enemies[disable].GetComponent<GeneralAI>().pausegame();
+				}
+
+
 			}else{
 				//when go back to main menu set the focus back onto the newgame
 				GameObject testbutton2 = GameObject.Find("newgame");
 				EventSystem tempevent = EventSystem.current;
 				EventSystem.current.SetSelectedGameObject(testbutton2, new BaseEventData(tempevent));
+
+				//reenabling all the enemies
+				for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
+					enemies[disable2].GetComponent<GeneralAI>().unpause();
+				}
 			}
 		}
 		//during setting menus make sure that the user can't select anything else other than save

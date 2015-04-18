@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7c2cb4c92a4778b4a9ad4337fba64e05
-timeCreated: 1429221468
+timeCreated: 1429295435
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,7 +9,7 @@ TextureImporter:
     21300004: Head
     21300006: Front_bowtie
     21300008: Beak_open
-    21300010: No_clue
+    21300010: Eye_closed
     21300012: Back_bowtie
     21300014: Body
     21300016: Baton
@@ -111,7 +111,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: No_clue
+    - name: Eye_closed
       rect:
         serializedVersion: 2
         x: 627

@@ -11,10 +11,20 @@ public class GeneralAI {
 	public bool faceright;
 	public float pos_scale;
 	public float speed;
-	public bool stun = false;		//boolean for stunned enemies
+	public bool stunned = false;		//boolean for stunned enemies
+	public bool pause = false;
+	public bool grounded= false;
+	public float jumping = 200f;
+	public Animator animator;
+	public bool jump;
+
+
 	public GeneralAI(){
 		range = 20f;
 		speed = 20f;
+		jump = true;
+
+		//animator = self.GetComponent<Animator>();
 	}
 	public void SetPos(float posx){
 		pos_scale = posx;
@@ -40,8 +50,22 @@ public class GeneralAI {
 		//Debug.Log("jacky" + player.transform.position);
 		return player;
 	}
+
+	public void getstun(){
+		stunned = true;
+	}
+	public void releasestun(){
+		stunned = false;
+	}
+	public void pausegame(){
+		pause = true;
+	}
+	public void unpause(){
+		pause = false;
+	}
+
 	public virtual void Movement(){
-		if (stun == false){
+		if (pause == false || stunned == false){
 			// using the point to determine if the ai is on the left or right side of the player
 			Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
 			if (point.x > 0) {
@@ -66,9 +90,28 @@ public class GeneralAI {
 				self.transform.Translate(Vector3.right * speed * Time.deltaTime);
 			}
 		}
+
 	}
+	void Leap(){
+		if (jump == true) {
+			self.GetComponent<Rigidbody2D>().AddForce (Vector3.up * jumping);
+			//rigidbody2D.AddForce (Vector3.up * jumping);
+		}
+	}
+	//check if grounding box says it's grounded
+	void OnTriggerStay2D(Collider2D collider)
+	{
+		if (collider.gameObject.layer == LayerMask.NameToLayer("Ground")
+		    || collider.gameObject.layer == LayerMask.NameToLayer("Platform"))
+		{
+			grounded = true;
+		}   
+	}
+
+
+
 	public virtual void FireBullet(){
-		if (stun == false){
+		if (pause == false || stunned == false){
 			GameObject b = GameObject.Instantiate(projectile) as GameObject;
 			//assuming the object is facing right 
 			//moving it out of collision zone

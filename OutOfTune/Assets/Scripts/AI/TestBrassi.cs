@@ -19,13 +19,57 @@ public class TestBrassi : MonoBehaviour {
 
 	}
 	void Update(){
+		/*
 		float distance = Vector3.Distance(testing.GetPlayer().transform.position, testing.GetSelf().transform.position);
 		if (distance < testing.GetRange() && testing.GetHealth() > 0f){
 			testing.Movement();
+		}*/
+		//movement animation for the characters
+		float distance = Vector3.Distance(play.transform.position, testing.self.transform.position);
+		
+		//move only if not hurt
+		if (distance < testing.range && !testing.animator.GetBool("Die") && testing.currenthealth.health > 0)
+		{
+			//animator.SetBool("Walking", true);
+			//animator.SetBool("Idle", false);
+			testing.Movement();
+		}
+		else
+		{
+			//animator.SetBool("Walking", false);
+			//animator.SetBool("Idle", true);
+			Debug.Log ("idle");
 		}
 	}
 	public void FireBullet(){
 		testing.FireBullet();
+	}
+	void OnReceiveDamage(float dmg)
+	{        
+		if (!testing.stunned)
+		{
+			testing.currenthealth.health -= dmg;
+			if (testing.currenthealth.health > 0)
+			{
+				StartCoroutine(Stun());
+				Debug.Log("AI script received damage");
+			}
+		}
+	}
+	
+	IEnumerator Stun()
+	{
+		testing.animator.SetTrigger("Stun");
+		testing.stunned = true;
+		if (!testing.grounded)
+		{
+			yield return new WaitForEndOfFrame();
+		}
+		else
+		{
+			yield return new WaitForSeconds(0.5f);
+		}
+		testing.stunned = false;
 	}
 }
 [System.Serializable]

@@ -26,7 +26,6 @@ public class Health : MonoBehaviour {
             StartCoroutine("Die");
         }
     }
-
     private IEnumerator Die()
     {
         if (animator)
