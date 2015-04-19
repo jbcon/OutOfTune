@@ -22,7 +22,13 @@ public class CameraManager : MonoBehaviour {
 	void Update () {
 
         //change target based on direction
-        
+
+        if (pController.facingRight != currentDirection)
+        {
+            t = 0;
+            u = 0;
+        }
+
         if (pController.facingRight)
         {
             target = player.transform.position + new Vector3(targetRange.x, 0.0f);
@@ -36,7 +42,7 @@ public class CameraManager : MonoBehaviour {
 
         if (transform.position != target)
         {
-            Debug.Log("T = " + t + " U = " + u);
+            Debug.Log("Distance to target: " + (target - transform.position));
             if (transform.position.x != target.x)
                 t += Time.deltaTime / 20f;
             else
@@ -46,8 +52,8 @@ public class CameraManager : MonoBehaviour {
             else
                 u = 0;
             Vector2 newPos = new Vector2(
-                Mathf.SmoothStep(transform.position.x, target.x, t),
-                Mathf.SmoothStep(transform.position.y, target.y, u));
+                Mathf.Lerp(transform.position.x, target.x, t),
+                Mathf.Lerp(transform.position.y, target.y, u));
             transform.position = newPos;
         }
         else
@@ -55,6 +61,8 @@ public class CameraManager : MonoBehaviour {
             t = 0;
             u = 0;
         }
+        Debug.Log("T = " + t + " U = " + u);
+
 
 
         /*
