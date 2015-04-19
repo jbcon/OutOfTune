@@ -38,13 +38,22 @@ public class CameraManager : MonoBehaviour {
         {
             Debug.Log("T = " + t + " U = " + u);
             if (transform.position.x != target.x)
-                t += Time.deltaTime/20f;
+                t += Time.deltaTime / 20f;
+            else
+                t = 0;
             if (transform.position.y != target.y)
-                u += Time.deltaTime/20f;
+                u += Time.deltaTime / 20f;
+            else
+                u = 0;
             Vector2 newPos = new Vector2(
                 Mathf.SmoothStep(transform.position.x, target.x, t),
                 Mathf.SmoothStep(transform.position.y, target.y, u));
             transform.position = newPos;
+        }
+        else
+        {
+            t = 0;
+            u = 0;
         }
 
 
