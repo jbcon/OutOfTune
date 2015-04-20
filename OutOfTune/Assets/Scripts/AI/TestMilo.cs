@@ -6,12 +6,16 @@ public class TestMilo : MonoBehaviour {
 	public GameObject projectile;
 	public float range;
 	public bool fire;
+	TestMiloAI testing = new TestMiloAI();
 	//Immboile doesn't move just shooots
 	// Use this for initialization
 	void Start () {
 		fire = false;
 		range = 50f;
 		player = GameObject.FindGameObjectWithTag ("Player");
+		testing.SetPos(gameObject.transform.localScale.x);
+		testing.CreateBasicStats(gameObject,projectile);
+		testing.SetPlayer(player);
 	}
 	IEnumerator MiloFire(){
 		while (fire == true){
@@ -48,6 +52,37 @@ public class TestMilo : MonoBehaviour {
 			//Debug.Log("safd");
 			//StopCoroutine("MiloFire");
 		}
+	}
+	public void FireBullet(){
+		testing.FireBullet();
+	}
+	void OnReceiveDamage(float dmg)
+	{        
+		if (!testing.stunned)
+		{
+			testing.currenthealth.health -= dmg;
+			if (testing.currenthealth.health > 0)
+			{
+				StartCoroutine(Stun());
+				Debug.Log("AI Brassi script received damage");
+			}
+		}
+	}
+	
+	IEnumerator Stun()
+	{
+		
+		//testing.animator.SetTrigger("Stun");
+		testing.stunned = true;
+		if (!testing.grounded)
+		{
+			yield return new WaitForEndOfFrame();
+		}
+		else
+		{
+			yield return new WaitForSeconds(0.5f);
+		}
+		testing.stunned = false;
 	}
 }
 [System.Serializable]

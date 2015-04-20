@@ -20,7 +20,7 @@ public class GeneralAI {
 
 
 	public GeneralAI(){
-		range = 20f;
+		range = 40f;
 		speed = 20f;
 		jump = true;
 

@@ -33,6 +33,7 @@ public class TestBrassi : MonoBehaviour {
 			//animator.SetBool("Walking", true);
 			//animator.SetBool("Idle", false);
 			testing.Movement();
+			Debug.Log ("moving");
 		}
 		else
 		{
@@ -52,14 +53,15 @@ public class TestBrassi : MonoBehaviour {
 			if (testing.currenthealth.health > 0)
 			{
 				StartCoroutine(Stun());
-				Debug.Log("AI script received damage");
+				Debug.Log("AI Brassi script received damage");
 			}
 		}
 	}
 	
 	IEnumerator Stun()
 	{
-		testing.animator.SetTrigger("Stun");
+
+		//testing.animator.SetTrigger("Stun");
 		testing.stunned = true;
 		if (!testing.grounded)
 		{

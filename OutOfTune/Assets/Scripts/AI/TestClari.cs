@@ -44,6 +44,34 @@ public class TestClari : MonoBehaviour {
 	public void FireBullet(){
 		testing.FireBullet();
 	}
+	void OnReceiveDamage(float dmg)
+	{        
+		if (!testing.stunned)
+		{
+			testing.currenthealth.health -= dmg;
+			if (testing.currenthealth.health > 0)
+			{
+				StartCoroutine(Stun());
+				Debug.Log("AI Brassi script received damage");
+			}
+		}
+	}
+	
+	IEnumerator Stun()
+	{
+		
+		//testing.animator.SetTrigger("Stun");
+		testing.stunned = true;
+		if (!testing.grounded)
+		{
+			yield return new WaitForEndOfFrame();
+		}
+		else
+		{
+			yield return new WaitForSeconds(0.5f);
+		}
+		testing.stunned = false;
+	}
 }
 [System.Serializable]
 public class TestClariAI : GeneralAI{
