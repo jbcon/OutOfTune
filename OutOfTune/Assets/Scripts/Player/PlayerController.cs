@@ -141,7 +141,6 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             animator.SetTrigger("Attacking");
-            attacking = true;
         }
         violin.SetActive(attacking);
     }
@@ -202,6 +201,7 @@ public class PlayerController : MonoBehaviour {
         if (!attacking)
         {
 
+            //flip to face mouse cursor
             if (!facingRight)
             {
                 weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
@@ -213,6 +213,26 @@ public class PlayerController : MonoBehaviour {
                 playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
 
             }
+
+            float clampedAngle;
+            //aim the weapon by scrubbing the aim animation
+            //maps from -80 to 80?
+            if (theta <= 90 && theta >= -90)
+            {
+                clampedAngle = Mathf.Clamp(theta, -80f, 80f);
+
+            }
+            else
+            {
+                clampedAngle = Mathf.Abs(Mathf.Clamp(theta - 180f, -80f, 80f));
+            }
+            clampedAngle = clampedAngle * 2 / 160f;
+
+            animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
+
+            Debug.Log("Testing scrubbing: " + clampedAngle);
+
+
         }
 
         float analogFire = Input.GetAxisRaw("AnalogFire");
