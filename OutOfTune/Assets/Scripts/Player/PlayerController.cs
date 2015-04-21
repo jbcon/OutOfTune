@@ -69,7 +69,8 @@ public class PlayerController : MonoBehaviour {
     {
         CheckGround();
         Jumping();
-        UseWeapon();
+        if (!attacking)
+            UseWeapon();
         UseMeleeWeapon();
 	}
 
@@ -143,7 +144,7 @@ public class PlayerController : MonoBehaviour {
         //player does melee attack
         if (Input.GetButtonDown("Fire2"))
         {
-            animator.SetTrigger("Attacking");
+            animator.Play("Renee_Upper_Attack_Melee_Start");
         }
         violin.SetActive(attacking);
     }
@@ -203,7 +204,7 @@ public class PlayerController : MonoBehaviour {
         //change direction of weapon
         if (!attacking)
         {
-
+            weaponManager.gameObject.SetActive(true);
             //flip to face mouse cursor
             if (!facingRight)
             {
@@ -233,18 +234,17 @@ public class PlayerController : MonoBehaviour {
             else
             {
                 clampedAngle = 90- (theta - 90);
-                Debug.Log("It's coming out as " + clampedAngle);
                 clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
             }
 
             clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
-            Debug.Log("Theta: " + theta);
 
             animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
 
-            Debug.Log("Testing scrubbing: " + clampedAngle);
-
-
+        }
+        else
+        {
+            weaponManager.gameObject.SetActive(false);
         }
 
         float analogFire = Input.GetAxisRaw("AnalogFire");
