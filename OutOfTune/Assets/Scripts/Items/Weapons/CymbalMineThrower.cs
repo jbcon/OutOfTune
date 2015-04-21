@@ -17,11 +17,11 @@ public class CymbalMineThrower : Weapon
         projectile = proj;
     }
 
-    public override void Fire(Vector2 direction, Transform transform)
+    public override void Fire(Transform transform)
     {
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
         b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
-        b.GetComponent<Rigidbody2D>().AddForce(direction * weaponForce, ForceMode2D.Impulse);
+        b.GetComponent<Rigidbody2D>().AddForce(transform.right * weaponForce, ForceMode2D.Impulse);
         if (spin)
             b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100f, 100f));
 

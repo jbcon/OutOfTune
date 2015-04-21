@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour {
 
     private bool firingAxisInUse = false;
 
+    //max angle of aim rotation
+    public float rotationRange = 80f;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -204,12 +207,12 @@ public class PlayerController : MonoBehaviour {
             //flip to face mouse cursor
             if (!facingRight)
             {
-                weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
+                //weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
                 playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             else
             {
-                weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
+                //weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
                 playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
 
             }
@@ -219,14 +222,23 @@ public class PlayerController : MonoBehaviour {
             //maps from -80 to 80?
             if (theta <= 90 && theta >= -90)
             {
-                clampedAngle = Mathf.Clamp(theta, -80f, 80f);
+                clampedAngle = Mathf.Clamp(theta, -rotationRange, rotationRange);
 
+            }
+            else if (theta >= -180 && theta < 0)
+            {
+                clampedAngle = -90+(-theta - 90);
+                clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
             }
             else
             {
-                clampedAngle = Mathf.Abs(Mathf.Clamp(theta - 180f, -80f, 80f));
+                clampedAngle = 90- (theta - 90);
+                Debug.Log("It's coming out as " + clampedAngle);
+                clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
             }
-            clampedAngle = clampedAngle * 2 / 160f;
+
+            clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
+            Debug.Log("Theta: " + theta);
 
             animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
 
@@ -243,12 +255,12 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetButton("Fire1"))
             {
-                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
+                weaponManager.FireCurrentWeapon(weaponManager.transform);
             }
             //if the controller input is firing
             else if (analogFire < 0)
             {
-                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
+                weaponManager.FireCurrentWeapon(weaponManager.transform);
             }
         }
         //semi-auto weapon
@@ -259,7 +271,7 @@ public class PlayerController : MonoBehaviour {
                 //check if melee or projectile weapon
                 //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
                 //if it is a projectile weapon
-                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
+                weaponManager.FireCurrentWeapon(weaponManager.transform);
                 //if it is a melee weapon
                 /*else if (m)
                 {
@@ -269,7 +281,7 @@ public class PlayerController : MonoBehaviour {
             else if (analogFire < 0 && !firingAxisInUse)
             {
                 Debug.Log("Right");
-                weaponManager.FireCurrentWeapon(direction, weaponManager.transform);
+                weaponManager.FireCurrentWeapon(weaponManager.transform);
                 firingAxisInUse = true;
             }
             

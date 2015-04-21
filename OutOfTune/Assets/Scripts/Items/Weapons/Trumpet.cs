@@ -16,9 +16,9 @@ public class Trumpet : Weapon {
         spin = true;
     }
 
-    public override void Fire(Vector2 direction, Transform transform)
+    public override void Fire(Transform transform)
     {
-        base.Fire(direction, transform);
+        base.Fire(transform);
         if (shakyCam)
         {
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");

@@ -13,7 +13,7 @@ public class Tuba : Weapon {
         projectile = proj;
     }
 
-    public override void Fire(Vector2 direction, Transform tf)
+    public override void Fire(Transform tf)
     {
         //sends out a shockwave that expands at the rate of bulletForce
         //possibly use (S)LERP and an expanding collider (probably a BoxCollider2D)

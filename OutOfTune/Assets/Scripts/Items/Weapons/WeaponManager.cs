@@ -15,7 +15,7 @@ public class Weapon
 
     public bool canFire = true;
 
-    public virtual void Fire(Vector2 direction, Transform transform)
+    public virtual void Fire(Transform transform)
     {
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
         b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
@@ -24,7 +24,7 @@ public class Weapon
         float spreadModifier = Random.Range(-bulletSpread, bulletSpread);
 
         //rotates direction by amount of spread
-        Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, spreadModifier) * direction;
+        Vector3 spreadVector = Quaternion.Euler(0.0f, 0.0f, spreadModifier) * transform.right;
         
         b.GetComponent<Rigidbody2D>().AddForce(spreadVector * weaponForce, ForceMode2D.Impulse);
         b.transform.rotation = Quaternion.LookRotation(Vector3.forward, 
@@ -109,13 +109,13 @@ public class WeaponManager : MonoBehaviour {
         }
     }
 
-    public void FireCurrentWeapon(Vector2 direction, bool spin)
+    public void FireCurrentWeapon(bool spin)
     {
-        transform.LookAt(transform.position, direction);
+        //transform.LookAt(transform.position, direction);
 
         if (currentWeapon.canFire)
         {
-            currentWeapon.Fire(direction, transform);
+            currentWeapon.Fire(transform);
             StartCoroutine(currentWeapon.Cooldown());
         }
 
