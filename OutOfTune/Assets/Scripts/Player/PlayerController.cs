@@ -240,6 +240,10 @@ public class PlayerController : MonoBehaviour {
             clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
             Debug.Log(clampedAngle);
 
+            //for some reason it loops, need to subtract a bit to make it work
+            if (clampedAngle == 1)
+                clampedAngle = .999999f;
+
             animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
 
         }
