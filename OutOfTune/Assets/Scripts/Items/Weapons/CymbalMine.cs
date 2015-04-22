@@ -19,6 +19,8 @@ public class CymbalMine : MonoBehaviour
             collision.rigidbody.AddForce(Vector2.up * launchForce, ForceMode2D.Impulse);
             AudioSource source = GetComponent<AudioSource>();
             source.PlayOneShot(source.clip);
+
+            //destroy all the components so the clip finishes playing
             Destroy(gameObject.GetComponent<SpriteRenderer>());
             Destroy(gameObject.GetComponent<Rigidbody2D>());
             Destroy(gameObject.GetComponent<BoxCollider2D>());
