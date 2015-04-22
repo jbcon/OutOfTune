@@ -18,7 +18,7 @@ public class Tuba : Weapon {
         //sends out a shockwave that expands at the rate of bulletForce
         //possibly use (S)LERP and an expanding collider (probably a BoxCollider2D)
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
-        b.transform.localPosition = tf.parent.transform.position;
+        b.transform.localPosition = tf.transform.position;
     }
 	
 }
