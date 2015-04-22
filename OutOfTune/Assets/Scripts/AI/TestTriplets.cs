@@ -74,6 +74,6 @@ public class TestTriplets : MonoBehaviour {
 public class TestTripletsAI : GeneralAI{
 	public TestTripletsAI(){
 		range = 200f;
-		speed = 10f;
+		speed = 40f;
 	}
 }
