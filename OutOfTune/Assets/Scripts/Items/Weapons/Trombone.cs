@@ -16,14 +16,14 @@ public class Trombone : Weapon {
         projectile = proj;
     }
 
-    public override void Fire(Transform transform)
+    public override void Fire(Transform transform, AudioClip[] clipArray, AudioSource audioSource)
     {
         /* has three projectiles
          * each projectile has a different bullet spread range
          */
         for (int i = 0; i < numProjectiles; i++)
         {
-            base.Fire(transform);
+            base.Fire(transform, clipArray, audioSource);
         }
     }
 	

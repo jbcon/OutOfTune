@@ -15,7 +15,7 @@ public class Weapon
 
     public bool canFire = true;
 
-    public virtual void Fire(Transform transform)
+    public virtual void Fire(Transform transform, AudioClip[] clipArray, AudioSource audioSource)
     {
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
         GameObject reticle = GameObject.FindGameObjectWithTag("Reticle");
@@ -32,6 +32,10 @@ public class Weapon
                                 Quaternion.Euler(0f, 0f, 90f) * spreadVector);
         if (spin)
             b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
+
+        //play sound
+        int clipIndex = Random.Range(0, 2);
+        audioSource.PlayOneShot(clipArray[clipIndex]);
     }
 
     public IEnumerator Cooldown()
@@ -52,10 +56,25 @@ public class WeaponManager : MonoBehaviour {
     public Sprite[] sprites = new Sprite[10];
     private SpriteRenderer renderer;
 
+    /* SOUND EFFECTS
+     * these vary by level
+     * */
+
+    public AudioClip[] trumpetClips = new AudioClip[3];
+    public AudioClip[] tromboneClips = new AudioClip[3];
+    public AudioClip[] cymbalClips = new AudioClip[3];
+    public AudioClip[] tubaClips = new AudioClip[3];
+    public AudioClip[] fluteClips = new AudioClip[3];
+
+    private AudioClip[] currentClipArray;
+
+    private AudioSource audioSource;
+
 	// Use this for initialization
 	void Start ()
     {
         renderer = GetComponentInChildren<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         weapons.Add(new Trumpet(projectiles[0]));
         weapons.Add(new Trombone(projectiles[1]));
         weapons.Add(new CymbalMineThrower(projectiles[2]));
@@ -64,7 +83,7 @@ public class WeaponManager : MonoBehaviour {
         currentWeapon = weapons[0];
         renderer.sprite = sprites[0];
 		weaponname = "bigtrumpet";
-        
+        currentClipArray = trumpetClips;
 	}
 
     void Update()
@@ -80,6 +99,7 @@ public class WeaponManager : MonoBehaviour {
             currentWeapon = weapons[0];
             renderer.sprite = sprites[0];
 			weaponname = "bigtrumpet";		//everytime change weapon must also change the name of the selected weapon
+            currentClipArray = trumpetClips;
         }
         if (Input.GetButtonDown("Weapon2"))
         {
@@ -87,12 +107,14 @@ public class WeaponManager : MonoBehaviour {
             currentWeapon = weapons[1];
             renderer.sprite = sprites[1];
 			weaponname = "trombone";
+            currentClipArray = tromboneClips;
         }
         if (Input.GetButtonDown("Weapon3"))
         {
             Debug.Log("Weapon Switch: 3");
             currentWeapon = weapons[2];
             renderer.sprite = sprites[2];
+            currentClipArray = cymbalClips;
         }
         if (Input.GetButtonDown("Weapon4"))
         {
@@ -100,6 +122,7 @@ public class WeaponManager : MonoBehaviour {
             currentWeapon = weapons[3];
             renderer.sprite = sprites[3];
 			weaponname = "tuba";			//tuba weapon must change the name of the selected weapon
+            currentClipArray = tubaClips;
         }
         if (Input.GetButtonDown("Weapon5"))
         {
@@ -107,16 +130,15 @@ public class WeaponManager : MonoBehaviour {
             currentWeapon = weapons[4];
             renderer.sprite = sprites[4];
 			weaponname = "flute";
+            currentClipArray = fluteClips;
         }
     }
 
     public void FireCurrentWeapon(bool spin)
     {
-        //transform.LookAt(transform.position, direction);
-
         if (currentWeapon.canFire)
         {
-            currentWeapon.Fire(transform);
+            currentWeapon.Fire(transform, currentClipArray, audioSource);
             StartCoroutine(currentWeapon.Cooldown());
         }
 

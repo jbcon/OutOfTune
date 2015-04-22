@@ -10,15 +10,15 @@ public class Trumpet : Weapon {
     {
         weaponType = WeaponType.FullAuto;
         projectile = proj;
-        cooldown = 0.01f;
+        cooldown = 0.1f;
         weaponForce = 10f;
         bulletSpread = 10f;
         spin = true;
     }
 
-    public override void Fire(Transform transform)
+    public override void Fire(Transform transform, AudioClip[] clipArray, AudioSource audioSource)
     {
-        base.Fire(transform);
+        base.Fire(transform, clipArray, audioSource);
         if (shakyCam)
         {
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");

@@ -17,12 +17,19 @@ public class CymbalMine : MonoBehaviour
             //Debug.Log("HIT!");
             collision.gameObject.GetComponent<Health>().Defend(damage);
             collision.rigidbody.AddForce(Vector2.up * launchForce, ForceMode2D.Impulse);
-            Destroy(gameObject);
+            AudioSource source = GetComponent<AudioSource>();
+            source.PlayOneShot(source.clip);
+            Destroy(gameObject.GetComponent<SpriteRenderer>());
+            Destroy(gameObject.GetComponent<Rigidbody2D>());
+            Destroy(gameObject.GetComponent<BoxCollider2D>());
+            Destroy(gameObject, source.clip.length);
+
         }
         if (collision.gameObject.layer == groundLayer)
         {
             //Debug.Log("Mine placed on ground");
         }
+        
     }
 
 }

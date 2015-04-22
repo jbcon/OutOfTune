@@ -17,7 +17,7 @@ public class CymbalMineThrower : Weapon
         projectile = proj;
     }
 
-    public override void Fire(Transform transform)
+    public override void Fire(Transform transform, AudioClip[] clipArray, AudioSource audioSource)
     {
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
         b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
@@ -54,6 +54,7 @@ public class CymbalMineThrower : Weapon
             }
         }
         mines.AddLast(b);
+        audioSource.PlayOneShot(clipArray[0]);
 
     }
 

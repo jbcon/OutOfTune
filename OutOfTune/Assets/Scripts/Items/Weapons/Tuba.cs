@@ -13,12 +13,15 @@ public class Tuba : Weapon {
         projectile = proj;
     }
 
-    public override void Fire(Transform tf)
+    public override void Fire(Transform transform, AudioClip[] clipArray, AudioSource audioSource)
     {
         //sends out a shockwave that expands at the rate of bulletForce
         //possibly use (S)LERP and an expanding collider (probably a BoxCollider2D)
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
-        b.transform.localPosition = tf.transform.position;
+        b.transform.localPosition = transform.transform.position;
+        //play sound
+        int clipIndex = Random.Range(0, 2);
+        audioSource.PlayOneShot(clipArray[clipIndex]);
     }
 	
 }
