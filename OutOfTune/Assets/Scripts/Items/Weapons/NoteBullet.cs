@@ -16,6 +16,7 @@ public class NoteBullet : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
 		int enemyLayer;
+		int statuelayer = LayerMask.NameToLayer("statue");
 		//enemy layer
 		if (gameObject.layer == 13){
 			enemyLayer = LayerMask.NameToLayer("Player");
@@ -27,7 +28,10 @@ public class NoteBullet : MonoBehaviour {
         {
             Debug.Log("HIT!");
             collision.gameObject.GetComponent<Health>().Defend(damage);
-        }
+        }else if (collision.gameObject.layer == statuelayer){
+			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
+			Debug.Log ("histting");
+		}
         Destroy(gameObject);
     }
 
