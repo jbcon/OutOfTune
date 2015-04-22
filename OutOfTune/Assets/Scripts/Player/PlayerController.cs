@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             animator.Play("Renee_Upper_Attack_Melee_Start");
+            
         }
         violin.SetActive(attacking);
     }

@@ -34,7 +34,7 @@ public class Weapon
             b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
 
         //play sound
-        int clipIndex = Random.Range(0, 2);
+        int clipIndex = Random.Range(0, 3);
         audioSource.PlayOneShot(clipArray[clipIndex]);
     }
 
