@@ -1,9 +1,18 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 1052e80f04f467a4aa7d48f5fd14d817
 timeCreated: 1429666388
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
+=======
+guid: 769b36361a353fd4594fe7d4abb733d6
+timeCreated: 1429664122
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: MusicFlyer
+>>>>>>> origin/master
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +39,22 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
+<<<<<<< HEAD
     aniso: -1
+=======
+    aniso: 16
+>>>>>>> origin/master
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+<<<<<<< HEAD
   spriteMode: 1
+=======
+  spriteMode: 2
+>>>>>>> origin/master
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +65,21 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+<<<<<<< HEAD
     sprites: []
+=======
+    sprites:
+    - name: MusicFlyer
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: .542578995, y: .988240182}
+      border: {x: 0, y: 0, z: 0, w: 0}
+>>>>>>> origin/master
   spritePackingTag: 
   userData: 
   assetBundleName: 
