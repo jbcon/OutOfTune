@@ -50,8 +50,8 @@ public class SaveLoad: MonoBehaviour{
 			health = playervalues.health;
 			theplayer.health = playervalues.health;
 			theplayer.level = playervalues.level;
-			Debug.Log(" level " +playervalues.level);
-			Debug.Log("healhe " + playervalues.health);
+			Debug.Log("level " +playervalues.level);
+			Debug.Log("healh " + playervalues.health);
 			stream.Close();
 			//loading the necessary files
 			switch(level){

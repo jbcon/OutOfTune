@@ -37,8 +37,8 @@ public class ConductorV2 : MonoBehaviour {
 	// getting the list of AI that correspond to it
 	public GameObject[] BrassyObj;
 	void Start () {
-		audio = gameObject.GetComponent<AudioSource>();
-		audio.PlayDelayed(1);
+		//audio = gameObject.GetComponent<AudioSource>();
+		//audio.PlayDelayed(1);
 		currTime = 0;
 		beatsPerSecond = beatsPerMinute / 60.0f;
 		secondsPerBeat = 1 / beatsPerSecond;
@@ -98,8 +98,13 @@ public class ConductorV2 : MonoBehaviour {
 			nextTime +=interval;
 			foreach (GameObject BrassyAiObj in BrassyObj){
 				//Debug.Log("asd");
-				if (BrassyAiObj != null)
-					BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
+				if (BrassyAiObj != null){
+					if (!BrassyAiObj.gameObject.GetComponent<TestBrassi>().testing.stunned){
+						BrassyAiObj.gameObject.BroadcastMessage("FireBullet");
+					}else{
+						Debug.Log ("should be stunned");
+					}
+				}
 			}
 			yield return new WaitForSeconds(nextTime - Time.time); //asd
 			CurrentStep ++;

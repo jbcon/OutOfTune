@@ -44,6 +44,9 @@ public class TestMilo : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
+		if (!testing.stunned){
+			StopCoroutine("MiloFire");
+		}
 		if ( distance < range && fire == false){
 			fire = true;
 			StartCoroutine("MiloFire");
