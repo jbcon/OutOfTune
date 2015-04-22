@@ -1,22 +1,14 @@
 fileFormatVersion: 2
-guid: b4cb9ede5c7258b459c173d79e9d9f87
-timeCreated: 1429666181
+<<<<<<< HEAD
+guid: 15fe98e119722824da7f6b1ecfa5fecf
+timeCreated: 1429666389
+=======
+guid: 659346c369de847468efc11f71ebc461
+timeCreated: 1429663915
+>>>>>>> origin/master
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ReneeStatue Sprite sheet_0
-    21300002: ReneeStatue Sprite sheet_1
-    21300004: ReneeStatue Sprite sheet_2
-    21300006: ReneeStatue Sprite sheet_3
-    21300008: ReneeStatue Sprite sheet_4
-    21300010: ReneeStatue Sprite sheet_5
-    21300012: ReneeStatue Sprite sheet_6
-    21300014: ReneeStatue Sprite sheet_7
-    21300016: ReneeStatue Sprite sheet_8
-    21300018: ReneeStatue Sprite sheet_9
-    21300020: ReneeStatue Sprite sheet_10
-    21300022: ReneeStatue Sprite sheet_11
-    21300024: ReneeStatue Sprite sheet_12
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -43,14 +35,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -61,137 +53,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: ReneeStatue Sprite sheet_0
-      rect:
-        serializedVersion: 2
-        x: 236
-        y: 941
-        width: 211
-        height: 214
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_1
-      rect:
-        serializedVersion: 2
-        x: 476
-        y: 965
-        width: 132
-        height: 179
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_2
-      rect:
-        serializedVersion: 2
-        x: 86
-        y: 965
-        width: 77
-        height: 138
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_3
-      rect:
-        serializedVersion: 2
-        x: 145
-        y: 789
-        width: 141
-        height: 108
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_4
-      rect:
-        serializedVersion: 2
-        x: 464
-        y: 648
-        width: 197
-        height: 290
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_5
-      rect:
-        serializedVersion: 2
-        x: 577
-        y: 401
-        width: 163
-        height: 206
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_6
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 582
-        width: 143
-        height: 160
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_7
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 543
-        width: 203
-        height: 209
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_8
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 302
-        width: 214
-        height: 187
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_9
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 300
-        width: 243
-        height: 246
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_10
-      rect:
-        serializedVersion: 2
-        x: 590
-        y: 245
-        width: 89
-        height: 124
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_11
-      rect:
-        serializedVersion: 2
-        x: 113
-        y: 29
-        width: 617
-        height: 184
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ReneeStatue Sprite sheet_12
-      rect:
-        serializedVersion: 2
-        x: 356
-        y: 213
-        width: 129
-        height: 56
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
