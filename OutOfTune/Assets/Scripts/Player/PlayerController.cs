@@ -238,6 +238,7 @@ public class PlayerController : MonoBehaviour {
             }
 
             clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
+            Debug.Log(clampedAngle);
 
             animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
 
@@ -280,7 +281,6 @@ public class PlayerController : MonoBehaviour {
             }
             else if (analogFire < 0 && !firingAxisInUse)
             {
-                Debug.Log("Right");
                 weaponManager.FireCurrentWeapon(weaponManager.transform);
                 firingAxisInUse = true;
             }
@@ -327,11 +327,13 @@ public class PlayerController : MonoBehaviour {
             
 			gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             numJumps++;
+            animator.SetTrigger("Jump");
         }
 
         //put afterwards to allow only one jump in midair
         if (grounded) numJumps = 0;
-
+        animator.SetBool("Grounded", grounded);
+        animator.SetFloat("Yvel", gameObject.GetComponent<Rigidbody2D>().velocity.y);
     }
 
     private IEnumerator Invincibility()

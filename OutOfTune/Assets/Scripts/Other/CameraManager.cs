@@ -42,7 +42,6 @@ public class CameraManager : MonoBehaviour {
 
         if (transform.position != target)
         {
-            Debug.Log("Distance to target: " + (target - transform.position));
             if (transform.position.x != target.x)
                 t += Time.deltaTime / 20f;
             else
@@ -61,7 +60,6 @@ public class CameraManager : MonoBehaviour {
             t = 0;
             u = 0;
         }
-        Debug.Log("T = " + t + " U = " + u);
 
 
 

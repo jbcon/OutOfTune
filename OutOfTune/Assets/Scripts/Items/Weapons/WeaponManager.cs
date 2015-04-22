@@ -18,7 +18,8 @@ public class Weapon
     public virtual void Fire(Transform transform)
     {
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
-        b.transform.position = GameObject.FindWithTag("Reticle").transform.position;
+        GameObject reticle = GameObject.FindGameObjectWithTag("Reticle");
+        b.transform.position = reticle.transform.position;
         
         //treat it as an angle
         float spreadModifier = Random.Range(-bulletSpread, bulletSpread);
