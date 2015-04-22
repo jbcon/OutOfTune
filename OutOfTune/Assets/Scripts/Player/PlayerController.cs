@@ -236,9 +236,9 @@ public class PlayerController : MonoBehaviour {
                 clampedAngle = 90- (theta - 90);
                 clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
             }
+            Debug.Log(clampedAngle);
 
             clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
-            Debug.Log(clampedAngle);
 
             //for some reason it loops, need to subtract a bit to make it work
             if (clampedAngle == 1)
