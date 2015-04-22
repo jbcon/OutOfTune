@@ -82,15 +82,15 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void StartGame(){
-		Application.LoadLevel("Level 1_alpha");
+		Application.LoadLevel("Level 1");
 		loadUI ();
 	}
 	public void LoadLevel2(){
-		Application.LoadLevel("Level 2_alpha");
+		Application.LoadLevel("Level 2");
 		loadUI ();
 	}
 	public void LoadLevel3(){
-		Application.LoadLevel("Level 3_alpha");
+		Application.LoadLevel("Level 3");
 		loadUI ();
 	}
 	void checkinghealth(float playerhealth){

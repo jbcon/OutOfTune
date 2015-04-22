@@ -5,6 +5,7 @@ public class TestTriplets : MonoBehaviour {
 	public GameObject player;
 	public GameObject projectile;
 	private bool moving;
+	Animator animator;
 	TestTripletsAI testing = new TestTripletsAI();
 	// Use this for initialization
 	void Start () {
@@ -13,6 +14,7 @@ public class TestTriplets : MonoBehaviour {
 		testing.CreateBasicStats(gameObject,projectile);
 		testing.SetPlayer(player);
 		moving= false;
+		animator = GetComponentInChildren<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -23,6 +25,7 @@ public class TestTriplets : MonoBehaviour {
 		//Debug.Log(distance+"sdf"+testing.range);
 		//moving left off the platform basically
 		if (distance < testing.range || moving == true){
+			animator.SetBool("Sliding",true);
 			if (player.GetComponent<PlayerController>().grounded ){
 				testing.faceright = true;
 				gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
@@ -70,7 +73,7 @@ public class TestTriplets : MonoBehaviour {
 [System.Serializable]
 public class TestTripletsAI : GeneralAI{
 	public TestTripletsAI(){
-		range = 40f;
+		range = 200f;
 		speed = 10f;
 	}
 }
