@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponentInChildren<Animator>();
         //footCollider = GetComponent<CircleCollider2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
+		checkpointpos = gameObject.transform.position;
 
 	}
 	
@@ -80,10 +81,11 @@ public class PlayerController : MonoBehaviour {
     }
 	void OnLevelWasLoaded(int level){
 		//when level is loaded save the objects position
-		checkpointpos = gameObject.transform.position;
+		checkpointpos = gameObject.transform.localPosition;
 	}
 	void loadCheckpoint(){
 		//moving player to save checkpoint location
+		health = 5;
 		gameObject.transform.position = checkpointpos;
 	}
 	public void newcheckpoint(){

@@ -20,10 +20,14 @@ public class UIManager : MonoBehaviour {
 	private GameObject health;							//Going to be the canvas GUI object that will stay throughout the levels
 	private PlayerController playerobj;					//Grabing the player object to access variables off of it
 	private Image weaponimg;							//temp variable for the weapon image
+	private bool uihide;
+	private GameObject[] enemies;
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
 	public void Start(){
+
+		uihide = false;
 		settings.enabled = true;
 		Save.enabled = true;
 		buttonnames.Add("newgame");
@@ -82,14 +86,17 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void StartGame(){
+		uihide = true;
 		Application.LoadLevel("Level 1");
 		loadUI ();
 	}
 	public void LoadLevel2(){
+		uihide = true;
 		Application.LoadLevel("Level 2");
 		loadUI ();
 	}
 	public void LoadLevel3(){
+		uihide = true;
 		Application.LoadLevel("Level 3");
 		loadUI ();
 	}
@@ -126,41 +133,47 @@ public class UIManager : MonoBehaviour {
 			//bringing down the setting menu
 			clicked = !clicked;
 			settings.SetBool("escPressed",clicked);
+			Save.SetBool("escPressed",clicked);
 			//Debug.Log("display settings" + clicked);
 
 			//when opening settings run the animations for setting
 			//and move the menu buttons out of the ways
-			Save.SetBool("escPressed",clicked);
-			newgamebutton.SetBool("escPressed",clicked);
-			loadbutton.SetBool("escPressed",clicked);
-			level2button.SetBool("escPressed",clicked);
-			level3button.SetBool("escPressed",clicked);
+			if (uihide == false){
+				newgamebutton.SetBool("escPressed",clicked);
+				loadbutton.SetBool("escPressed",clicked);
+				level2button.SetBool("escPressed",clicked);
+				level3button.SetBool("escPressed",clicked);
+			}else{
+				//list all the enemies
 
-			//list all the enemies
-			GameObject[] enemies;
-			enemies = GameObject.FindGameObjectsWithTag("enemy");
+				enemies = GameObject.FindGameObjectsWithTag("enemy");
+			}
+
 
 			if (clicked){
 				//settings menu set selected menu to the the save button
 				EventSystem tempevent = EventSystem.current;
 				EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(tempevent));
-
+				/*
 				//disabling all enemies
-				for (int disable = 0; disable < enemies.Count(); disable ++){
-					enemies[disable].GetComponent<GeneralAI>().pausegame();
-				}
-
+				if (uihide == true){
+					for (int disable = 0; disable < enemies.Count(); disable ++){
+						enemies[disable].GetComponent<GeneralAI>().pausegame();
+					}
+				}*/
 
 			}else{
 				//when go back to main menu set the focus back onto the newgame
-				GameObject testbutton2 = GameObject.Find("newgame");
-				EventSystem tempevent = EventSystem.current;
-				EventSystem.current.SetSelectedGameObject(testbutton2, new BaseEventData(tempevent));
-
-				//reenabling all the enemies
-				for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
-					enemies[disable2].GetComponent<GeneralAI>().unpause();
-				}
+				if (uihide == false){
+					GameObject testbutton2 = GameObject.Find("newgame");
+					EventSystem tempevent = EventSystem.current;
+					EventSystem.current.SetSelectedGameObject(testbutton2, new BaseEventData(tempevent));
+				}/*else{
+					//reenabling all the enemies
+					for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
+						enemies[disable2].GetComponent<GeneralAI>().unpause();
+					}
+				}*/
 			}
 		}
 		//during setting menus make sure that the user can't select anything else other than save
