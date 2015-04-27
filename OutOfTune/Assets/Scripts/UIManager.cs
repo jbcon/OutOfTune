@@ -42,8 +42,8 @@ public class UIManager : MonoBehaviour {
 			//Debug.Log(healthlist[i].sprite.name+ "asdfdasf"+ healthlist[i] + i);
 			if (healthlist[i].sprite.name != "Health1"){						//if the image isn't health store index
 				temp.Add(i);
-				if (healthlist[i].sprite.name == "tuba" || healthlist[i].sprite.name == "bigtrumpet" ||healthlist[i].sprite.name == "flute"
-				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "violin"
+				if (healthlist[i].sprite.name == "Tuba" || healthlist[i].sprite.name == "Trumpet" ||healthlist[i].sprite.name == "Flute"
+				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "Violin_Viola"
 
 				    ){// if it happens to be a weapon
 					weaponimg = healthlist[i];															// store inside weapon list 
