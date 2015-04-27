@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 014681f695603144caf9b938df629a9d
-timeCreated: 1427850430
+guid: 52a227d794b4c394f8a3f84158817853
+timeCreated: 1430161363
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Floor_4SmoothSides
+    4300000: Slope_High
   materials:
     importMaterials: 1
     materialName: 0
