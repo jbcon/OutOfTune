@@ -23,6 +23,9 @@ public class Health : MonoBehaviour {
         {
             gameObject.GetComponent<Collider2D>().enabled = false;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+			if (gameObject.GetComponent<Rigidbody2D>().fixedAngle == true){
+				gameObject.GetComponent<Rigidbody2D>().fixedAngle = false;
+			}
             StartCoroutine("Die");
         }
     }
