@@ -60,7 +60,7 @@ public class GeneralAI {
 	public void pausegame(){
 		pause = true;
 	}
-	public void unpause(){
+	public void unpausegame(){
 		pause = false;
 	}
 

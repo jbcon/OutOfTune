@@ -16,7 +16,12 @@ public class Health : MonoBehaviour {
     {
         gameObject.SendMessage("OnReceiveDamage", dmg);
     }
-
+	public void PauseGame(){
+		gameObject.SendMessage("pausegame");
+	}
+	public void UnPauseGame(){
+		gameObject.SendMessage("unpausegame");
+	}
     void Update()
     {
         if (health <= 0)
