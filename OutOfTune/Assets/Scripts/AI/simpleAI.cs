@@ -19,6 +19,7 @@ public class simpleAI : MonoBehaviour {
     Health health;
     private bool stunned;
     private bool grounded;      //go to your room young man
+	private bool pause;
     // Use this for initialization
 	void Start () {
 		pos_scale = transform.localScale.x;
@@ -26,34 +27,42 @@ public class simpleAI : MonoBehaviour {
 		jump = true;
         stunned = false;
         grounded = false;
+		pause = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
         player_loc = player.transform;
         animator = GetComponentInChildren<Animator>();
         health = GetComponent<Health>();
 	}
-	
+	public void pausegame(){
+		pause = true;
+	}
+	public void unpausegame(){
+		pause = false;
+	}
 
 	// Update is called once per frame
 	void Update () {
-        float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
-        
-		//move only if not hurt
-        if (distance < range && !animator.GetBool("Die") && health.health > 0)
-        {
-            animator.SetBool("Walking", true);
-            animator.SetBool("Idle", false);
-            Movement();
-        }
-        else
-        {
-            animator.SetBool("Walking", false);
-            animator.SetBool("Idle", true);
-        }
+		if ( pause == false && stunned == false){
+	        float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
+	        
+			//move only if not hurt
+	        if (distance < range && !animator.GetBool("Die") && health.health > 0)
+	        {
+	            animator.SetBool("Walking", true);
+	            animator.SetBool("Idle", false);
+	            Movement();
+	        }
+	        else
+	        {
+	            animator.SetBool("Walking", false);
+	            animator.SetBool("Idle", true);
+	        }
 
-		//destroying the ai when no health
-		/*if (health <= 0){
-			Destroy(gameObject);
-		}*/
+			//destroying the ai when no health
+			/*if (health <= 0){
+				Destroy(gameObject);
+			}*/
+		}
 	}
 
     //check if grounding box says it's grounded

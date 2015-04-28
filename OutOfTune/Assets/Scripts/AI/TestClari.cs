@@ -9,6 +9,7 @@ public class TestClari : MonoBehaviour {
 	private Vector3 original_position;
 	private float lerpposition;//getting back to original positions
 	private float lerptime;	// time it shall take to get back to orig pos
+	private Vector3 temp_pos;
 	public int duration; // the duration on how long the AI wants to keep patroling
 	public int movementspeed; // the speed at which the object is going to move at
 	TestClariAI testing = new TestClariAI();
@@ -32,22 +33,34 @@ public class TestClari : MonoBehaviour {
 		chased = false;
 	}
 	void Update(){
-		float distance = Vector3.Distance(testing.GetPlayer().transform.position, testing.GetSelf().transform.position);
-		if (distance < testing.GetRange() && testing.GetHealth() > 0f){
-			chased = true;
-			//animator.SetBool("moving", true);
-			testing.Movement();
-			chased = false;
-		}//if got out of position must return back to original position before going on patrol
-		if (chased == true){
-			Debug.Log ("not happening");
-			lerpposition += Time.deltaTime/lerptime;
-			//animator.SetBool("moving", true);
-			transform.position= Vector3.Lerp(gameObject.transform.position, original_position, lerpposition);
+		temp_pos = gameObject.transform.localPosition;
+		if (testing.stunned == false && testing.pause == false){
+			float distance = Vector3.Distance(testing.GetPlayer().transform.position, testing.GetSelf().transform.position);
+			if (distance < testing.GetRange() && testing.GetHealth() > 0f){
+				chased = true;
+				//animator.SetBool("moving", true);
+				testing.Movement();
+				chased = false;
+			}//if got out of position must return back to original position before going on patrol
+			if (chased == true){
+				Debug.Log ("not happening");
+				lerpposition += Time.deltaTime/lerptime;
+				//animator.SetBool("moving", true);
+				transform.position= Vector3.Lerp(gameObject.transform.position, original_position, lerpposition);
+			}else{
+				gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.position.y,gameObject.transform.position.z);
+				//animator.SetBool("moving", true);
+			}
 		}else{
-			gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-			//animator.SetBool("moving", true);
+			//keep it from moving
+			gameObject.transform.position = temp_pos;
 		}
+	}
+	public void pausegame(){
+		testing.pausegame();
+	}
+	public void unpausegame(){
+		testing.unpausegame();
 	}
 	public void FireBullet(){
 		testing.FireBullet();
