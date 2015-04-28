@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 6a8a30e45a6c3464fb3b6982890366fb
-timeCreated: 1430185492
+guid: d84de7e1dd66bf2439af374dee0cf3ad
+timeCreated: 1430200016
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Armando fists sprite sheet1_0
-    21300002: Armando fists sprite sheet1_1
-    21300004: Armando fists sprite sheet1_2
+    21300000: armand palm
+    21300002: armand fist
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -52,33 +51,23 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Armando fists sprite sheet1_0
+    - name: armand palm
       rect:
         serializedVersion: 2
-        x: 36
-        y: 1565
-        width: 1250
-        height: 565
+        x: 46
+        y: 1561
+        width: 1239
+        height: 569
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Armando fists sprite sheet1_1
+    - name: armand fist
       rect:
         serializedVersion: 2
-        x: 364
-        y: 701
-        width: 21
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Armando fists sprite sheet1_2
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 36
-        width: 979
-        height: 1157
+        x: 324
+        y: 31
+        width: 971
+        height: 1148
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
