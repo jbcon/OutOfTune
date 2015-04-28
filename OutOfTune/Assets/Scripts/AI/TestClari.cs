@@ -38,18 +38,18 @@ public class TestClari : MonoBehaviour {
 			float distance = Vector3.Distance(testing.GetPlayer().transform.position, testing.GetSelf().transform.position);
 			if (distance < testing.GetRange() && testing.GetHealth() > 0f){
 				chased = true;
-				//animator.SetBool("moving", true);
+				animator.SetBool("moving", true);
 				testing.Movement();
 				chased = false;
 			}//if got out of position must return back to original position before going on patrol
 			if (chased == true){
 				Debug.Log ("not happening");
 				lerpposition += Time.deltaTime/lerptime;
-				//animator.SetBool("moving", true);
+				animator.SetBool("moving", true);
 				transform.position= Vector3.Lerp(gameObject.transform.position, original_position, lerpposition);
 			}else{
 				gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-				//animator.SetBool("moving", true);
+				animator.SetBool("moving", true);
 			}
 		}else{
 			//keep it from moving
