@@ -33,8 +33,9 @@ public class TestClari : MonoBehaviour {
 		chased = false;
 	}
 	void Update(){
-		temp_pos = gameObject.transform.localPosition;
+
 		if (testing.stunned == false && testing.pause == false){
+
 			float distance = Vector3.Distance(testing.GetPlayer().transform.position, testing.GetSelf().transform.position);
 			if (distance < testing.GetRange() && testing.GetHealth() > 0f){
 				chased = true;
@@ -51,6 +52,7 @@ public class TestClari : MonoBehaviour {
 				gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.position.y,gameObject.transform.position.z);
 				animator.SetBool("moving", true);
 			}
+			temp_pos = gameObject.transform.localPosition;
 		}else{
 			//keep it from moving
 			gameObject.transform.position = temp_pos;
