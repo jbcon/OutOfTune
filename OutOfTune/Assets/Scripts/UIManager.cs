@@ -21,7 +21,9 @@ public class UIManager : MonoBehaviour {
 	private PlayerController playerobj;					//Grabing the player object to access variables off of it
 	private Image weaponimg;							//temp variable for the weapon image
 	private bool uihide;
-	private GameObject[] enemies;
+	private GameObject[] enemies;						//list of each enemy type for
+	//private GameObject[] clari;							//accesing their ai component and modifying it
+	//private GameObject[] triplets;
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
@@ -42,8 +44,8 @@ public class UIManager : MonoBehaviour {
 			//Debug.Log(healthlist[i].sprite.name+ "asdfdasf"+ healthlist[i] + i);
 			if (healthlist[i].sprite.name != "Health1"){						//if the image isn't health store index
 				temp.Add(i);
-				if (healthlist[i].sprite.name == "tuba" || healthlist[i].sprite.name == "bigtrumpet" ||healthlist[i].sprite.name == "flute"
-				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "violin"
+				if (healthlist[i].sprite.name == "Tuba" || healthlist[i].sprite.name == "Trumpet" ||healthlist[i].sprite.name == "Flute"
+				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "Violin_Viola"
 
 				    ){// if it happens to be a weapon
 					weaponimg = healthlist[i];															// store inside weapon list 
@@ -145,7 +147,6 @@ public class UIManager : MonoBehaviour {
 				level3button.SetBool("escPressed",clicked);
 			}else{
 				//list all the enemies
-
 				enemies = GameObject.FindGameObjectsWithTag("enemy");
 			}
 
@@ -154,13 +155,13 @@ public class UIManager : MonoBehaviour {
 				//settings menu set selected menu to the the save button
 				EventSystem tempevent = EventSystem.current;
 				EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(tempevent));
-				/*
+
 				//disabling all enemies
 				if (uihide == true){
 					for (int disable = 0; disable < enemies.Count(); disable ++){
-						enemies[disable].GetComponent<GeneralAI>().pausegame();
+						enemies[disable].GetComponent<Health>().PauseGame();
 					}
-				}*/
+				}
 
 			}else{
 				//when go back to main menu set the focus back onto the newgame
@@ -168,12 +169,12 @@ public class UIManager : MonoBehaviour {
 					GameObject testbutton2 = GameObject.Find("newgame");
 					EventSystem tempevent = EventSystem.current;
 					EventSystem.current.SetSelectedGameObject(testbutton2, new BaseEventData(tempevent));
-				}/*else{
+				}else{
 					//reenabling all the enemies
 					for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
-						enemies[disable2].GetComponent<GeneralAI>().unpause();
+						enemies[disable2].GetComponent<Health>().UnPauseGame();
 					}
-				}*/
+				}
 			}
 		}
 		//during setting menus make sure that the user can't select anything else other than save
