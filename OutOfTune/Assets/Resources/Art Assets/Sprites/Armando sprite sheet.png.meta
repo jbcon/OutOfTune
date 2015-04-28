@@ -1,9 +1,28 @@
 fileFormatVersion: 2
-guid: 45ed64c2acd7ee4458e4db98c2879692
-timeCreated: 1430175465
+guid: 3d1fc33b1d8f15c40a997da086dc4f09
+timeCreated: 1430175632
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: L_Bicep
+    21300002: Hair
+    21300004: L_Forearm
+    21300006: Head
+    21300008: R_Bicep
+    21300010: Back_Hair
+    21300012: L_Hand
+    21300014: Chest_Manly
+    21300016: R_Hand
+    21300018: L_Thigh
+    21300020: R_Forearm
+    21300022: L_Leg
+    21300024: Hip
+    21300026: R_Thigh
+    21300028: R_Leg
+    21300030: L_Foot
+    21300032: R_Foot
+    21300034: Armando sprite sheet_0
+    21300036: Armando sprite sheet_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +49,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +67,197 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: L_Bicep
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 489
+        width: 97
+        height: 139
+      alignment: 9
+      pivot: {x: .942344725, y: .682046354}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hair
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 510
+        width: 246
+        height: 134
+      alignment: 9
+      pivot: {x: .186937779, y: .478106141}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Forearm
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 394
+        width: 85
+        height: 68
+      alignment: 9
+      pivot: {x: .883987963, y: .823585987}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 398
+        width: 101
+        height: 159
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Bicep
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 344
+        width: 102
+        height: 141
+      alignment: 9
+      pivot: {x: .0433855243, y: .567624331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Back_Hair
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 412
+        width: 117
+        height: 87
+      alignment: 9
+      pivot: {x: .0455056205, y: .681257606}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Hand
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 307
+        width: 67
+        height: 62
+      alignment: 9
+      pivot: {x: .899571896, y: .760261297}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Chest_Manly
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 166
+        width: 146
+        height: 207
+      alignment: 9
+      pivot: {x: .477393359, y: .0269713476}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Hand
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 320
+        width: 58
+        height: 62
+      alignment: 9
+      pivot: {x: .942605913, y: .641960382}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Thigh
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 201
+        width: 79
+        height: 78
+      alignment: 9
+      pivot: {x: .787813604, y: .894940495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Forearm
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 206
+        width: 110
+        height: 95
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Leg
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 92
+        width: 55
+        height: 71
+      alignment: 9
+      pivot: {x: .566678405, y: .918382466}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hip
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 86
+        width: 106
+        height: 60
+      alignment: 9
+      pivot: {x: .489620864, y: .70170188}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Thigh
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 85
+        width: 69
+        height: 83
+      alignment: 9
+      pivot: {x: .282088131, y: .9109146}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Leg
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 89
+        width: 55
+        height: 74
+      alignment: 9
+      pivot: {x: .346640855, y: .90142101}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: L_Foot
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 30
+        width: 66
+        height: 29
+      alignment: 9
+      pivot: {x: .783382535, y: .702334464}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: R_Foot
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 17
+        width: 72
+        height: 32
+      alignment: 9
+      pivot: {x: .21985966, y: .671904445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Armando sprite sheet_0
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 568
+        width: 66
+        height: 86
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Armando sprite sheet_1
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 572
+        width: 61
+        height: 69
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

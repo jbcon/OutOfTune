@@ -19,26 +19,34 @@ public class TestTriplets : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//different movement set compared to other ai getes its own
-		//testing.Movement();
-		float distance = Vector3.Distance(player.transform.position, testing.self.transform.position);
-		//Debug.Log(distance+"sdf"+testing.range);
-		//moving left off the platform basically
-		if (distance < testing.range || moving == true){
-			animator.SetBool("Sliding",true);
-			if (player.GetComponent<PlayerController>().grounded ){
-				testing.faceright = true;
-				gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
-				//right side of the player move right
-				gameObject.transform.Translate(Vector3.left * testing.speed * Time.deltaTime);
-				//continues to move even after player gets out of ranger
-				moving = true;
-			}
+		if (testing.stunned == false && testing.pause == false){
+			//different movement set compared to other ai getes its own
+			//testing.Movement();
+			float distance = Vector3.Distance(player.transform.position, testing.self.transform.position);
+			//Debug.Log(distance+"sdf"+testing.range);
+			//moving left off the platform basically
+			if (distance < testing.range || moving == true){
+				animator.SetBool("Sliding",true);
+				if (player.GetComponent<PlayerController>().grounded ){
+					testing.faceright = true;
+					gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
+					//right side of the player move right
+					gameObject.transform.Translate(Vector3.left * testing.speed * Time.deltaTime);
+					//continues to move even after player gets out of ranger
+					moving = true;
+				}
 
+			}
 		}
 	}
 	public void FireBullet(){
 		testing.FireBullet();
+	}
+	public void pausegame(){
+		testing.pausegame();
+	}
+	public void unpausegame(){
+		testing.unpausegame();
 	}
 	void OnReceiveDamage(float dmg)
 	{        
