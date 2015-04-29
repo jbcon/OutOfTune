@@ -17,13 +17,12 @@ public class GeneralAI {
 	public float jumping = 200f;
 	public Animator animator;
 	public bool jump;
-
+	public bool ontop;
 
 	public GeneralAI(){
 		range = 40f;
 		speed = 20f;
 		jump = true;
-
 		//animator = self.GetComponent<Animator>();
 	}
 	public void SetPos(float posx){

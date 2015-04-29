@@ -8,7 +8,7 @@ public class ConductorScript : MonoBehaviour {
     public int beatsPerMeasure = 4;
     public int beat = 0;
 
-    private AudioSource audio;
+    //private AudioSource audio;
 
     private float currTime;
     private float beatsPerSecond;
@@ -21,8 +21,8 @@ public class ConductorScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        audio = gameObject.GetComponent<AudioSource>();
-        audio.PlayDelayed(1);
+        //audio = gameObject.GetComponent<AudioSource>();
+        //audio.PlayDelayed(1);
         currTime = 0;
         beatsPerSecond = beatsPerMinute / 60.0f;
         secondsPerBeat = 1 / beatsPerSecond;
@@ -32,7 +32,7 @@ public class ConductorScript : MonoBehaviour {
 	
 	void FixedUpdate () {
         
-        currTime = audio.time;
+        //currTime = audio.time;
         //if we have arrived at next beat
         if (currTime > nextBeat+secondsPerBeat)
         {

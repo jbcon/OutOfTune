@@ -62,8 +62,8 @@ public class TestClari : MonoBehaviour {
 			gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.localPosition.y,gameObject.transform.localPosition.z);
 			//animator.SetBool("moving", true);
 			//}
-			Debug.Log (counter);
-			counter ++;
+			//Debug.Log (counter);
+			//counter ++;
 			temp_pos = gameObject.transform.localPosition;
 		}else{
 			//keep it from moving
