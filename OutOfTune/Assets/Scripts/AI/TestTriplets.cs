@@ -25,7 +25,7 @@ public class TestTriplets : MonoBehaviour {
 			float distance = Vector3.Distance(player.transform.position, testing.self.transform.position);
 			//Debug.Log(distance+"sdf"+testing.range);
 			//moving left off the platform basically
-			if (distance < testing.range || moving == true){
+			if ((distance < testing.range || moving == true) && (testing.currenthealth.health > 0)){
 				animator.SetBool("Sliding",true);
 				if (player.GetComponent<PlayerController>().grounded ){
 					testing.faceright = true;

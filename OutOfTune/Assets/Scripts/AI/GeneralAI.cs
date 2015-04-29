@@ -99,12 +99,13 @@ public class GeneralAI {
 		}
 	}
 	//check if grounding box says it's grounded
-	void OnTriggerStay2D(Collider2D collider)
+	public void OnTriggerStay2D(Collider2D collider)
 	{
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Ground")
 		    || collider.gameObject.layer == LayerMask.NameToLayer("Platform"))
 		{
 			grounded = true;
+			Debug.Log ("hitting ground");
 		}   
 	}
 

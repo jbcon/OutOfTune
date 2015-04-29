@@ -45,8 +45,8 @@ public class UIManager : MonoBehaviour {
 			if (healthlist[i].sprite.name != "Health1"){						//if the image isn't health store index
 				temp.Add(i);
 				if (healthlist[i].sprite.name == "Tuba" || healthlist[i].sprite.name == "Trumpet" ||healthlist[i].sprite.name == "Flute"
-				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "Violin_Viola"
-
+				    || healthlist[i].sprite.name == "trombone_alone" || healthlist[i].sprite.name == "Violin_Viola"
+				    || healthlist[i].sprite.name == "HHGoomba_TopHat"
 				    ){// if it happens to be a weapon
 					weaponimg = healthlist[i];															// store inside weapon list 
 					weaponimg.GetComponent<Outline>().enabled = false;									//disable outline
