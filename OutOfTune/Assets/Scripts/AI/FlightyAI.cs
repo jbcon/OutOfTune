@@ -25,10 +25,12 @@ public class FlightyAI : MonoBehaviour {
 	}
 
 	void CalculateBound(float pos){
+		//make the object go at a slant to player at certain position
 		lowerbound = pos - 2;
 		upperbound = pos + 2;
 	}
 	void ReturnPos(){
+		//moving left or right of original position
 		if (testing.GetSelf().transform.position.x > originalposition.x) {
 			//rotate the sprite to face the correct direction if hes on the left
 			gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.GetSelf().transform.localScale.y);
@@ -62,6 +64,7 @@ public class FlightyAI : MonoBehaviour {
 						//attack player
 						gameObject.transform.Translate (Vector3.up * testing.speed * Time.deltaTime);
 					}
+					//make sure return original height then go back on patrol
 					CalculateBound(gameObject.transform.position.y);
 					if( testing.GetSelf().transform.position.y > lowerbound &&  testing.GetSelf().transform.position.y < upperbound){
 						chased = false;
@@ -71,6 +74,7 @@ public class FlightyAI : MonoBehaviour {
 					gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + originalposition.x,gameObject.transform.localPosition.y,gameObject.transform.localPosition.z);
 				}
 			}
+			//saving current position for pausing and stun
 			temppos = gameObject.transform.localPosition;
 		}else{
 			//keep it from moving
