@@ -148,7 +148,8 @@ public class PlayerController : MonoBehaviour {
         {
             animator.Play("Renee_Upper_Attack_Melee_Start");
             MeleeWeapon m = GetComponentInChildren<MeleeWeapon>();
-            m.canPlayClip = true;
+            if (m)
+                m.canPlayClip = true;
             
         }
         violin.SetActive(attacking);
