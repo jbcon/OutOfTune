@@ -4,6 +4,7 @@ using System.Collections;
 public class Armandhandboss : MonoBehaviour {
 	public GameObject player;
 	private bool fight;				//initialize the fight
+    private bool attack;
 	private float speed;
 	private float counter;
 	// Use this for initialization
@@ -21,7 +22,7 @@ public class Armandhandboss : MonoBehaviour {
 			fight = true;
 		}
 		if (fight == true){
-			int method = Random.Range(3);		//randomly choose one of three ai behaviors
+			int method = Random.Range(0,3);		//randomly choose one of three ai behaviors
 			//StartCoroutine("Slap");
 		}else{
 			Debug.Log ("stop the coroutines");
