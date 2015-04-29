@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class ReneeStatue : MonoBehaviour {
 	public int partnumber;
+	public bool destroyed;
 	private GameObject statue;
 	private GameObject[] parts;
 	public float health;
@@ -13,6 +14,7 @@ public class ReneeStatue : MonoBehaviour {
 		health = 13;
 		statue = this.gameObject;
 		parts = new GameObject[13];
+		destroyed = false;
 		for(int counter = 0; counter < 13 ; counter ++){
 			parts[counter] = GameObject.Find("ReneeStatue Sprite sheet_"+counter);
 		}
@@ -40,7 +42,9 @@ public class ReneeStatue : MonoBehaviour {
 			partnumber ++;
 			healthcounter--;
 			*/
-			StartCoroutine(Losepart(parts[partnumber]));
+			if(partnumber < 14){
+				StartCoroutine(Losepart(parts[partnumber]));
+			}
 		}
 		//head is gone
 		//as the statue gets smaller the smaller the hitbox is on the statue
@@ -51,7 +55,10 @@ public class ReneeStatue : MonoBehaviour {
 			this.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(-150, -20);
 		}else if (health ==2){
 			this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(65, 20);
+		}else if (health <= 0){
+			destroyed = true;
 		}
+
 	
 	}
 	IEnumerator Losepart(GameObject losingpart)
