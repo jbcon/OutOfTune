@@ -6,8 +6,8 @@ public class Tuba : Weapon {
     public Tuba(GameObject proj)
     {
         weaponType = WeaponType.SemiAuto;
-        cooldown = 2f;
-        weaponForce = 10f;
+        cooldown = 4f;
+        weaponForce = 150f;
         spin = false;
         bulletSpread = 0f;
         projectile = proj;
@@ -15,12 +15,18 @@ public class Tuba : Weapon {
 
     public override void Fire(Transform transform, AudioClip[] clipArray, AudioSource audioSource)
     {
-        //sends out a shockwave that expands at the rate of bulletForce
-        //possibly use (S)LERP and an expanding collider (probably a BoxCollider2D)
         GameObject b = GameObject.Instantiate(projectile) as GameObject;
-        b.transform.localPosition = transform.transform.position;
+        GameObject reticle = GameObject.FindGameObjectWithTag("TubaReticle");
+        b.transform.position = reticle.transform.position;
+
+        b.GetComponent<Rigidbody2D>().AddForce(transform.up * weaponForce, ForceMode2D.Impulse);
+        b.transform.rotation = Quaternion.LookRotation(Vector3.forward,
+                                Quaternion.Euler(0f, 0f, 90f) * transform.up);
+        if (spin)
+            b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
+
         //play sound
-        int clipIndex = Random.Range(0, 2);
+        int clipIndex = Random.Range(0, 3);
         audioSource.PlayOneShot(clipArray[clipIndex]);
     }
 	
