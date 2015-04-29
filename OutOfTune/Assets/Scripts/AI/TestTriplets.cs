@@ -5,6 +5,7 @@ public class TestTriplets : MonoBehaviour {
 	public GameObject player;
 	public GameObject projectile;
 	private bool moving;
+	private float anglebetween;
 	Animator animator;
 	TestTripletsAI testing = new TestTripletsAI();
 	// Use this for initialization
@@ -19,13 +20,22 @@ public class TestTriplets : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (testing.stunned == false && testing.pause == false){
+		if (testing.stunned == false && testing.pause == false && (testing.currenthealth.health > 0)){
 			//different movement set compared to other ai getes its own
 			//testing.Movement();
 			float distance = Vector3.Distance(player.transform.position, testing.self.transform.position);
 			//Debug.Log(distance+"sdf"+testing.range);
 			//moving left off the platform basically
-			if (distance < testing.range || moving == true){
+			/*
+			//determinging if the object got flipped
+			Vector3 tempangle = player.transform.position - gameObject.transform.position;
+			anglebetween = Vector3.Angle(gameObject.transform.forward, tempangle);
+			//Debug.Log(anglebetween);
+			if(anglebetween >= 80){
+				moving = false;
+				//Debug.Log(anglebetween);
+			}*/
+			if (distance < testing.range || moving == true) {
 				animator.SetBool("Sliding",true);
 				if (player.GetComponent<PlayerController>().grounded ){
 					testing.faceright = true;

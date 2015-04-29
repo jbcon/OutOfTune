@@ -12,6 +12,8 @@ public class TestClari : MonoBehaviour {
 	private Vector3 temp_pos;
 	public int duration; // the duration on how long the AI wants to keep patroling
 	public int movementspeed; // the speed at which the object is going to move at
+
+	private int counter;		//count the number of frams until flip
 	TestClariAI testing = new TestClariAI();
 	void Start ()
 	{
@@ -30,33 +32,34 @@ public class TestClari : MonoBehaviour {
 		{
 			Debug.Log ("still not working");
 		}
+		counter = 0;
 		chased = false;
 	}
+	public void OnTriggerStay2D(Collider2D collider)
+	{
+		testing.OnTriggerStay2D(collider);
+	}
 	void Update(){
-
+		//gameObject.transform.Translate(Vector3.left * 10f * Time.deltaTime);
 		if (testing.stunned == false && testing.pause == false){
-
-			float distance = Vector3.Distance(testing.GetPlayer().transform.position, testing.GetSelf().transform.position);
-			if (distance < testing.GetRange() && testing.GetHealth() > 0f){
-				chased = true;
-				animator.SetBool("moving", true);
-				testing.Movement();
-				chased = false;
-			}//if got out of position must return back to original position before going on patrol
-			if (chased == true){
-				Debug.Log ("not happening");
-				lerpposition += Time.deltaTime/lerptime;
-				animator.SetBool("moving", true);
-				transform.position= Vector3.Lerp(gameObject.transform.position, original_position, lerpposition);
-			}else{
-				gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-				animator.SetBool("moving", true);
+			animator.SetBool("moving", true);
+			//animate moving and move go on patrol
+			if (counter == 0){
+				gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.self.transform.localScale.y);
+			}else if ( counter >= 650){
+				counter = 0;
+				gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.self.transform.localScale.y);
+			}else if (counter >= 330){
+				gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
 			}
+
+			gameObject.transform.position = new Vector3(Mathf.PingPong(Time.time *movementspeed,duration) + original_position.x,gameObject.transform.localPosition.y,gameObject.transform.localPosition.z);
 			temp_pos = gameObject.transform.localPosition;
 		}else{
 			//keep it from moving
 			gameObject.transform.position = temp_pos;
 		}
+		counter ++;
 	}
 	public void pausegame(){
 		testing.pausegame();
@@ -80,7 +83,21 @@ public class TestClari : MonoBehaviour {
 		}
 		Debug.Log(testing.currenthealth.health);
 	}
-	
+	/*
+	IEnumerator MoveLeft(){
+		while(inmotion = true){
+			//right side of the player move right
+			gameObject.transform.Translate(Vector3.right * 1 * Time.deltaTime);
+			yield return new WaitForEndOfFrame();
+		}
+	}
+	IEnumerator MoveRight(){
+		while(inmotion = false){
+			//right side of the player move right
+			gameObject.transform.Translate(Vector3.left * 1 * Time.deltaTime);
+			yield return new WaitForEndOfFrame();
+		}
+	}*/
 	IEnumerator Stun()
 	{
 		

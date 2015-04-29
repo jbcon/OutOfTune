@@ -7,7 +7,7 @@ public class ConductorV2 : MonoBehaviour {
 	public int beatsPerMeasure = 4;
 	public int beat = 0;
 	
-	private AudioSource audio;
+	//private AudioSource audio;
 	
 	private float currTime;
 	private float beatsPerSecond;

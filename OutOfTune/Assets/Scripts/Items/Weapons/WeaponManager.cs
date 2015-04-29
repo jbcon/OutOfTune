@@ -82,7 +82,7 @@ public class WeaponManager : MonoBehaviour {
         weapons.Add(new Flute(projectiles[4]));
         currentWeapon = weapons[0];
         renderer.sprite = sprites[0];
-		weaponname = "bigtrumpet";
+		weaponname = "Trumpet";
         currentClipArray = trumpetClips;
 	}
 
@@ -98,7 +98,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 1");
             currentWeapon = weapons[0];
             renderer.sprite = sprites[0];
-			weaponname = "bigtrumpet";		//everytime change weapon must also change the name of the selected weapon
+			weaponname = "Trumpet";		//everytime change weapon must also change the name of the selected weapon
             currentClipArray = trumpetClips;
         }
         if (Input.GetButtonDown("Weapon2"))
@@ -106,7 +106,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 2");
             currentWeapon = weapons[1];
             renderer.sprite = sprites[1];
-			weaponname = "trombone";
+			weaponname = "trombone_alone";
             currentClipArray = tromboneClips;
         }
         if (Input.GetButtonDown("Weapon3"))
@@ -115,13 +115,14 @@ public class WeaponManager : MonoBehaviour {
             currentWeapon = weapons[2];
             renderer.sprite = sprites[2];
             currentClipArray = cymbalClips;
+			weaponname = "HHGoomba_TopHat";
         }
         if (Input.GetButtonDown("Weapon4"))
         {
             Debug.Log("Weapon Switch: 4");
             currentWeapon = weapons[3];
             renderer.sprite = sprites[3];
-			weaponname = "tuba";			//tuba weapon must change the name of the selected weapon
+			weaponname = "Tuba";			//tuba weapon must change the name of the selected weapon
             currentClipArray = tubaClips;
         }
         if (Input.GetButtonDown("Weapon5"))
@@ -129,7 +130,7 @@ public class WeaponManager : MonoBehaviour {
             Debug.Log("Weapon Switch: 5");
             currentWeapon = weapons[4];
             renderer.sprite = sprites[4];
-			weaponname = "flute";
+			weaponname = "Flute";
             currentClipArray = fluteClips;
         }
     }

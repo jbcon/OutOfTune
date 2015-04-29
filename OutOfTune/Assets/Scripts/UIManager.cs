@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour {
 	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
+	private List<Image> weaponhighlight = new List<Image>();
 	private GameObject health;							//Going to be the canvas GUI object that will stay throughout the levels
 	private PlayerController playerobj;					//Grabing the player object to access variables off of it
 	private Image weaponimg;							//temp variable for the weapon image
@@ -45,11 +46,10 @@ public class UIManager : MonoBehaviour {
 			if (healthlist[i].sprite.name != "Health1"){						//if the image isn't health store index
 				temp.Add(i);
 				if (healthlist[i].sprite.name == "Tuba" || healthlist[i].sprite.name == "Trumpet" ||healthlist[i].sprite.name == "Flute"
-				    || healthlist[i].sprite.name == "trombone" || healthlist[i].sprite.name == "Violin_Viola"
-
+				    || healthlist[i].sprite.name == "trombone_alone" || healthlist[i].sprite.name == "HHGoomba_TopHat"
 				    ){// if it happens to be a weapon
 					weaponimg = healthlist[i];															// store inside weapon list 
-					weaponimg.GetComponent<Outline>().enabled = false;									//disable outline
+					//weaponimg.GetComponent<Outline>().enabled = false;									//disable outline
 					weapons.Add(weaponimg);																//add it to weapon list
 				}else if (healthlist[i].sprite.name == "button_level2" ||healthlist[i].sprite.name =="button_newGame" ||
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
@@ -57,6 +57,12 @@ public class UIManager : MonoBehaviour {
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
 					continue;
+				}else if( healthlist[i].sprite.name == "Flutehighlight" ||healthlist[i].sprite.name == "trombone_alonehighlight"||
+				         healthlist[i].sprite.name == "Tubahighlight"|| healthlist[i].sprite.name == "Trumpethighlight" ||
+				         healthlist[i].sprite.name == "HHGoomba_TopHathighlight"
+
+				         ){
+					weaponhighlight.Add (healthlist[i]);
 				}
 
 			}
@@ -120,11 +126,16 @@ public class UIManager : MonoBehaviour {
 		//go through all the weapons and if the weapon isn;t currently selected
 		//turn off the outline
 		for (int counter = 0; counter < weapons.Count(); counter ++){
-			if (weaponname == weapons[counter].sprite.name){
-				weapons[counter].GetComponent<Outline>().enabled = true;
+			Debug.Log ("inside");
+			if (weaponname + "highlight" == weaponhighlight[counter].sprite.name ){
+				//weapons[counter].GetComponent<Outline>().enabled = true;
+				weaponhighlight[counter].enabled = true;
+				Debug.Log ("yes");
 				continue;
 			}else{
-				weapons[counter].GetComponent<Outline>().enabled = false;
+				Debug.Log ("no");
+				weaponhighlight[counter].enabled = false;
+				//weapons[counter].GetComponent<Outline>().enabled = false;
 			}
 		}
 	}

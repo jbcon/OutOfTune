@@ -17,13 +17,12 @@ public class GeneralAI {
 	public float jumping = 200f;
 	public Animator animator;
 	public bool jump;
-
+	public bool ontop;
 
 	public GeneralAI(){
 		range = 40f;
 		speed = 20f;
 		jump = true;
-
 		//animator = self.GetComponent<Animator>();
 	}
 	public void SetPos(float posx){
@@ -99,12 +98,13 @@ public class GeneralAI {
 		}
 	}
 	//check if grounding box says it's grounded
-	void OnTriggerStay2D(Collider2D collider)
+	public void OnTriggerStay2D(Collider2D collider)
 	{
 		if (collider.gameObject.layer == LayerMask.NameToLayer("Ground")
 		    || collider.gameObject.layer == LayerMask.NameToLayer("Platform"))
 		{
 			grounded = true;
+			Debug.Log ("hitting ground");
 		}   
 	}
 
