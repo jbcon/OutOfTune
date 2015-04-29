@@ -37,14 +37,14 @@ public class TestTriplets : MonoBehaviour {
 			}*/
 			if (distance < testing.range || moving == true) {
 				animator.SetBool("Sliding",true);
-				if (player.GetComponent<PlayerController>().grounded ){
+				/*if (player.GetComponent<PlayerController>().grounded ){*/
 					testing.faceright = true;
 					gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
 					//right side of the player move right
 					gameObject.transform.Translate(Vector3.left * testing.speed * Time.deltaTime);
 					//continues to move even after player gets out of ranger
 					moving = true;
-				}
+				/*}*/
 
 			}
 		}
@@ -92,6 +92,6 @@ public class TestTriplets : MonoBehaviour {
 public class TestTripletsAI : GeneralAI{
 	public TestTripletsAI(){
 		range = 200f;
-		speed = 40f;
+		speed = 80f;
 	}
 }
