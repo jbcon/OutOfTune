@@ -13,7 +13,7 @@ public class Story : MonoBehaviour {
 		conversation = GameObject.Find("storysetting");
 		story = GetComponent<Text>();
 
-		var sr = new StreamReader(Application.dataPath +"/scripts/story_proto.txt");
+		var sr = new StreamReader(Application.dataPath +"/scripts/Dialogue.txt");
 		var contents = sr.ReadToEnd();
 		var lines = contents.Split("\n"[0]);
 		int temp = 0;
