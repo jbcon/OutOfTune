@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 4e6df49345133c14eb5d46588e137ff4
-timeCreated: 1430267643
+timeCreated: 1430414421
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Head_Hair_Forward
+    21300002: Head_Hair_tuft1
+    21300004: Head
+    21300006: Head_Hair_tuft2
+    21300008: Head_Hair_tuft3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +35,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +53,57 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Head_Hair_Forward
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 669
+        width: 1022
+        height: 523
+      alignment: 9
+      pivot: {x: .240978271, y: .380904317}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head_Hair_tuft1
+      rect:
+        serializedVersion: 2
+        x: 1087
+        y: 985
+        width: 208
+        height: 175
+      alignment: 9
+      pivot: {x: .0601718612, y: .177441761}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 24
+        width: 462
+        height: 619
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head_Hair_tuft2
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 511
+        width: 449
+        height: 265
+      alignment: 9
+      pivot: {x: .0318649746, y: .953540027}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Head_Hair_tuft3
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 59
+        width: 434
+        height: 297
+      alignment: 9
+      pivot: {x: .0750958845, y: .927980065}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
