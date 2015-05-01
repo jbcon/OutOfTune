@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour {
 	//the animations for each button are set
 	public Animator settings;
 	public Animator Save;
+	public Animator Menureturn;
 	public Animator newgamebutton;
 	public Animator loadbutton;
 	public Animator level2button;
@@ -55,7 +56,9 @@ public class UIManager : MonoBehaviour {
 					weapons.Add(weaponimg);																//add it to weapon list
 				}else if (healthlist[i].sprite.name == "button_level2" ||healthlist[i].sprite.name =="button_newGame" ||
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
-				          healthlist[i].sprite.name =="button_load" || healthlist[i].sprite.name =="button_save" 
+				          healthlist[i].sprite.name =="button_load" || healthlist[i].sprite.name =="button_save" ||
+				          healthlist[i].sprite.name =="button_mainMenu" 
+
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
 					continue;
@@ -156,6 +159,7 @@ public class UIManager : MonoBehaviour {
 			clicked = !clicked;
 			settings.SetBool("escPressed",clicked);
 			Save.SetBool("escPressed",clicked);
+			Menureturn.SetBool("escPressed",clicked);
 			//Debug.Log("display settings" + clicked);
 
 			//when opening settings run the animations for setting
@@ -197,10 +201,11 @@ public class UIManager : MonoBehaviour {
 				}
 			}
 		}
+		/*
 		//during setting menus make sure that the user can't select anything else other than save
 		if(clicked == true && EventSystem.current.gameObject != testbutton){
 			EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(EventSystem.current));
-		}
+		}*/
 		//grab the player object
 		player = GameObject.FindGameObjectWithTag("Player");
 		if (player != null){
