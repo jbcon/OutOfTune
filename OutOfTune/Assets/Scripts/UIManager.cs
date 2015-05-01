@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour {
 		uihide = false;
 		settings.enabled = true;
 		Save.enabled = true;
+		Menureturn.enabled = true;
 		buttonnames.Add("newgame");
 		buttonnames.Add("LoadButton");
 		buttonnames.Add("Level2");
@@ -117,7 +118,13 @@ public class UIManager : MonoBehaviour {
 		loadUI ();
 	}
 	public void LoadMenu(){
-		uihide = false;
+		//uihide = false;
+		//clicked = !clicked;
+		settings.SetBool("escPressed",false);
+		Save.SetBool("escPressed",false);
+		Menureturn.SetBool("escPressed",false);
+		GameObject temp = GameObject.FindGameObjectWithTag("Story");
+		temp.GetComponent<Story>().change();
 		Application.LoadLevel("MainMenu");
 	}
 	void checkinghealth(float playerhealth){
