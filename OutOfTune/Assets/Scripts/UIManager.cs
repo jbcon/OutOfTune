@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
+using UnityEditor;
 public class UIManager : MonoBehaviour {
 	//the animations for each button are set
 	public Animator settings;
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour {
 	public Animator level2button;
 	public Animator level3button;
 	public bool clicked = false;
+	public bool activatestory;
 	public GameObject player;
 	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
@@ -29,7 +31,7 @@ public class UIManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
 	public void Start(){
-
+		activatestory = false;
 		uihide = false;
 		settings.enabled = true;
 		Save.enabled = true;
@@ -64,9 +66,12 @@ public class UIManager : MonoBehaviour {
 				         ){
 					weaponhighlight.Add (healthlist[i]);
 				}
-
 			}
-			healthlist[i].enabled = false;																//disable all the images for the main menu
+			//leave the dialogue out of this
+			if (healthlist[i].sprite.name != "dialogue1"){
+				healthlist[i].enabled = false;	
+			}
+			
 		}
 		int tempsub = 1; 			// variable to store the new modified list after changing it
 		for (int t = 0; t < temp.Count(); t ++){
@@ -107,6 +112,10 @@ public class UIManager : MonoBehaviour {
 		uihide = true;
 		Application.LoadLevel("Level 3");
 		loadUI ();
+	}
+	public void LoadMenu(){
+		uihide = false;
+		Application.LoadLevel("MainMenu");
 	}
 	void checkinghealth(float playerhealth){
 		float temphealth = playerhealth;
