@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     public float aimRange;
     //Player's weapon inventory
     public bool gamepadConnected = false;
-    
+	public bool characterpause;
     private Animator animator;
     private Transform tf;
     private Vector2 direction;
@@ -305,21 +305,22 @@ public class PlayerController : MonoBehaviour {
 
     void CharacterMovement()
     {
-        float move = Input.GetAxis("Movement");
+		if(characterpause == false){
+	        float move = Input.GetAxis("Movement");
 
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
-        
-        //transition between idle and walking animations if moving left or right
-        //NOT based solely on input
-        if (Mathf.Abs(move) > 0 )
-        {
-            animator.SetBool("Idle", false);
-        }
-        else
-        {
-            animator.SetBool("Idle", true);
-        }
-
+	        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+	        
+	        //transition between idle and walking animations if moving left or right
+	        //NOT based solely on input
+	        if (Mathf.Abs(move) > 0 )
+	        {
+	            animator.SetBool("Idle", false);
+	        }
+	        else
+	        {
+	            animator.SetBool("Idle", true);
+	        }
+		}
     }
     void Jumping()
     {

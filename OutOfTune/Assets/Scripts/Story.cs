@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEditor;
 public class Story : MonoBehaviour {
 	public bool level1start;
 	public bool level1preboss;
@@ -55,7 +58,16 @@ public class Story : MonoBehaviour {
 
 	}
 	void Update(){
+		GameObject[] enemies;
+		enemies =  GameObject.FindGameObjectsWithTag("enemy");
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		if (display == true){
+			player.GetComponent<PlayerController>().characterpause = true;
+
+			for (int disable = 0; disable < enemies.Count(); disable ++){
+				enemies[disable].GetComponent<Health>().PauseGame();
+			}
+			gameObject.SetActive(true);
 			if(storyiterator >= sizestory ){
 				display= false;
 				story.enabled = false;
@@ -72,9 +84,31 @@ public class Story : MonoBehaviour {
 				storyiterator ++;
 			}
 		}else{
+			player.GetComponent<PlayerController>().characterpause = false;
 			story.enabled = false;
 			background.enabled = false;
+			for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
+				enemies[disable2].GetComponent<Health>().UnPauseGame();
+			}
 		}
+	}
+	public void change()
+	{
+		story.enabled = false;
+		background.enabled = false;
+		Debug.Log ("stuff");
+		level1start = false;
+		level1preboss = false;
+		level1postboss = false;
+		level2intro = false;
+		level2end = false;
+		level3intro = false;
+		level3preboss = false;
+		display = false;
+		storyiterator = 0;
+		sizestory = 0;
+		story_book.Clear();
+		gameObject.SetActive(false);
 	}
 	public void reader(StreamReader datapath, string boolvalue){
 		storyiterator = 0;
