@@ -4,6 +4,14 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 public class Story : MonoBehaviour {
+	public bool level1start;
+	public bool level1preboss;
+	public bool level1postboss;
+	public bool level2intro;
+	public bool level2end;
+	public bool level3intro;
+	public bool level3preboss;
+
 	private Text story;
 	private Image background;
 	private List<string> story_book = new List<string>();
@@ -11,13 +19,20 @@ public class Story : MonoBehaviour {
 	private GameObject conversation;
 	public bool display;
 	private int storyiterator;
+	private int sizestory;
 	private int sentence_iterator;
 	// Use this for initialization
 
 	void Start () {
+		level1start = false;
+		level1preboss = false;
+		level1postboss = false;
+		level2intro = false;
+		level2end = false;
+		level3intro = false;
+		level3preboss = false;
 		display = false;
-		storyiterator = 1;
-		sentence_iterator = 0;
+		storyiterator = 0;
 		conversation = GameObject.FindGameObjectWithTag("Story");
 		story = conversation.GetComponentInChildren<Text>();
 		background = conversation.GetComponentInChildren<Image>();
@@ -28,13 +43,8 @@ public class Story : MonoBehaviour {
 			Debug.Log("sucess");
 		}
 		*/
-		var sr = new StreamReader(Application.dataPath +"/scripts/Dialogue.txt");
-		var contents = sr.ReadToEnd();
-		var lines = contents.Split("\n"[0]);
-		int temp = 0;
-		for ( temp = 0 ; temp < lines.Length ; temp ++){
-			story_book.Add(lines[temp]);
-		}
+		//var sr = new StreamReader(Application.dataPath +"/scripts/Dialogue.txt");
+
 		//story.text = story_book[0];
 		//conversation.GetComponent<GUIText>().enabled = false;
 		//story.enabled = false;
@@ -46,20 +56,18 @@ public class Story : MonoBehaviour {
 	}
 	void Update(){
 		if (display == true){
-			background.enabled = true;
-			var storylines = story_book[storyiterator].Split(" "[0]);
-			if(storylines[0] == "Armand:" ||  storylines[0] == "Narrator:" ||
-			   storylines[0] == "Renee:" || storylines[0] == "Peter:" ||
-			   storylines[0] == "Maestro:"
-			   )
-			{
-				story.text = story_book[storyiterator];
+			if(storyiterator >= sizestory ){
+				display= false;
+				story.enabled = false;
+				background.enabled = false;
+				story_book.Clear();
+				sizestory = 0;
 			}else{
-				storyiterator++;
-				//be at end so
-				display = false;
+				background.enabled = true;
+				story.text = story_book[storyiterator];
+				story.enabled = true;
 			}
-			story.enabled = true;
+
 			if (Input.GetKeyDown((KeyCode.Return))){
 				storyiterator ++;
 			}
@@ -67,5 +75,31 @@ public class Story : MonoBehaviour {
 			story.enabled = false;
 			background.enabled = false;
 		}
+	}
+	public void reader(StreamReader datapath, string boolvalue){
+		storyiterator = 0;
+		if(boolvalue == "level1start"){
+			level1start = true;
+		}else if (boolvalue == "level1preboss"){
+			level1preboss = true;
+		}else if (boolvalue == "level1postboss"){
+			level1postboss = true;
+		}else if (boolvalue == "level2intro"){
+			level2intro = true;
+		}else if (boolvalue == "level2end"){
+			level2end = true;
+		}else if (boolvalue == "level3intro"){
+			level3intro = true;
+		}else if (boolvalue == "level3preboss"){
+			level3preboss = true;
+		}
+		var contents = datapath.ReadToEnd();
+		var lines = contents.Split("\n"[0]);
+		int temp = 0;
+		for ( temp = 0 ; temp < lines.Length ; temp ++){
+			story_book.Add(lines[temp]);
+			sizestory ++;
+		}
+		display = true;
 	}
 }
