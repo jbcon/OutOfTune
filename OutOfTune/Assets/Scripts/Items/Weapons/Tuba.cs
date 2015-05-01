@@ -6,7 +6,7 @@ public class Tuba : Weapon {
     public Tuba(GameObject proj)
     {
         weaponType = WeaponType.SemiAuto;
-        cooldown = 4f;
+        cooldown = 3f;
         weaponForce = 150f;
         spin = false;
         bulletSpread = 0f;
