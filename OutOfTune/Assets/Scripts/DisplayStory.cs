@@ -37,7 +37,6 @@ public class DisplayStory : MonoBehaviour {
 				var sr = new StreamReader(Application.dataPath +"/scripts/level3preboss.txt");
 				storyobj.GetComponent<Story>().reader(sr, "level3preboss");
 			}
-
 		}
 	}
 }

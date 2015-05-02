@@ -1,9 +1,11 @@
 fileFormatVersion: 2
 guid: 51e65946f577da749bcee68b4cdba5ae
-timeCreated: 1428950187
+timeCreated: 1430511815
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: sizes_0
+    21300002: sizes_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +32,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +50,27 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: sizes_0
+      rect:
+        serializedVersion: 2
+        x: 1963
+        y: 1711
+        width: 1245
+        height: 1034
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sizes_1
+      rect:
+        serializedVersion: 2
+        x: 3171
+        y: 1368
+        width: 369
+        height: 327
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

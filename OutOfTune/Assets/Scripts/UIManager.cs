@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour {
 	public bool clicked = false;
 	public bool activatestory;
 	public GameObject player;
+	private float tubatimer;
 	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
@@ -63,11 +64,8 @@ public class UIManager : MonoBehaviour {
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
 					continue;
-				}else if( healthlist[i].sprite.name == "Flutehighlight" ||healthlist[i].sprite.name == "trombone_alonehighlight"||
-				         healthlist[i].sprite.name == "Tubahighlight"|| healthlist[i].sprite.name == "Trumpethighlight" ||
-				         healthlist[i].sprite.name == "HHGoomba_TopHathighlight"
-
-				         ){
+				}else if( healthlist[i].sprite.name == "boxhighlight" ){
+					//Debug.Log (healthlist[i].name);
 					weaponhighlight.Add (healthlist[i]);
 				}
 			}
@@ -145,14 +143,11 @@ public class UIManager : MonoBehaviour {
 		//go through all the weapons and if the weapon isn;t currently selected
 		//turn off the outline
 		for (int counter = 0; counter < weapons.Count(); counter ++){
-			Debug.Log ("inside");
-			if (weaponname + "highlight" == weaponhighlight[counter].sprite.name ){
+			if (weaponname + "highlight" == weaponhighlight[counter].name ){
 				//weapons[counter].GetComponent<Outline>().enabled = true;
 				weaponhighlight[counter].enabled = true;
-				Debug.Log ("yes");
 				continue;
 			}else{
-				Debug.Log ("no");
 				weaponhighlight[counter].enabled = false;
 				//weapons[counter].GetComponent<Outline>().enabled = false;
 			}

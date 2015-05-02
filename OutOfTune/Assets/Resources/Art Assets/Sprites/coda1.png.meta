@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: b725f719f8b3f7249aa4d42595b8305f
-timeCreated: 1430511871
+guid: f13ed335ca2394042af36469431bd842
+timeCreated: 1430511139
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ConductorRef_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -31,14 +30,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,17 +48,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: ConductorRef_0
-      rect:
-        serializedVersion: 2
-        x: 1444
-        y: 1642
-        width: 1263
-        height: 1066
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
