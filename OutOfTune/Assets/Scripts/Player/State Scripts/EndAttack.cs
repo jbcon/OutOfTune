@@ -17,6 +17,8 @@ public class EndAttack : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         PlayerController playerController = animator.gameObject.GetComponentInParent<PlayerController>();
         playerController.attacking = false;
+        GameObject r = GameObject.FindGameObjectWithTag("ActualReticle");
+        r.GetComponent<SpriteRenderer>().enabled = true;
         GameObject.FindGameObjectWithTag("Violin").GetComponent<BoxCollider2D>().enabled = false;
 	}
 

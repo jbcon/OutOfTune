@@ -81,6 +81,7 @@ public class WeaponManager : MonoBehaviour {
     public GameObject[] projectiles = new GameObject[10];
     public Sprite[] sprites = new Sprite[10];
     private SpriteRenderer renderer;
+    private int weaponIndex;
 
     /* SOUND EFFECTS
      * these vary by level
@@ -110,16 +111,58 @@ public class WeaponManager : MonoBehaviour {
         renderer.sprite = sprites[0];
 		weaponname = "Trumpet";
         currentClipArray = trumpetClips;
+        weaponIndex = 0;
 	}
 
     void Update()
     {
+        GetInput();
         SwapWeapons();
+    }
+
+    void GetInput()
+    {
+        float scrollWheelMovement = Input.GetAxis("ScrollWheel");
+        if (scrollWheelMovement > 0)
+        {
+            weaponIndex--;
+            if (weaponIndex < 0)
+                weaponIndex = 4;
+        }
+        else if (scrollWheelMovement < 0)
+        {
+            weaponIndex++;
+            if (weaponIndex > 4)
+                weaponIndex = 0;
+        }
+        else
+        {
+            if (Input.GetButtonDown("Weapon1"))
+            {
+                weaponIndex = 0;
+            }
+            if (Input.GetButtonDown("Weapon2"))
+            {
+                weaponIndex = 1;
+            }
+            if (Input.GetButtonDown("Weapon3"))
+            {
+                weaponIndex = 2;
+            }
+            if (Input.GetButtonDown("Weapon4"))
+            {
+                weaponIndex = 3;
+            }
+            if (Input.GetButtonDown("Weapon5"))
+            {
+                weaponIndex = 4;
+            }
+        }
     }
 
     void SwapWeapons()
     {
-        if (Input.GetButtonDown("Weapon1"))
+        if (weaponIndex == 0)
         {
             Debug.Log("Weapon Switch: 1");
             currentWeapon = weapons[0];
@@ -127,7 +170,7 @@ public class WeaponManager : MonoBehaviour {
 			weaponname = "Trumpet";		//everytime change weapon must also change the name of the selected weapon
             currentClipArray = trumpetClips;
         }
-        if (Input.GetButtonDown("Weapon2"))
+        if (weaponIndex == 1)
         {
             Debug.Log("Weapon Switch: 2");
             currentWeapon = weapons[1];
@@ -135,7 +178,7 @@ public class WeaponManager : MonoBehaviour {
 			weaponname = "trombone_alone";
             currentClipArray = tromboneClips;
         }
-        if (Input.GetButtonDown("Weapon3"))
+        if (weaponIndex == 2)
         {
             Debug.Log("Weapon Switch: 3");
             currentWeapon = weapons[2];
@@ -143,7 +186,7 @@ public class WeaponManager : MonoBehaviour {
             currentClipArray = cymbalClips;
 			weaponname = "HHGoomba_TopHat";
         }
-        if (Input.GetButtonDown("Weapon4"))
+        if (weaponIndex == 3)
         {
             Debug.Log("Weapon Switch: 4");
             currentWeapon = weapons[3];
@@ -151,7 +194,7 @@ public class WeaponManager : MonoBehaviour {
 			weaponname = "Tuba";			//tuba weapon must change the name of the selected weapon
             currentClipArray = tubaClips;
         }
-        if (Input.GetButtonDown("Weapon5"))
+        if (weaponIndex == 4)
         {
             Debug.Log("Weapon Switch: 5");
             currentWeapon = weapons[4];

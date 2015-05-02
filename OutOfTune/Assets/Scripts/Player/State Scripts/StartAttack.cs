@@ -6,6 +6,8 @@ public class StartAttack : StateMachineBehaviour {
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         PlayerController p = animator.gameObject.transform.parent.GetComponent<PlayerController>();
+        GameObject r = GameObject.FindGameObjectWithTag("ActualReticle");
+        r.GetComponent<SpriteRenderer>().enabled = false;
         p.attacking = true;
 	}
 
