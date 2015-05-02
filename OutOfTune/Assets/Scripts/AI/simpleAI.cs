@@ -80,10 +80,10 @@ public class simpleAI : MonoBehaviour {
         if (!stunned)
         {
             health.health -= dmg;
-            StartCoroutine(Stun());
             if (health.health > 0 && !stunned)
             {
                 Debug.Log("AI script received damage");
+                StartCoroutine(Stun());
             }
         }
     }
@@ -124,13 +124,17 @@ public class simpleAI : MonoBehaviour {
     IEnumerator Stun()
     {
         animator.SetTrigger("Stun");
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
         stunned = true;
         while(!grounded)
         {
             yield return new WaitForFixedUpdate();
         }
-
         yield return new WaitForSeconds(0.5f);
+
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
         stunned = false;
     }
     

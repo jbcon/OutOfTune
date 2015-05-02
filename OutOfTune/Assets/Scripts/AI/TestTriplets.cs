@@ -76,6 +76,8 @@ public class TestTriplets : MonoBehaviour {
 		
 		//testing.animator.SetTrigger("Stun");
 		testing.stunned = true;
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
 		if (!testing.grounded)
 		{
 			yield return new WaitForEndOfFrame();
@@ -84,6 +86,8 @@ public class TestTriplets : MonoBehaviour {
 		{
 			yield return new WaitForSeconds(0.5f);
 		}
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		testing.stunned = false;
 	}
 }

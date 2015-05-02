@@ -80,6 +80,11 @@ public class TestClari : MonoBehaviour {
 				StartCoroutine(Stun());
 				//Debug.Log("AI Brassi script received damage");
 			}
+            else
+            {
+                animator.SetTrigger("Die");
+                Debug.Log("Clari died");
+            }
 		}
 		Debug.Log(testing.currenthealth.health);
 	}
@@ -100,8 +105,9 @@ public class TestClari : MonoBehaviour {
 	}*/
 	IEnumerator Stun()
 	{
-		
-		animator.SetBool("damaged",true);
+		animator.SetTrigger("damaged");
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
 		//testing.animator.SetTrigger("Stun");
 		testing.stunned = true;
 		if (!testing.grounded)
@@ -112,8 +118,9 @@ public class TestClari : MonoBehaviour {
 		{
 			yield return new WaitForSeconds(0.5f);
 		}
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+            sr.material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		testing.stunned = false;
-		animator.SetBool("damaged",false);
 	}
 }
 [System.Serializable]
