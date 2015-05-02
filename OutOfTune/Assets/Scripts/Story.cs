@@ -133,17 +133,21 @@ public class Story : MonoBehaviour {
 				Reneeshow = true;
 				Rightside(faceofRenee);
 			}else if(level1preboss == true && Reneeshow2 == false && sizestory > 0 && storyiterator==0){
-				Image faceofRenee = Instantiate (facerightRenee) as Image;
 				Image faceofMaestro = Instantiate (faceMaestro) as Image;
 				Reneeshow2 = true;
-				Rightside(faceofRenee);
 				Leftside(faceofMaestro);
-			}else if(level1postboss == true && lvl1postbossshow == false && sizestory > 0 && storyiterator==0){
+			}else if(level1preboss == true && Reneeshow2 == true && sizestory > 0 && storyiterator==1){
 				Image faceofRenee = Instantiate (facerightRenee) as Image;
+				Reneeshow2 = false;
+				Rightside(faceofRenee);
+			}else if(level1postboss == true && lvl1postbossshow == false && sizestory > 0 && storyiterator==0){
 				Image faceofMaestro = Instantiate (faceMaestro) as Image;
 				lvl1postbossshow = true;
-				Rightside(faceofRenee);
 				Leftside(faceofMaestro);
+			}else if(level1postboss == true && lvl1postbossshow == true && sizestory > 0 && storyiterator==1){
+				Image faceofRenee = Instantiate (facerightRenee) as Image;
+				lvl1postbossshow = false;
+				Rightside(faceofRenee);
 			}else if(level2intro == true && lvl2into == false && sizestory > 0 && storyiterator==1){
 				Image faceofRenee = Instantiate (facerightRenee) as Image;
 				lvl2into = true;
@@ -152,15 +156,18 @@ public class Story : MonoBehaviour {
 				Image faceofRenee = Instantiate (faceleftRenee) as Image;
 				lvl2end = true;
 				Leftside(faceofRenee);
-			}else if(level3intro == true && lvl3intro == false && sizestory > 0 && storyiterator==0){
+			}else if(level3intro == true && lvl3intro == false && sizestory > 0 && storyiterator==2){
 				Image faceofRenee = Instantiate (faceleftRenee) as Image;
 				lvl3intro = true;
 				Rightside(faceofRenee);
 			}else if(level3preboss == true && lvl3preboss == false && sizestory > 0 && storyiterator==0){
 				Image faceofRenee = Instantiate (faceleftRenee) as Image;
-				Image faceofArmand = Instantiate (faceArmand) as Image;
 				lvl3preboss = true;
 				Leftside(faceofRenee);
+			}else if(level3preboss == true && lvl3preboss == true && sizestory > 0 && storyiterator==1){
+				Image faceofArmand = Instantiate (faceArmand) as Image;
+				lvl3preboss = true;
+
 				Rightside(faceArmand);
 			}
 			if (Input.GetKeyDown((KeyCode.Return))){
