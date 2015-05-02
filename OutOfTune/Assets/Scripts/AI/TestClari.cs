@@ -46,10 +46,10 @@ public class TestClari : MonoBehaviour {
 			//animate moving and move go on patrol
 			if (counter == 0){
 				gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.self.transform.localScale.y);
-			}else if ( counter >= 650){
+			}else if ( counter >= 580){
 				counter = 0;
 				gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.self.transform.localScale.y);
-			}else if (counter >= 330){
+			}else if (counter >= 300){
 				gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
 			}
 

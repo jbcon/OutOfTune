@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine.EventSystems;
-using UnityEditor;
+//using UnityEditor;
 public class Story : MonoBehaviour {
 	//dialogue to stop reppetition
 	public bool level1start;
@@ -39,7 +39,7 @@ public class Story : MonoBehaviour {
 	private Image background;
 	private Image dialogueimg1;
 	private Image dialogueimg2;
-	private List<string> story_book = new List<string>();
+	private List<string> story_book;
 	//private List<string> storylines = new List<><string>();
 	private GameObject conversation;
 	public bool display;
@@ -201,7 +201,7 @@ public class Story : MonoBehaviour {
 		story_book.Clear();
 		gameObject.SetActive(false);
 	}
-	public void reader(StreamReader datapath, string boolvalue){
+	public void reader(List<string> datapath, string boolvalue){
 		storyiterator = 0;
 		if(boolvalue == "level1start"){
 			level1start = true;
@@ -218,13 +218,20 @@ public class Story : MonoBehaviour {
 		}else if (boolvalue == "level3preboss"){
 			level3preboss = true;
 		}
-		var contents = datapath.ReadToEnd();
+		story_book = datapath;
+		sizestory = story_book.Count();
+		Debug.Log(level1start);
+		/*
+		for (int i = 0; i < story_book.Count(); i++){
+			Debug.Log(story_book[i]);
+		}*/
+		/*var contents = datapath.ReadToEnd();
 		var lines = contents.Split("\n"[0]);
 		int temp = 0;
 		for ( temp = 0 ; temp < lines.Length ; temp ++){
 			story_book.Add(lines[temp]);
 			sizestory ++;
-		}
+		}*/
 		display = true;
 	}
 }

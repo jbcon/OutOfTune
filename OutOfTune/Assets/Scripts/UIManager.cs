@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
-using UnityEditor;
+//using UnityEditor;
 public class UIManager : MonoBehaviour {
 	//the animations for each button are set
 	public Animator settings;
@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour {
 	public bool clicked = false;
 	public bool activatestory;
 	public GameObject player;
-	private float tubatimer;
 	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
