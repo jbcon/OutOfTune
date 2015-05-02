@@ -9,6 +9,8 @@ public class TransitionLvl2 : MonoBehaviour {
 		
 		if (collision.gameObject.layer == playerLayer)
 		{
+			GameObject temp = GameObject.FindGameObjectWithTag("Story");
+			temp.GetComponent<Story>().delete();
 			//Debug.Log("HIT!");
 			Application.LoadLevel("Level 2");
 		}

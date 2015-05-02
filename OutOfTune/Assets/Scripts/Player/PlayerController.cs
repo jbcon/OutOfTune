@@ -70,9 +70,9 @@ public class PlayerController : MonoBehaviour {
     {
         CheckGround();
         Jumping();
-        if (!attacking)
-            UseWeapon();
-        UseMeleeWeapon();
+	    if (!attacking)
+				UseWeapon();
+	    UseMeleeWeapon();
 	}
 
     void FixedUpdate()
@@ -179,149 +179,150 @@ public class PlayerController : MonoBehaviour {
 
     void UseWeapon()
     {
-        Weapon w = weaponManager.currentWeapon;
-        /* AIM */
+	        Weapon w = weaponManager.currentWeapon;
+	        /* AIM */
 
-        //if shaking, stabilize before calculations
-        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-        //camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+	        //if shaking, stabilize before calculations
+	        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+	        //camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
 
-        
+	        
 
-        //if gamepad is connected
-        if (gamepadConnected)
-        {
-            Vector2 newDirection = new Vector2(Input.GetAxis("AimX"), Input.GetAxis("AimY"));
-            if (newDirection.magnitude > 0)
-            {
-                direction = newDirection;
-            }
-        }
-        else
-        {
-            Vector2 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 100f));
-            //if the weapon is a flute, do some camera stuff
-            //TODO: improve
+	        //if gamepad is connected
+	        if (gamepadConnected)
+	        {
+	            Vector2 newDirection = new Vector2(Input.GetAxis("AimX"), Input.GetAxis("AimY"));
+	            if (newDirection.magnitude > 0)
+	            {
+	                direction = newDirection;
+	            }
+	        }
+	        else
+	        {
+	            Vector2 mousePos = Input.mousePosition;
+	            mousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 100f));
+	            //if the weapon is a flute, do some camera stuff
+	            //TODO: improve
 
 
-            /*if (w is Flute)
-            {
-                Vector2 mouseRelPos = tf.InverseTransformPoint(mousePos)*aimRange;
-                Debug.Log(mouseRelPos);
-                camera.transform.localPosition = new Vector3(mouseRelPos.x, mouseRelPos.y, camera.transform.localPosition.z);
-            }
-            else
-            {
-                camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
-            }
-             */
-            //localizes mouse position to screen space
-           
-            Debug.DrawLine(tf.position, mousePos);
-            direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
-        }
+	            /*if (w is Flute)
+	            {
+	                Vector2 mouseRelPos = tf.InverseTransformPoint(mousePos)*aimRange;
+	                Debug.Log(mouseRelPos);
+	                camera.transform.localPosition = new Vector3(mouseRelPos.x, mouseRelPos.y, camera.transform.localPosition.z);
+	            }
+	            else
+	            {
+	                camera.transform.localPosition = new Vector3(0.0f, 0.0f, camera.transform.localPosition.z);
+	            }
+	             */
+	            //localizes mouse position to screen space
+	           
+	            Debug.DrawLine(tf.position, mousePos);
+	            direction = new Vector2(mousePos.x - tf.position.x, mousePos.y - tf.position.y);
+	        }
 
-        direction.Normalize();
-        //orient the weapon to mouse
-        //theta is in degrees
-        float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        if (theta > 90 || theta < -90) facingRight = false;
-        else facingRight = true;
+	        direction.Normalize();
+	        //orient the weapon to mouse
+	        //theta is in degrees
+	        float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+	        if (theta > 90 || theta < -90) facingRight = false;
+	        else facingRight = true;
 
-        //change direction of weapon
-        if (!attacking)
-        {
-            weaponManager.gameObject.SetActive(true);
-            //flip to face mouse cursor
-            if (!facingRight)
-            {
-                //weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
-                playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-            else
-            {
-                //weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
-                playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
+	        //change direction of weapon
+	        if (!attacking)
+	        {
+	            weaponManager.gameObject.SetActive(true);
+	            //flip to face mouse cursor
+	            if (!facingRight)
+	            {
+	                //weaponManager.transform.rotation = Quaternion.Euler(0, 180, 180 - theta);
+	                playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+	            }
+	            else
+	            {
+	                //weaponManager.transform.rotation = Quaternion.Euler(0, 0, theta);
+	                playerSprite.transform.rotation = Quaternion.Euler(0, 180, 0);
 
-            }
+	            }
 
-            float clampedAngle;
-            //aim the weapon by scrubbing the aim animation
-            //maps from -80 to 80?
-            if (theta <= 90 && theta >= -90)
-            {
-                clampedAngle = Mathf.Clamp(theta, -rotationRange, rotationRange);
+	            float clampedAngle;
+	            //aim the weapon by scrubbing the aim animation
+	            //maps from -80 to 80?
+	            if (theta <= 90 && theta >= -90)
+	            {
+	                clampedAngle = Mathf.Clamp(theta, -rotationRange, rotationRange);
 
-            }
-            else if (theta >= -180 && theta < 0)
-            {
-                clampedAngle = -90+(-theta - 90);
-                clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
-            }
-            else
-            {
-                clampedAngle = 90- (theta - 90);
-                clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
-            }
-            //Debug.Log(clampedAngle);
+	            }
+	            else if (theta >= -180 && theta < 0)
+	            {
+	                clampedAngle = -90+(-theta - 90);
+	                clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
+	            }
+	            else
+	            {
+	                clampedAngle = 90- (theta - 90);
+	                clampedAngle = Mathf.Clamp(clampedAngle, -rotationRange, rotationRange);
+	            }
+	            //Debug.Log(clampedAngle);
 
-            clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
+	            clampedAngle = (clampedAngle + rotationRange) / (2.0f * rotationRange);
 
-            //for some reason it loops, need to subtract a bit to make it work
-            if (clampedAngle == 1)
-                clampedAngle = .999999f;
+	            //for some reason it loops, need to subtract a bit to make it work
+	            if (clampedAngle == 1)
+	                clampedAngle = .999999f;
 
-            animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
+	            animator.Play("Renee_Aim_Trombone", animator.GetLayerIndex("Upper Layer"), clampedAngle);
 
-        }
-        else
-        {
-            weaponManager.gameObject.SetActive(false);
-        }
+	        }
+	        else
+	        {
+	            weaponManager.gameObject.SetActive(false);
+	        }
 
-        float analogFire = Input.GetAxisRaw("AnalogFire");
-        
-
-        //full auto weapon, keep firing as long as button held down
-        if (w.weaponType == WeaponType.FullAuto)
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                weaponManager.FireCurrentWeapon(weaponManager.transform);
-            }
-            //if the controller input is firing
-            else if (analogFire < 0)
-            {
-                weaponManager.FireCurrentWeapon(weaponManager.transform);
-            }
-        }
-        //semi-auto weapon
-        else
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                //check if melee or projectile weapon
-                //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
-                //if it is a projectile weapon
-                weaponManager.FireCurrentWeapon(weaponManager.transform);
-                //if it is a melee weapon
-                /*else if (m)
-                {
-                    m.Fire(direction);
-                }*/
-            }
-            else if (analogFire < 0 && !firingAxisInUse)
-            {
-                weaponManager.FireCurrentWeapon(weaponManager.transform);
-                firingAxisInUse = true;
-            }
-            
-            else if (analogFire == 0 && firingAxisInUse)
-            {
-                firingAxisInUse = false;
-            }
-        }
+	        float analogFire = Input.GetAxisRaw("AnalogFire");
+	        
+			if(characterpause ==false){
+		        //full auto weapon, keep firing as long as button held down
+		        if (w.weaponType == WeaponType.FullAuto)
+		        {
+		            if (Input.GetButton("Fire1"))
+		            {
+		                weaponManager.FireCurrentWeapon(weaponManager.transform);
+		            }
+		            //if the controller input is firing
+		            else if (analogFire < 0)
+		            {
+		                weaponManager.FireCurrentWeapon(weaponManager.transform);
+		            }
+		        }
+		        //semi-auto weapon
+		        else
+		        {
+		            if (Input.GetButtonDown("Fire1"))
+		            {
+		                //check if melee or projectile weapon
+		                //MeleeProperties m = inventory[wepIndex].GetComponent<MeleeProperties>();
+		                //if it is a projectile weapon
+		                weaponManager.FireCurrentWeapon(weaponManager.transform);
+		                //if it is a melee weapon
+		                /*else if (m)
+		                {
+		                    m.Fire(direction);
+		                }*/
+		            }
+		            else if (analogFire < 0 && !firingAxisInUse)
+		            {
+		                weaponManager.FireCurrentWeapon(weaponManager.transform);
+		                firingAxisInUse = true;
+		            }
+		            
+		            else if (analogFire == 0 && firingAxisInUse)
+		            {
+		                firingAxisInUse = false;
+		            }
+		        }
+		}
         
     }
 
@@ -351,22 +352,23 @@ public class PlayerController : MonoBehaviour {
         /*grounded = Physics2D.Linecast(tf.position, groundedEnd.position, (1 << LayerMask.NameToLayer("Ground")) 
             | (1 << LayerMask.NameToLayer("Platform")));
         */
+		if(characterpause == false){
+	        if (Input.GetButtonDown("Jump") && numJumps < 1)
+	        {
+	            //this is done so both jumps have same total force
+	            //there's probably a better way
+				gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
+	            
+				gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+	            numJumps++;
+	            animator.SetTrigger("Jump");
+	        }
 
-        if (Input.GetButtonDown("Jump") && numJumps < 1)
-        {
-            //this is done so both jumps have same total force
-            //there's probably a better way
-			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
-            
-			gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            numJumps++;
-            animator.SetTrigger("Jump");
-        }
-
-        //put afterwards to allow only one jump in midair
-        if (grounded) numJumps = 0;
-        animator.SetBool("Grounded", grounded);
-        animator.SetFloat("Yvel", gameObject.GetComponent<Rigidbody2D>().velocity.y);
+	        //put afterwards to allow only one jump in midair
+	        if (grounded) numJumps = 0;
+	        animator.SetBool("Grounded", grounded);
+	        animator.SetFloat("Yvel", gameObject.GetComponent<Rigidbody2D>().velocity.y);
+		}
     }
 
     private IEnumerator Invincibility()

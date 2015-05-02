@@ -187,6 +187,7 @@ public class UIManager : MonoBehaviour {
 						//enemies[disable].SendMessage("pausegame");
 						enemies[disable].GetComponent<Health>().PauseGame();
 					}
+					Cursor.visible = true;
 				}
 
 			}else{
@@ -201,6 +202,7 @@ public class UIManager : MonoBehaviour {
 						enemies[disable2].GetComponent<Health>().UnPauseGame();
 					}
 				}
+				Cursor.visible = false;
 			}
 		}
 		/*

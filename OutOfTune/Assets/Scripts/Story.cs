@@ -37,8 +37,8 @@ public class Story : MonoBehaviour {
 
 	private Text story;
 	private Image background;
-	private Image dialogueimg1;
-	private Image dialogueimg2;
+	public Image dialogueimg1;
+	public Image dialogueimg2;
 	private List<string> story_book;
 	//private List<string> storylines = new List<><string>();
 	private GameObject conversation;
@@ -103,6 +103,11 @@ public class Story : MonoBehaviour {
 		Vector3 prefabpos = new Vector3(textbg.transform.position.x - 416, textbg.transform.position.y- 50,textbg.transform.position.z);
 		dialogueimg2.transform.position = prefabpos;
 	}
+	public void delete(){
+		Debug.Log("asdf");
+		Destroy(dialogueimg1);
+		Destroy(dialogueimg2);
+	}
 	void Update(){
 		GameObject[] enemies;
 		enemies =  GameObject.FindGameObjectsWithTag("enemy");
@@ -144,11 +149,13 @@ public class Story : MonoBehaviour {
 				Image faceofMaestro = Instantiate (faceMaestro) as Image;
 				lvl1postbossshow = true;
 				Leftside(faceofMaestro);
-			}else if(level1postboss == true && lvl1postbossshow == true && sizestory > 0 && storyiterator==1){
+				Image faceofRenee = Instantiate (facerightRenee) as Image;
+				Rightside(faceofRenee);
+			}/*else if(level1postboss == true && lvl1postbossshow == true && sizestory > 0 && storyiterator==1){
 				Image faceofRenee = Instantiate (facerightRenee) as Image;
 				lvl1postbossshow = false;
 				Rightside(faceofRenee);
-			}else if(level2intro == true && lvl2into == false && sizestory > 0 && storyiterator==1){
+			}*/else if(level2intro == true && lvl2into == false && sizestory > 0 && storyiterator==0){
 				Image faceofRenee = Instantiate (facerightRenee) as Image;
 				lvl2into = true;
 				Rightside(faceofRenee);
@@ -167,7 +174,6 @@ public class Story : MonoBehaviour {
 			}else if(level3preboss == true && lvl3preboss == true && sizestory > 0 && storyiterator==1){
 				Image faceofArmand = Instantiate (faceArmand) as Image;
 				lvl3preboss = true;
-
 				Rightside(faceArmand);
 			}
 			if (Input.GetKeyDown((KeyCode.Return))){
@@ -178,6 +184,7 @@ public class Story : MonoBehaviour {
 			player.GetComponent<PlayerController>().characterpause = false;
 			story.enabled = false;
 			background.enabled = false;
+			delete();
 			//reenable enemy movement
 			for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
 				enemies[disable2].GetComponent<Health>().UnPauseGame();

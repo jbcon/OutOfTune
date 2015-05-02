@@ -19,6 +19,8 @@ public class Transitionlevel3 : MonoBehaviour {
 		
 		if (collision.gameObject.layer == playerLayer && cantransition == true)
 		{
+			GameObject temp = GameObject.FindGameObjectWithTag("Story");
+			temp.GetComponent<Story>().delete();
 			//Debug.Log("HIT!");
 			Application.LoadLevel("Level 3");
 		}
