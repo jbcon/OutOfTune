@@ -64,7 +64,7 @@ public class GeneralAI {
 	}
 
 	public virtual void Movement(){
-		if (pause == false || stunned == false){
+		if (pause == false && stunned == false){
 			// using the point to determine if the ai is on the left or right side of the player
 			Vector3 point = player.gameObject.transform.InverseTransformPoint (self.transform.position);
 			if (point.x > 0) {

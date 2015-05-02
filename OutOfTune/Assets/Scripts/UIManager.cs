@@ -184,6 +184,7 @@ public class UIManager : MonoBehaviour {
 				//disabling all enemies
 				if (uihide == true){
 					for (int disable = 0; disable < enemies.Count(); disable ++){
+						//enemies[disable].SendMessage("pausegame");
 						enemies[disable].GetComponent<Health>().PauseGame();
 					}
 				}
