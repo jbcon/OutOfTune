@@ -10,7 +10,7 @@ public class CymbalMineThrower : Weapon
     public CymbalMineThrower(GameObject proj)
     {
         weaponType = WeaponType.SemiAuto;
-        cooldown = 3f;
+        cooldown = 2.5f;
         weaponForce = 20f;
         spin = true;
         bulletSpread = 0f;

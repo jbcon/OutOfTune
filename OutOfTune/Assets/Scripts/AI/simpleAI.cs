@@ -80,9 +80,9 @@ public class simpleAI : MonoBehaviour {
         if (!stunned)
         {
             health.health -= dmg;
-            if (health.health > 0)
+            StartCoroutine(Stun());
+            if (health.health > 0 && !stunned)
             {
-                StartCoroutine(Stun());
                 Debug.Log("AI script received damage");
             }
         }
@@ -125,14 +125,12 @@ public class simpleAI : MonoBehaviour {
     {
         animator.SetTrigger("Stun");
         stunned = true;
-        if (!grounded)
+        while(!grounded)
         {
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
-        else
-        {
-            yield return new WaitForSeconds(0.5f);
-        }
+
+        yield return new WaitForSeconds(0.5f);
         stunned = false;
     }
     
