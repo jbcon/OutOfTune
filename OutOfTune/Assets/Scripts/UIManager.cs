@@ -186,6 +186,7 @@ public class UIManager : MonoBehaviour {
 					for (int disable = 0; disable < enemies.Count(); disable ++){
 						enemies[disable].GetComponent<Health>().PauseGame();
 					}
+					Cursor.visible = true;
 				}
 
 			}else{
@@ -200,6 +201,7 @@ public class UIManager : MonoBehaviour {
 						enemies[disable2].GetComponent<Health>().UnPauseGame();
 					}
 				}
+				Cursor.visible = false;
 			}
 		}
 		/*
