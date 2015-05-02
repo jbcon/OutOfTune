@@ -18,7 +18,7 @@ public class Maestro : MonoBehaviour {
         //allows the boss to be injured by flying hi-hats
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            health.Defend(10);
+            health.Defend(20);
             collision.gameObject.GetComponent<Health>().health = 0;
         }
     }

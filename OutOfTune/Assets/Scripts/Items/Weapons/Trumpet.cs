@@ -9,7 +9,7 @@ public class Trumpet : Weapon {
     {
         weaponType = WeaponType.FullAuto;
         projectile = proj;
-        cooldown = 0.07f;
+        cooldown = 0.1f;
         weaponForce = 13f;
         bulletSpread = 5f;
         spin = true;
