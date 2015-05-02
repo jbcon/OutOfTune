@@ -15,7 +15,8 @@ public class FluteBullet : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
-        if (collision.gameObject.layer == enemyLayer)
+        int bossLayer = LayerMask.NameToLayer("Boss");
+        if (collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
         {
             collision.gameObject.GetComponent<Health>().Defend(damage);
         }

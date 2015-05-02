@@ -4,7 +4,6 @@ using System.Collections;
 public class CameraManager : MonoBehaviour {
 
     public Vector2 targetRange;
-
     private GameObject player;
     private PlayerController pController;
     private Vector3 target;
@@ -16,6 +15,7 @@ public class CameraManager : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         pController = player.GetComponent<PlayerController>();
         transform.position = target + new Vector3(targetRange.x, 0.0f, 0.0f);
+        Cursor.visible = false;
 	}
 
     public Vector3 getTarget()

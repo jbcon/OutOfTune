@@ -21,12 +21,13 @@ public class NoteBullet : MonoBehaviour {
 		//enemy layer
 		if (gameObject.layer == 13){
 			enemyLayer = LayerMask.NameToLayer("Player");
+            bossLayer = LayerMask.NameToLayer("Boss");
 		}else{
 			enemyLayer = LayerMask.NameToLayer("Enemy");
             bossLayer = LayerMask.NameToLayer("Boss");
 		}
         
-        if (collision.gameObject.layer == enemyLayer)
+        if (collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
         {
             Debug.Log("HIT!");
             collision.gameObject.GetComponent<Health>().Defend(damage);

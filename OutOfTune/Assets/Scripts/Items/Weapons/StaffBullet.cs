@@ -20,7 +20,8 @@ public class StaffBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision)
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
-        if (collision.gameObject.layer == enemyLayer)
+        int bossLayer = LayerMask.NameToLayer("Boss");
+        if (collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
         {
             Debug.Log("HIT!");
             collision.gameObject.GetComponent<Health>().Defend(damage);
