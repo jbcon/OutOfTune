@@ -16,7 +16,8 @@ public class TubaBomb : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")
+            || collision.gameObject.layer == LayerMask.NameToLayer("Boss"))
         {
             Explode();
         }
