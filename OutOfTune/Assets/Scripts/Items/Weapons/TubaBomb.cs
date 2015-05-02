@@ -31,9 +31,9 @@ public class TubaBomb : MonoBehaviour {
             if (h)
             {
                 Vector2 explosionVector = collider.gameObject.transform.position - transform.position;
-                float distToEnemy = explosionVector.magnitude;
-                float dteRatioPlusModifier = distToEnemy / radius + 2.0f;
-                h.Defend(dteRatioPlusModifier);
+                //float distToEnemy = explosionVector.magnitude;
+                //float dteRatioPlusModifier = 2.0f;
+                h.Defend(damage);
                 explosionVector.Normalize();
                 collider.attachedRigidbody.AddForce(explosionVector * bombForce, ForceMode2D.Impulse);
             }

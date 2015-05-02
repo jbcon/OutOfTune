@@ -17,6 +17,11 @@ public class CameraManager : MonoBehaviour {
         pController = player.GetComponent<PlayerController>();
         transform.position = target + new Vector3(targetRange.x, 0.0f, 0.0f);
 	}
+
+    public Vector3 getTarget()
+    {
+        return target;
+    }
 	
 	// Update is called once per frame
 	void Update () {

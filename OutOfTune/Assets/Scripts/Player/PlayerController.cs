@@ -119,14 +119,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    //checks if foot collider is on the ground
     void OnCollisionEnter2D(Collision2D collision)
     {
 
         //enemy checking
         int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int bossLayer = LayerMask.NameToLayer("Boss");
         //equip weapon
-        if (collision.gameObject.layer == enemyLayer && !invincible)
+        if ((collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
+            && !invincible)
         {
             health--;
             StartCoroutine(Invincibility());
@@ -139,6 +140,27 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        //enemy checking
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int bossLayer = LayerMask.NameToLayer("Boss");
+        //equip weapon
+        if ((collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
+            && !invincible)
+        {
+            health--;
+            StartCoroutine(Invincibility());
+            if (health <= 0)
+            {
+                //load last save checkpoint
+                loadCheckpoint();
+                //Destroy(gameObject);
+                //Application.Quit();
+            }
+        }
     }
        
     void UseMeleeWeapon()

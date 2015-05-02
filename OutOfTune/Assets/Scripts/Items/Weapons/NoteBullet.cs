@@ -16,12 +16,14 @@ public class NoteBullet : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
 		int enemyLayer;
+        int bossLayer;
 		int statuelayer = LayerMask.NameToLayer("statue");
 		//enemy layer
 		if (gameObject.layer == 13){
 			enemyLayer = LayerMask.NameToLayer("Player");
 		}else{
 			enemyLayer = LayerMask.NameToLayer("Enemy");
+            bossLayer = LayerMask.NameToLayer("Boss");
 		}
         
         if (collision.gameObject.layer == enemyLayer)

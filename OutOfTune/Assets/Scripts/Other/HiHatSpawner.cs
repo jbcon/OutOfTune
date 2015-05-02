@@ -4,6 +4,7 @@ using System.Collections;
 public class HiHatSpawner : MonoBehaviour {
 
     public GameObject spawnable;
+    public float interval = 10f;
     private BoxCollider2D area;
     private GameObject player;
     private bool containsPlayer = false;
@@ -12,6 +13,7 @@ public class HiHatSpawner : MonoBehaviour {
 	void Start () {
         area = GetComponent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine("Spawn");
 	}
 
     void OnTriggerStay2D(Collider2D collider)
@@ -19,6 +21,7 @@ public class HiHatSpawner : MonoBehaviour {
         if (collider.gameObject == player)
         {
             containsPlayer = true;
+            Debug.Log("PLAYER PRESENT");
         }
     }
 
@@ -32,10 +35,15 @@ public class HiHatSpawner : MonoBehaviour {
 
     IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(10.0f);
-        if (containsPlayer)
+        while (true)
         {
-            GameObject newHiHat = Instantiate(spawnable) as GameObject;
+            yield return new WaitForSeconds(interval);
+            if (containsPlayer)
+            {
+                GameObject newHiHat = Instantiate(spawnable) as GameObject;
+                newHiHat.transform.position = transform.position;
+            }
         }
+        
     }
 }

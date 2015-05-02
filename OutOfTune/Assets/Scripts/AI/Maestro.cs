@@ -16,10 +16,10 @@ public class Maestro : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         //allows the boss to be injured by flying hi-hats
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            health.Defend(5);
+            health.Defend(10);
+            collision.gameObject.GetComponent<Health>().health = 0;
         }
     }
 

@@ -12,6 +12,8 @@ public class Weapon
     public float weaponForce;
     public float bulletSpread;
     public bool spin;
+    //when true, camera shakes when it fires
+    public bool shakyCam = true;
 
     public bool canFire = true;
 
@@ -30,6 +32,30 @@ public class Weapon
         b.GetComponent<Rigidbody2D>().AddForce(spreadVector * weaponForce, ForceMode2D.Impulse);
         b.transform.rotation = Quaternion.LookRotation(Vector3.forward, 
                                 Quaternion.Euler(0f, 0f, 90f) * spreadVector);
+        if (shakyCam)
+        {
+            /*GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+            camera.transform.localPosition = new Vector3(Random.RandomRange(-1f, 1f),
+                                                Random.RandomRange(-1f, 1f),
+                                                camera.transform.localPosition.z);*/
+            /*float backwardsForce = .01f;
+            GameObject cm = GameObject.FindGameObjectWithTag("CameraManager");
+            CameraManager cmScript = cm.GetComponentInParent<CameraManager>();
+            PlayerController pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            Vector2 feedback;
+            Vector3 cameraTarget = cmScript.getTarget();
+            if (pc.facingRight)
+            {
+                feedback = new Vector2(cameraTarget.x + backwardsForce, 0.0f);
+            }
+            else
+            {
+                feedback = new Vector2(cameraTarget.x - backwardsForce, 0.0f);
+            }
+            cm.transform.position = feedback;
+             */
+        }
+
         if (spin)
             b.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-100, 100));       //put a spin on it so it looks nice
 
