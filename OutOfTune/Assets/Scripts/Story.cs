@@ -47,7 +47,9 @@ public class Story : MonoBehaviour {
 	private int sizestory;
 	private int sentence_iterator;
 	// Use this for initialization
-
+	public void OnLevelWasLoaded(int level_loaded){
+		delete();
+	}
 	void Start () {
 		level1start = false;
 		level1preboss = false;
