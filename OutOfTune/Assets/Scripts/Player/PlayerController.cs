@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
     private GameObject violin;
     private int ignoredPlatformMask;
     private bool invincible = false;
-    private int numJumps = 0;
+    public int numJumps = 0;
 	private Vector3 checkpointpos; //used to do saving the positon of player
 
     //States
@@ -353,7 +353,9 @@ public class PlayerController : MonoBehaviour {
             | (1 << LayerMask.NameToLayer("Platform")));
         */
 		if(characterpause == false){
-	        if (Input.GetButtonDown("Jump") && numJumps < 1)
+            if (grounded) numJumps = 0;
+
+	        if (Input.GetButtonDown("Jump") && numJumps == 0)
 	        {
 	            //this is done so both jumps have same total force
 	            //there's probably a better way
@@ -365,7 +367,7 @@ public class PlayerController : MonoBehaviour {
 	        }
 
 	        //put afterwards to allow only one jump in midair
-	        if (grounded) numJumps = 0;
+	        //if (grounded) numJumps = 0;
 	        animator.SetBool("Grounded", grounded);
 	        animator.SetFloat("Yvel", gameObject.GetComponent<Rigidbody2D>().velocity.y);
 		}
