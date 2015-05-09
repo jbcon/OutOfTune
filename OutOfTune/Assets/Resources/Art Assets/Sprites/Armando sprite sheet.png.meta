@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3d1fc33b1d8f15c40a997da086dc4f09
-timeCreated: 1430413989
+timeCreated: 1431206086
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -66,7 +66,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -80,7 +80,7 @@ TextureImporter:
         width: 106
         height: 153
       alignment: 9
-      pivot: {x: .946831763, y: .763134122}
+      pivot: {x: .701074302, y: .747655511}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Head_Hair_Forward
       rect:
@@ -100,7 +100,7 @@ TextureImporter:
         width: 94
         height: 75
       alignment: 9
-      pivot: {x: .886079729, y: .801085234}
+      pivot: {x: .722320735, y: .690568447}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Head
       rect:
@@ -120,7 +120,7 @@ TextureImporter:
         width: 113
         height: 157
       alignment: 9
-      pivot: {x: .0575078093, y: .787661016}
+      pivot: {x: .308998585, y: .704698086}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Head_Hair_Back
       rect:
@@ -150,7 +150,7 @@ TextureImporter:
         width: 162
         height: 229
       alignment: 9
-      pivot: {x: .41536966, y: .0280876327}
+      pivot: {x: .38072601, y: .0631987751}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: R_Hand
       rect:
@@ -175,12 +175,12 @@ TextureImporter:
     - name: R_Forearm
       rect:
         serializedVersion: 2
-        x: 416
+        x: 417
         y: 226
         width: 123
         height: 104
       alignment: 9
-      pivot: {x: .775382698, y: .895484328}
+      pivot: {x: .890904367, y: .815783858}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: L_Leg
       rect:
