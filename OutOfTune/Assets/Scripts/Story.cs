@@ -43,13 +43,11 @@ public class Story : MonoBehaviour {
 	//private List<string> storylines = new List<><string>();
 	private GameObject conversation;
 	public bool display;
+	private bool continuetorenable;
 	private int storyiterator;
 	private int sizestory;
 	private int sentence_iterator;
 	// Use this for initialization
-	public void OnLevelWasLoaded(int level_loaded){
-		delete();
-	}
 	void Start () {
 		level1start = false;
 		level1preboss = false;
@@ -67,8 +65,8 @@ public class Story : MonoBehaviour {
 		lvl3intro= false;
 		lvl3preboss= false;
 		lvl3postboss= false;
-
 		display = false;
+		continuetorenable = false;
 		storyiterator = 0;
 		conversation = GameObject.FindGameObjectWithTag("Story");
 		story = conversation.GetComponentInChildren<Text>();
@@ -95,18 +93,18 @@ public class Story : MonoBehaviour {
 		Image textbg = gameObject.GetComponentInChildren<Image>();
 		dialogueimg1 = newface;
 		dialogueimg1.transform.SetParent(gameObject.transform,false);
-		Vector3 prefabpos = new Vector3(textbg.transform.position.x + 200, textbg.transform.position.y- 50,textbg.transform.position.z);
+		Vector3 prefabpos = new Vector3(textbg.transform.position.x + 350, textbg.transform.position.y- 100,textbg.transform.position.z);
 		dialogueimg1.transform.position = prefabpos;
 	}
 	void Leftside(Image newface){
 		Image textbg = gameObject.GetComponentInChildren<Image>();
 		dialogueimg2 = newface;
 		dialogueimg2.transform.SetParent(gameObject.transform,false);
-		Vector3 prefabpos = new Vector3(textbg.transform.position.x - 416, textbg.transform.position.y- 50,textbg.transform.position.z);
+		Vector3 prefabpos = new Vector3(textbg.transform.position.x - 710, textbg.transform.position.y- 100,textbg.transform.position.z);
 		dialogueimg2.transform.position = prefabpos;
 	}
 	public void delete(){
-		Debug.Log("asdf");
+		//change();
 		Destroy(dialogueimg1);
 		Destroy(dialogueimg2);
 	}
@@ -135,9 +133,14 @@ public class Story : MonoBehaviour {
 				story.text = story_book[storyiterator];
 				story.enabled = true;
 			}
-			if(level1start == true && Reneeshow == false && sizestory > 0&& storyiterator == 2){
-				Image faceofRenee = Instantiate (facerightRenee) as Image;
+			if(level1start == true && Reneeshow == false && sizestory > 0 && storyiterator == 0){
+				Image faceofPeter = Instantiate(facerightPeter) as Image;
 				Reneeshow = true;
+				Rightside(faceofPeter);
+			}else if(level1start == true && Reneeshow == true && sizestory > 0&& storyiterator == 2){
+				Destroy(dialogueimg1);
+				Image faceofRenee = Instantiate (facerightRenee) as Image;
+				Reneeshow = false;
 				Rightside(faceofRenee);
 			}else if(level1preboss == true && Reneeshow2 == false && sizestory > 0 && storyiterator==0){
 				Image faceofMaestro = Instantiate (faceMaestro) as Image;
@@ -184,13 +187,17 @@ public class Story : MonoBehaviour {
 		}else{
 			//reenable player movement
 			player.GetComponent<PlayerController>().characterpause = false;
-			story.enabled = false;
-			background.enabled = false;
 			delete();
 			//reenable enemy movement
-			for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
-				enemies[disable2].GetComponent<Health>().UnPauseGame();
+			if(continuetorenable == true){
+				for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
+					enemies[disable2].GetComponent<Health>().UnPauseGame();
+				}
+				continuetorenable = false;
 			}
+			story.enabled = false;
+			background.enabled = false;
+
 		}
 	}
 	public void change()
@@ -208,7 +215,7 @@ public class Story : MonoBehaviour {
 		storyiterator = 0;
 		sizestory = 0;
 		story_book.Clear();
-		gameObject.SetActive(false);
+		///gameObject.SetActive(false);
 	}
 	public void reader(List<string> datapath, string boolvalue){
 		storyiterator = 0;
@@ -216,16 +223,22 @@ public class Story : MonoBehaviour {
 			level1start = true;
 		}else if (boolvalue == "level1preboss"){
 			level1preboss = true;
+			level1start = false;
 		}else if (boolvalue == "level1postboss"){
 			level1postboss = true;
+			level1preboss = false;
 		}else if (boolvalue == "level2intro"){
 			level2intro = true;
+			level1postboss = false;
 		}else if (boolvalue == "level2end"){
 			level2end = true;
+			level2intro = false;
 		}else if (boolvalue == "level3intro"){
 			level3intro = true;
+			level2end = false;
 		}else if (boolvalue == "level3preboss"){
 			level3preboss = true;
+			level3intro = false;
 		}
 		story_book = datapath;
 		sizestory = story_book.Count();
@@ -242,5 +255,6 @@ public class Story : MonoBehaviour {
 			sizestory ++;
 		}*/
 		display = true;
+		continuetorenable = true;
 	}
 }
