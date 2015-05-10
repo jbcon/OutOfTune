@@ -59,10 +59,6 @@ public class TestClari : MonoBehaviour {
 			//keep it from moving
 			gameObject.transform.position = temp_pos;
 		}
-		if (testing.pause == false){
-			counter ++;
-			Debug.Log ("the ccoutner " + counter);
-		}
 	}
 	public void pausegame(){
 		testing.pausegame();

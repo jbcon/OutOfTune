@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour {
 	public Animator loadbutton;
 	public Animator level2button;
 	public Animator level3button;
+	public Animator creditbutton;
+	public GameObject Creditpage;
 	public Animator[] mainmenuanimations;
 	public bool clicked = false;
 	public bool activatestory;
@@ -27,11 +29,14 @@ public class UIManager : MonoBehaviour {
 	private Image weaponimg;							//temp variable for the weapon image
 	private bool uihide;
 	private GameObject[] enemies;						//list of each enemy type for
+	private bool credithide;
+
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
 
 	public void Start(){
+		credithide = false;
 		getanimators();
 		activatestory = false;
 		uihide = false;
@@ -45,6 +50,7 @@ public class UIManager : MonoBehaviour {
 		buttonnames.Add("LoadButton");
 		buttonnames.Add("Level2");
 		buttonnames.Add("Level 3");
+		buttonnames.Add("credits");
 		health = GameObject.Find("storysetting");
 
 		//Debug.Log(health.GetComponentsInChildren<Text>());
@@ -66,7 +72,7 @@ public class UIManager : MonoBehaviour {
 				}else if (healthlist[i].sprite.name == "button_level2" ||healthlist[i].sprite.name =="button_newGame" ||
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
 				          healthlist[i].sprite.name == "button_load" || healthlist[i].sprite.name =="button_save" ||
-				          healthlist[i].sprite.name == "button_mainMenu" 
+				          healthlist[i].sprite.name == "button_mainMenu" || healthlist[i].sprite.name == "button_credits"
 
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
@@ -108,6 +114,16 @@ public class UIManager : MonoBehaviour {
 			weapons[k].enabled = true;
 		}
 	}
+	public void ShowCredit(){
+		Debug.Log("hit");
+		if(credithide == false){
+			Creditpage.SetActive(true);
+			credithide = true;
+		}else{
+			Creditpage.SetActive(false);
+			credithide = false;
+		}
+	}
 	public void StartGame(){
 		uihide = true;
 		Application.LoadLevel("Level 1");
@@ -129,6 +145,7 @@ public class UIManager : MonoBehaviour {
 		settings.SetBool("escPressed",false);
 		Save.SetBool("escPressed",false);
 		Menureturn.SetBool("escPressed",false);
+
 		GameObject temp = GameObject.FindGameObjectWithTag("Story");
 		temp.GetComponent<Story>().change();
 		Application.LoadLevel("MainMenu");
@@ -164,6 +181,8 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	void getanimators(){
+		Creditpage = GameObject.FindGameObjectWithTag("CreditUI");
+		Creditpage.SetActive(false);
 		GameObject grabanimators = GameObject.FindGameObjectWithTag("ButtonUI");
 		//Debug.Log("yeay"+ grabanimators);
 		if (grabanimators != null){
@@ -183,6 +202,9 @@ public class UIManager : MonoBehaviour {
 				}else if (mainmenuanimations[i].name == "LoadButton"){
 					loadbutton = mainmenuanimations[i];
 					loadbutton.enabled = true;
+				}else if (mainmenuanimations[i].name == "credits"){
+					creditbutton = mainmenuanimations[i];
+					creditbutton.enabled = true;
 				}
 			}
 		}
@@ -208,6 +230,7 @@ public class UIManager : MonoBehaviour {
 				loadbutton.SetBool("escPressed",clicked);
 				level2button.SetBool("escPressed",clicked);
 				level3button.SetBool("escPressed",clicked);
+				creditbutton.SetBool("escPressed",clicked);
 			}else{
 				//list all the enemies
 				enemies = GameObject.FindGameObjectsWithTag("enemy");
