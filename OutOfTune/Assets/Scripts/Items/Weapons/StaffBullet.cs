@@ -19,6 +19,7 @@ public class StaffBullet : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+		int statuelayer = LayerMask.NameToLayer("statue");
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         int bossLayer = LayerMask.NameToLayer("Boss");
         if (collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
@@ -29,8 +30,11 @@ public class StaffBullet : MonoBehaviour {
             if (collision.attachedRigidbody)
             {
                 collision.attachedRigidbody.AddForce(transform.rotation * Vector2.right * force, ForceMode2D.Impulse);
-            }
-        }
+			}
+
+		}else if (collision.gameObject.layer == statuelayer){
+			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
+		}
     }
 
 }

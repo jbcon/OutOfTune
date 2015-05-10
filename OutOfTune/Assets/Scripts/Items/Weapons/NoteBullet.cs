@@ -33,7 +33,6 @@ public class NoteBullet : MonoBehaviour {
             collision.gameObject.GetComponent<Health>().Defend(damage);
         }else if (collision.gameObject.layer == statuelayer){
 			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
-			Debug.Log ("histting");
 		}
         Destroy(gameObject);
     }

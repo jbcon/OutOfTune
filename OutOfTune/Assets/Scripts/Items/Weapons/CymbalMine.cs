@@ -11,7 +11,7 @@ public class CymbalMine : MonoBehaviour
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         int groundLayer = LayerMask.NameToLayer("Ground");
-
+		int statuelayer = LayerMask.NameToLayer("statue");
         if (collision.gameObject.layer == enemyLayer)
         {
             //Debug.Log("HIT!");
@@ -31,7 +31,9 @@ public class CymbalMine : MonoBehaviour
         {
             //Debug.Log("Mine placed on ground");
         }
-        
+		if (collision.gameObject.layer == statuelayer){
+			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
+		}
     }
 
 }
