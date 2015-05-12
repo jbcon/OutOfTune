@@ -36,7 +36,6 @@ public class DisplayStory : MonoBehaviour {
 				};
 				storyobj.GetComponent<Story>().reader(temp, "level1start");
 			}else if(gameObject.name == "level1preboss" &&	storyobj.GetComponent<Story>().level1preboss == false ){
-
 				List<string> temp = new List<string> {
 					"Maestro: Ah, I see you've come to avenge your beloved!",
 					"Renee: Not my beloved, not big on avenging. Can I leave or should I use the trombone?",

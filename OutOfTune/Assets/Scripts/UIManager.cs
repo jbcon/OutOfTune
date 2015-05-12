@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour {
 	public Animator loadbutton;
 	public Animator level2button;
 	public Animator level3button;
+	public Animator creditbutton;
+	public GameObject Creditpage;
+	public Animator[] mainmenuanimations;
 	public bool clicked = false;
 	public bool activatestory;
 	public GameObject player;
@@ -26,24 +29,35 @@ public class UIManager : MonoBehaviour {
 	private Image weaponimg;							//temp variable for the weapon image
 	private bool uihide;
 	private GameObject[] enemies;						//list of each enemy type for
-	//private GameObject[] clari;							//accesing their ai component and modifying it
-	//private GameObject[] triplets;
+	private bool credithide;
+
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
+
 	public void Start(){
+		credithide = false;
+		getanimators();
 		activatestory = false;
 		uihide = false;
-		settings.enabled = true;
-		Save.enabled = true;
-		Menureturn.enabled = true;
+		if (settings){
+			settings.enabled = true;
+			Save.enabled = true;
+			Menureturn.enabled = true;
+		}
+
 		buttonnames.Add("newgame");
 		buttonnames.Add("LoadButton");
 		buttonnames.Add("Level2");
 		buttonnames.Add("Level 3");
+		buttonnames.Add("credits");
 		health = GameObject.Find("storysetting");
+
 		//Debug.Log(health.GetComponentsInChildren<Text>());
 		healthlist = new List<Image>(health.GetComponentsInChildren<Image>());	//grabs all the images on the canvas for the GUI
+		if (healthlist == null){
+			Debug.Log ("failed");
+		}
 		List<int> temp = new List<int>();										//stores the indexes of the images that aren;t part of health
 		for (int i = 0; i < healthlist.Count(); i++){
 			//Debug.Log(healthlist[i].sprite.name+ "asdfdasf"+ healthlist[i] + i);
@@ -57,8 +71,8 @@ public class UIManager : MonoBehaviour {
 					weapons.Add(weaponimg);																//add it to weapon list
 				}else if (healthlist[i].sprite.name == "button_level2" ||healthlist[i].sprite.name =="button_newGame" ||
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
-				          healthlist[i].sprite.name =="button_load" || healthlist[i].sprite.name =="button_save" ||
-				          healthlist[i].sprite.name =="button_mainMenu" 
+				          healthlist[i].sprite.name == "button_load" || healthlist[i].sprite.name =="button_save" ||
+				          healthlist[i].sprite.name == "button_mainMenu" || healthlist[i].sprite.name == "button_credits"
 
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
@@ -88,6 +102,7 @@ public class UIManager : MonoBehaviour {
 			}
 
 		}
+		//}
 	}
 	void loadUI(){
 		//Enable the hearts to be seen
@@ -97,6 +112,16 @@ public class UIManager : MonoBehaviour {
 		//enable the weapon selcetor object to be seen
 		for (int k = 0; k < weapons.Count(); k++){
 			weapons[k].enabled = true;
+		}
+	}
+	public void ShowCredit(){
+		Debug.Log("hit");
+		if(credithide == false){
+			Creditpage.SetActive(true);
+			credithide = true;
+		}else{
+			Creditpage.SetActive(false);
+			credithide = false;
 		}
 	}
 	public void StartGame(){
@@ -115,14 +140,17 @@ public class UIManager : MonoBehaviour {
 		loadUI ();
 	}
 	public void LoadMenu(){
-		//uihide = false;
-		//clicked = !clicked;
+		uihide = false;
+		clicked = false;
 		settings.SetBool("escPressed",false);
 		Save.SetBool("escPressed",false);
 		Menureturn.SetBool("escPressed",false);
+
 		GameObject temp = GameObject.FindGameObjectWithTag("Story");
 		temp.GetComponent<Story>().change();
 		Application.LoadLevel("MainMenu");
+		getanimators();
+		//Destroy(gameObject);
 	}
 	void checkinghealth(float playerhealth){
 		float temphealth = playerhealth;
@@ -152,15 +180,47 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 	}
+	void getanimators(){
+		Creditpage = GameObject.FindGameObjectWithTag("CreditUI");
+		Creditpage.SetActive(false);
+		GameObject grabanimators = GameObject.FindGameObjectWithTag("ButtonUI");
+		//Debug.Log("yeay"+ grabanimators);
+		if (grabanimators != null){
+			uihide = false;
+			mainmenuanimations = grabanimators.GetComponentsInChildren<Animator>();
+			for (int i = 0; i < mainmenuanimations.Count () ; i ++){
+				if(mainmenuanimations[i].name == "newgame"){
+					//Debug.Log ("set it like a mofo");
+					newgamebutton = mainmenuanimations[i];
+					newgamebutton.enabled = true;
+				}else if(mainmenuanimations[i].name == "Level2"){
+					level2button = mainmenuanimations[i];
+					level2button.enabled = true;
+				}else if (mainmenuanimations[i].name == "Level 3"){
+					level3button = mainmenuanimations[i];
+					level3button.enabled = true;
+				}else if (mainmenuanimations[i].name == "LoadButton"){
+					loadbutton = mainmenuanimations[i];
+					loadbutton.enabled = true;
+				}else if (mainmenuanimations[i].name == "credits"){
+					creditbutton = mainmenuanimations[i];
+					creditbutton.enabled = true;
+				}
+			}
+		}
+	}
 	public void Update(){
+
 		GameObject testbutton = GameObject.Find("Save");
 		if (Input.GetKeyDown((KeyCode.Escape)))
 		{
 			//bringing down the setting menu
 			clicked = !clicked;
-			settings.SetBool("escPressed",clicked);
-			Save.SetBool("escPressed",clicked);
-			Menureturn.SetBool("escPressed",clicked);
+			if (settings){
+				settings.SetBool("escPressed",clicked);
+				Save.SetBool("escPressed",clicked);
+				Menureturn.SetBool("escPressed",clicked);
+			}
 			//Debug.Log("display settings" + clicked);
 
 			//when opening settings run the animations for setting
@@ -170,6 +230,7 @@ public class UIManager : MonoBehaviour {
 				loadbutton.SetBool("escPressed",clicked);
 				level2button.SetBool("escPressed",clicked);
 				level3button.SetBool("escPressed",clicked);
+				creditbutton.SetBool("escPressed",clicked);
 			}else{
 				//list all the enemies
 				enemies = GameObject.FindGameObjectsWithTag("enemy");
@@ -177,6 +238,7 @@ public class UIManager : MonoBehaviour {
 
 
 			if (clicked){
+
 				//settings menu set selected menu to the the save button
 				EventSystem tempevent = EventSystem.current;
 				EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(tempevent));

@@ -24,6 +24,7 @@ public class TubaShockwave : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
+		int statuelayer = LayerMask.NameToLayer("statue");
         Transform tf = other.gameObject.transform;
         Rigidbody2D rb = other.attachedRigidbody;
         if (rb)
@@ -32,7 +33,12 @@ public class TubaShockwave : MonoBehaviour {
                 tf.position.y - this.transform.position.y);
             dist.Normalize();
             rb.AddForce(dist * force, ForceMode2D.Impulse);
+			if (other.gameObject.layer == statuelayer){
+				other.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
+				Debug.Log ("histting");
+			}
         }
+
     }
 
     /*

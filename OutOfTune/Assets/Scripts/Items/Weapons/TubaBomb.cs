@@ -16,11 +16,17 @@ public class TubaBomb : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+		int statuelayer = LayerMask.NameToLayer("statue");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")
             || collision.gameObject.layer == LayerMask.NameToLayer("Boss"))
         {
             Explode();
         }
+		if (collision.gameObject.layer == statuelayer){
+			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
+			Debug.Log ("histting");
+			Explode();
+		}
     }
     void Explode()
     {

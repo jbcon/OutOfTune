@@ -32,7 +32,7 @@ public class TestClari : MonoBehaviour {
 		{
 			Debug.Log ("still not working");
 		}
-		counter = 0;
+		counter = 1;
 		chased = false;
 	}
 	public void OnTriggerStay2D(Collider2D collider)
@@ -46,10 +46,10 @@ public class TestClari : MonoBehaviour {
 			//animate moving and move go on patrol
 			if (counter == 0){
 				gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.self.transform.localScale.y);
-			}else if ( counter >= 580){
+			}else if ( counter >= 380){
 				counter = 0;
 				gameObject.transform.localScale = new Vector2(-testing.pos_scale, testing.self.transform.localScale.y);
-			}else if (counter >= 300){
+			}else if (counter >= 400){
 				gameObject.transform.localScale = new Vector2(testing.pos_scale, testing.self.transform.localScale.y);
 			}
 
@@ -59,7 +59,6 @@ public class TestClari : MonoBehaviour {
 			//keep it from moving
 			gameObject.transform.position = temp_pos;
 		}
-		counter ++;
 	}
 	public void pausegame(){
 		testing.pausegame();
