@@ -186,7 +186,8 @@ public class Story : MonoBehaviour {
 			}
 		}else{
 			//reenable player movement
-			player.GetComponent<PlayerController>().characterpause = false;
+            if (player)
+			    player.GetComponent<PlayerController>().characterpause = false;
 			delete();
 			//reenable enemy movement
 			if(continuetorenable == true){
