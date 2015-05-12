@@ -121,13 +121,25 @@ public class Story : MonoBehaviour {
 			}
 			gameObject.SetActive(true);
 			if(storyiterator >= sizestory ){
+                
 				display= false;
 				story.enabled = false;
+                
+                //trigger boss battle with Armand if necessary
+                if (level3preboss)
+                {
+                    //after text is over, will trigger boss battle
+                    GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+                    ArmandBoss a = boss.GetComponent<ArmandBoss>();
+                    a.Initialize();
+                }
 				background.enabled = false;
+                
 				story_book.Clear();
 				sizestory = 0;
 				Destroy(dialogueimg1);
 				Destroy(dialogueimg2);
+                
 			}else{
 				background.enabled = true;
 				story.text = story_book[storyiterator];
@@ -188,7 +200,7 @@ public class Story : MonoBehaviour {
 			//reenable player movement
             if (player)
 			    player.GetComponent<PlayerController>().characterpause = false;
-			delete();
+			//delete();
 			//reenable enemy movement
 			if(continuetorenable == true){
 				for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
