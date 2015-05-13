@@ -14,6 +14,7 @@ public class CameraManager : MonoBehaviour {
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         pController = player.GetComponent<PlayerController>();
+        target = player.transform.position;
         transform.position = target + new Vector3(targetRange.x, 0.0f, 0.0f);
         Cursor.visible = false;
 	}
