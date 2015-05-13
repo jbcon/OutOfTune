@@ -132,7 +132,7 @@ public class ArmandBoss : MonoBehaviour {
 	void Update () {
         if (!attacking)
         {
-            handHealth = 100;
+            handHealth = 30;
         }
         if (dying)
         {
