@@ -69,6 +69,7 @@ public class ArmandBoss : MonoBehaviour {
         switch (state)
         {
             case BossState.Clapping:
+                bossAnimator.SetTrigger("Clap");
                 break;
             case BossState.Drumming:
                 bossAnimator.SetTrigger("Drum");
