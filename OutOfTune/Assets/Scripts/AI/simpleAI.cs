@@ -12,6 +12,8 @@ public class simpleAI : MonoBehaviour {
     //how far until it can't see the player
     public float range = 50.0f;
 
+    public float threshold = 5.0f;
+
     Animator animator;
 	bool jump;
 	bool faceright;
@@ -96,24 +98,28 @@ public class simpleAI : MonoBehaviour {
 	}
 	void Movement(){
 		// using the point to determine if the ai is on the left or right side of the player
-        
+        bool dontMove = false;
 		Vector3 point = player_loc.InverseTransformPoint (transform.position);
-		if (point.x > 0) {
+		if (point.x > -threshold) {
             if (player.GetComponent<PlayerController>().grounded)
                 faceright = true;
-		} else if (point.x < 0) {
+		} else if (point.x < threshold) {
             if(player.GetComponent<PlayerController>().grounded)
                 faceright = false;
 		}
+        else
+        {
+            dontMove = true;
+        }
 
-        if (faceright == true)
+        if (faceright == true && !dontMove)
         {
             //rotate the sprite to face the correct direction if hes on the left
             transform.localScale = new Vector2(-pos_scale, transform.localScale.y);
             //left side of the player move left
 			transform.Translate (Vector3.left * speed * Time.deltaTime);
         }
-        else
+        else if (faceright == false && !dontMove)
         {
             transform.localScale = new Vector2(pos_scale, transform.localScale.y);
             //right side of the player move right
