@@ -110,6 +110,30 @@ public class DisplayStory : MonoBehaviour {
 				};
 				//var sr = new StreamReader(Application.dataPath +"/scripts/level3preboss.txt");
 				storyobj.GetComponent<Story>().reader(temp, "level3preboss");
+			}else if(gameObject.name == "level3postboss"){
+				List<string> temp = new List<string>{
+				"Armand: WHYYYYYYYYY?",
+				"Renee: Enough.",
+				"Narrator: With Armand defeated, Peter could finally return to his lo-",
+				"Renee: ENOUGH! I am so utterly sick of you and these ridiculous versions of our life!",
+				"Renee: Even in here, I'm a second thought to your work, but when you DO think of me, suddenly I'm your TREASURE? Your PRIZE?",
+				"Renee: Armand didn't steal me away from you, Peter. I walked. And I didn't even walk to him at first! I left your stupid circus of an orchestra because it was better than being second chair for you.",
+				"Renee: Face the facts, Peter. We're done. And you've only got yourself to blame.",
+				"Narrator: ...",
+				"Narrator: ...",
+				"Narrator: ...You...",
+				"Peter: ...I've messed up big time.",
+				"Renee: Yeah. I guess so.",
+				"Renee: ...Can I please go home now?",
+				"Peter: Yeah. Yeah, you can go.",
+				"Renee: Thanks.",
+				"Renee: I'm sorry, you know? You're hurting. But that doesn't change things.",
+				"Peter: Yeah. I get it. Thanks for fighting for me. I mean, against me.",
+				"Renee: I get it.",
+				"Peter: ...Bye."
+				};
+				storyobj.GetComponent<Story>().reader(temp, "level3postboss");
+
 			}
 		}
 	}

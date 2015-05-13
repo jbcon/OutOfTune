@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour {
 	public bool clicked = false;
 	public bool activatestory;
 	public GameObject player;
+	public GameObject bgimg;
 	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void Start(){
+		//bgimg.enabled = true;
 		credithide = false;
 		getanimators();
 		activatestory = false;
@@ -75,7 +77,7 @@ public class UIManager : MonoBehaviour {
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
 				          healthlist[i].sprite.name == "button_load" || healthlist[i].sprite.name =="button_save" ||
 				          healthlist[i].sprite.name == "button_mainMenu" || healthlist[i].sprite.name == "button_credits"||
-				          healthlist[i].sprite.name == "button_quit"
+				          healthlist[i].sprite.name == "button_quit" || healthlist[i].sprite.name == "titleScreen"
 
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
@@ -128,16 +130,19 @@ public class UIManager : MonoBehaviour {
 	}
 	public void StartGame(){
 		uihide = true;
+		bgimg.SetActive(false);
 		Application.LoadLevel("Level 1");
 		loadUI ();
 	}
 	public void LoadLevel2(){
 		uihide = true;
+		bgimg.SetActive(false);
 		Application.LoadLevel("Level 2");
 		loadUI ();
 	}
 	public void LoadLevel3(){
 		uihide = true;
+		bgimg.SetActive(false);
 		Application.LoadLevel("Level 3");
 		loadUI ();
 	}
@@ -153,6 +158,7 @@ public class UIManager : MonoBehaviour {
 		GameObject temp = GameObject.FindGameObjectWithTag("Story");
 		temp.GetComponent<Story>().change();
 		Application.LoadLevel("MainMenu");
+		bgimg.SetActive(true);
 		getanimators();
 		//Destroy(gameObject);
 	}
@@ -190,10 +196,12 @@ public class UIManager : MonoBehaviour {
 	void getanimators(){
 		Creditpage = GameObject.FindGameObjectWithTag("CreditUI");
 		Creditpage.SetActive(false);
+		bgimg = GameObject.FindGameObjectWithTag("bg");
+		bgimg.SetActive(true);
 		GameObject grabanimators = GameObject.FindGameObjectWithTag("ButtonUI");
 		//Debug.Log("yeay"+ grabanimators);
 		if (grabanimators != null){
-			uihide = false;
+			//uihide = false;
 			mainmenuanimations = grabanimators.GetComponentsInChildren<Animator>();
 			for (int i = 0; i < mainmenuanimations.Count () ; i ++){
 				if(mainmenuanimations[i].name == "newgame"){
@@ -228,10 +236,10 @@ public class UIManager : MonoBehaviour {
 				Save.SetBool("escPressed",clicked);
 				Menureturn.SetBool("escPressed",clicked);
 				Quitbutton.SetBool("escPressed",clicked);
-				settings.enabled = false;
-				Save.enabled = false;
-				Menureturn.enabled = false;
-				Quitbutton.enabled = false;
+				settings.enabled = true;
+				Save.enabled = true;
+				Menureturn.enabled = true;
+				Quitbutton.enabled = true;
 			}
 			//Debug.Log("display settings" + clicked);
 
@@ -243,10 +251,10 @@ public class UIManager : MonoBehaviour {
 				level2button.SetBool("escPressed",clicked);
 				level3button.SetBool("escPressed",clicked);
 				creditbutton.SetBool("escPressed",clicked);
-				settings.enabled = true;
-				Save.enabled = true;
-				Menureturn.enabled = true;
-				Quitbutton.enabled = true;
+				settings.enabled = false;
+				Save.enabled = false;
+				Menureturn.enabled = false;
+				Quitbutton.enabled = false;
 			}else{
 				//list all the enemies
 				enemies = GameObject.FindGameObjectsWithTag("enemy");
