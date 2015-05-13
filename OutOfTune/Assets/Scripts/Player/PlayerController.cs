@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     public float aimRange;
     //Player's weapon inventory
     public bool gamepadConnected = false;
-	public bool characterpause;
+	public bool characterpause = false;
     private Animator animator;
     private Transform tf;
     private Vector2 direction;
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
     private GameObject violin;
     private int ignoredPlatformMask;
     private bool invincible = false;
+	private Vector3 stored_pos;
     public int numJumps = 0;
 	private Vector3 checkpointpos; //used to do saving the positon of player
 
@@ -48,7 +49,6 @@ public class PlayerController : MonoBehaviour {
 
     //max angle of aim rotation
     public float rotationRange = 80f;
-
 	// Use this for initialization
 	void Start ()
     {
@@ -64,15 +64,24 @@ public class PlayerController : MonoBehaviour {
 		checkpointpos = gameObject.transform.position;
 
 	}
-	
+	public void setpause(){
+		characterpause = true;
+		gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+	}
+	public void unpause(){
+		characterpause = false;
+		gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+	}
 	// Update is called once per frame
 	void Update ()
     {
-        CheckGround();
-        Jumping();
-	    if (!attacking)
-				UseWeapon();
-	    UseMeleeWeapon();
+		if(characterpause == false){
+	        CheckGround();
+	        Jumping();
+		    if (!attacking)
+					UseWeapon();
+		    UseMeleeWeapon();
+		}
 	}
 
     void FixedUpdate()
@@ -329,6 +338,7 @@ public class PlayerController : MonoBehaviour {
     void CharacterMovement()
     {
 		if(characterpause == false){
+			stored_pos = gameObject.transform.position;
 	        float move = Input.GetAxis("Movement");
 
 	        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed * Time.deltaTime, gameObject.GetComponent<Rigidbody2D>().velocity.y);
@@ -343,6 +353,10 @@ public class PlayerController : MonoBehaviour {
 	        {
 	            animator.SetBool("Idle", true);
 	        }
+		}else{
+			//keep gameobject from moving
+			gameObject.transform.position = stored_pos;
+			Debug.Log ("player should be pause");
 		}
     }
     void Jumping()

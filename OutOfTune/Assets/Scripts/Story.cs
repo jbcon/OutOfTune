@@ -116,7 +116,7 @@ public class Story : MonoBehaviour {
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		if (display == true){
 			//disable player movement
-			player.GetComponent<PlayerController>().characterpause = true;
+			player.GetComponent<PlayerController>().setpause();
 			//disable enemy movement
 			for (int disable = 0; disable < enemies.Count(); disable ++){
 				enemies[disable].GetComponent<Health>().PauseGame();
@@ -215,14 +215,15 @@ public class Story : MonoBehaviour {
 			}
 		}else{
 			//reenable player movement
-            if (player)
-			    player.GetComponent<PlayerController>().characterpause = false;
+            
 			//delete();
 			//reenable enemy movement
 			if(continuetorenable == true){
 				for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
 					enemies[disable2].GetComponent<Health>().UnPauseGame();
 				}
+				if (player)
+					player.GetComponent<PlayerController>().unpause();
 				continuetorenable = false;
 			}
 			story.enabled = false;

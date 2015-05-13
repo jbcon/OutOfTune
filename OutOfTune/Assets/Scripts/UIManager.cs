@@ -32,12 +32,13 @@ public class UIManager : MonoBehaviour {
 	private bool uihide;
 	private GameObject[] enemies;						//list of each enemy type for
 	private bool credithide;
-
+	private bool playerpause;
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
 
 	public void Start(){
+		playerpause = false;
 		//bgimg.enabled = true;
 		credithide = false;
 		getanimators();
@@ -227,6 +228,17 @@ public class UIManager : MonoBehaviour {
 	public void Update(){
 
 		GameObject testbutton = GameObject.Find("Save");
+		if(player == null){
+			player = GameObject.FindGameObjectWithTag("Player");
+		}else{
+			//if player exist in scene then grab the script and access its variables
+			playerobj = player.GetComponent<PlayerController>();
+			//call the functions to check the current player status
+			checkinghealth(playerobj.gethealth());
+			highlightweapon(playerobj.weaponManager.weaponname);
+			//Debug.Log(playerobj.weaponManager.weaponname);
+		}
+
 		if (Input.GetKeyDown((KeyCode.Escape)))
 		{
 			//bringing down the setting menu
@@ -236,6 +248,7 @@ public class UIManager : MonoBehaviour {
 				Save.SetBool("escPressed",clicked);
 				Menureturn.SetBool("escPressed",clicked);
 				Quitbutton.SetBool("escPressed",clicked);
+				//renenable use of these buttons
 				settings.enabled = true;
 				Save.enabled = true;
 				Menureturn.enabled = true;
@@ -251,6 +264,7 @@ public class UIManager : MonoBehaviour {
 				level2button.SetBool("escPressed",clicked);
 				level3button.SetBool("escPressed",clicked);
 				creditbutton.SetBool("escPressed",clicked);
+				//disable buttons and move them off screen
 				settings.enabled = false;
 				Save.enabled = false;
 				Menureturn.enabled = false;
@@ -280,6 +294,7 @@ public class UIManager : MonoBehaviour {
 				//when go back to main menu set the focus back onto the newgame
 				if (uihide == false){
 					if(credithide == false){
+						//during credit showing focus on only credirs
 						GameObject testbutton3 = GameObject.Find("credits");
 						EventSystem tempevent = EventSystem.current;
 						EventSystem.current.SetSelectedGameObject(testbutton3, new BaseEventData(tempevent));
@@ -298,21 +313,27 @@ public class UIManager : MonoBehaviour {
 				Cursor.visible = false;
 			}
 		}
+		if(clicked == true){
+			if(player != null){
+				//disable player movement
+				player.GetComponent<PlayerController>().setpause();
+				//tell program that the player paused the game
+				playerpause = true;
+			}
+		}else{
+			if (playerpause == true){
+				//unpause the player only if player hit upause button 
+				player.GetComponent<PlayerController>().unpause() ;
+				playerpause = false;
+			}
+		}
 		/*
 		//during setting menus make sure that the user can't select anything else other than save
 		if(clicked == true && EventSystem.current.gameObject != testbutton){
 			EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(EventSystem.current));
 		}*/
 		//grab the player object
-		player = GameObject.FindGameObjectWithTag("Player");
-		if (player != null){
-			//if player exist in scene then grab the script and access its variables
-			playerobj = player.GetComponent<PlayerController>();
-			//call the functions to check the current player status
-			checkinghealth(playerobj.gethealth());
-			highlightweapon(playerobj.weaponManager.weaponname);
-			//Debug.Log(playerobj.weaponManager.weaponname);
-		}
+
 	}
 
 }
