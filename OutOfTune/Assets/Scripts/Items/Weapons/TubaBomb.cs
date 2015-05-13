@@ -18,7 +18,8 @@ public class TubaBomb : MonoBehaviour {
     {
 		int statuelayer = LayerMask.NameToLayer("statue");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")
-            || collision.gameObject.layer == LayerMask.NameToLayer("Boss"))
+            || collision.gameObject.layer == LayerMask.NameToLayer("Boss")
+            || collision.gameObject.layer == LayerMask.NameToLayer("Hand"))
         {
             Explode();
         }
@@ -42,6 +43,11 @@ public class TubaBomb : MonoBehaviour {
                 h.Defend(damage);
                 explosionVector.Normalize();
                 collider.attachedRigidbody.AddForce(explosionVector * bombForce, ForceMode2D.Impulse);
+            }
+            BossHandDamage a = collider.gameObject.GetComponent<BossHandDamage>();
+            if (a)
+            {
+                a.InflictDamage(damage);
             }
         }
         GetComponent<SpriteRenderer>().enabled = false;

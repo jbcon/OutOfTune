@@ -18,6 +18,7 @@ public class NoteBullet : MonoBehaviour {
 		int enemyLayer;
         int bossLayer;
 		int statuelayer = LayerMask.NameToLayer("statue");
+        int handLayer = LayerMask.NameToLayer("Hand");
 		//enemy layer
 		if (gameObject.layer == 13){
 			enemyLayer = LayerMask.NameToLayer("Player");
@@ -34,6 +35,10 @@ public class NoteBullet : MonoBehaviour {
         }else if (collision.gameObject.layer == statuelayer){
 			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
 		}
+        else if (collision.gameObject.layer == handLayer)
+        {
+            collision.gameObject.GetComponent<BossHandDamage>().InflictDamage(damage);
+        }
         Destroy(gameObject);
     }
 

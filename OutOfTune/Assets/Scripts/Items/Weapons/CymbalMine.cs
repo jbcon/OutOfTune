@@ -12,6 +12,7 @@ public class CymbalMine : MonoBehaviour
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         int groundLayer = LayerMask.NameToLayer("Ground");
 		int statuelayer = LayerMask.NameToLayer("statue");
+        int handLayer = LayerMask.NameToLayer("Hand");
         if (collision.gameObject.layer == enemyLayer)
         {
             //Debug.Log("HIT!");
@@ -34,6 +35,18 @@ public class CymbalMine : MonoBehaviour
 		if (collision.gameObject.layer == statuelayer){
 			collision.gameObject.GetComponent<ReneeStatue>().OnReceiveDamage(1.0f);
 		}
+        if (collision.gameObject.layer == handLayer)
+        {
+            collision.gameObject.GetComponent<BossHandDamage>().InflictDamage(damage);
+            AudioSource source = GetComponent<AudioSource>();
+            source.PlayOneShot(source.clip);
+
+            //destroy all the components so the clip finishes playing
+            Destroy(gameObject.GetComponent<SpriteRenderer>());
+            Destroy(gameObject.GetComponent<Rigidbody2D>());
+            Destroy(gameObject.GetComponent<BoxCollider2D>());
+            Destroy(gameObject, source.clip.length);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum BossState
 {
@@ -8,15 +9,31 @@ public enum BossState
     Clapping
 }
 
+public struct Hand
+{
+    public GameObject fist;
+    public GameObject palm;
+}
+
 public class ArmandBoss : MonoBehaviour {
 
     //boss gameobject and normal "cutscene" Armand
     public GameObject boss;
     public GameObject human;
 
+    //triggers interrupt of the animation if recieves enough damage?
+    public float handHealth = 100f;
+    public float totalHealth = 300f;
+
     //time between attacks
     public float interval = 5f;
     public BossState state;
+
+    //do the hands deal damage?
+    public bool attacking;
+
+    private Hand left;
+    private Hand right;
 
     private BossState[] possibleStates = { BossState.Clapping, BossState.Drumming, BossState.Pushing };
     private Animator bossAnimator;
@@ -29,12 +46,42 @@ public class ArmandBoss : MonoBehaviour {
         humanAnimator = human.GetComponentInChildren<Animator>();
         manager = GameObject.FindGameObjectWithTag("CameraManager");
         musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
+
+        InitHands();
         //for debugging
         if (!GameObject.Find("UIManager"))
         {
             Initialize();
         }
 	}
+
+    void InitHands()
+    {
+        left = new Hand();
+        left.palm = GameObject.FindGameObjectWithTag("LeftPalm");
+        left.fist = GameObject.FindGameObjectWithTag("LeftFist");
+
+        right = new Hand();
+        right.palm = GameObject.FindGameObjectWithTag("RightPalm");
+        right.fist = GameObject.FindGameObjectWithTag("RightFist");
+    }
+
+    public void Damage(float dmg)
+    {
+        totalHealth -= dmg;
+        handHealth -= dmg;
+        if (handHealth <= 0)
+        {
+            handHealth = 100;
+            bossAnimator.SetTrigger("Interrupt");
+        }
+    }
+
+    //enable colliders on the hands for start and end of attack
+    public void EnableHands(bool activate)
+    {
+        attacking = activate;
+    }
 
     //runs after the pre-boss dialogue completes
     public void Initialize()
@@ -60,7 +107,10 @@ public class ArmandBoss : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (!attacking)
+        {
+            handHealth = 100;
+        }
 	}
 
     //determines action based on current state

@@ -125,8 +125,10 @@ public class PlayerController : MonoBehaviour {
         //enemy checking
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         int bossLayer = LayerMask.NameToLayer("Boss");
+        int handLayer = LayerMask.NameToLayer("Hand");
         //equip weapon
-        if ((collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer)
+        if ((collision.gameObject.layer == enemyLayer || collision.gameObject.layer == bossLayer
+            || collision.gameObject.layer == handLayer)
             && !invincible)
         {
             health--;

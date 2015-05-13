@@ -22,19 +22,27 @@ public class MeleeWeapon : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy")
+            || collider.gameObject.layer == LayerMask.NameToLayer("Hand"))
         {
             source.PlayOneShot(violinClips[clipIndex]);
             clipIndex++;
             if (clipIndex > 2)
                 clipIndex = 0;
             canPlayClip = false;
-
-            Health health = collider.gameObject.GetComponent<Health>();
-            if (health)
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Hand"))
             {
-                health.Defend(1f);
+                collider.gameObject.GetComponent<BossHandDamage>().InflictDamage(1f);
             }
+            else
+            {
+                Health health = collider.gameObject.GetComponent<Health>();
+                if (health)
+                {
+                    health.Defend(1f);
+                }
+            }
+            
         }
     }
 	
