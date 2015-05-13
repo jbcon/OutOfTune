@@ -33,6 +33,7 @@ public class ArmandBoss : MonoBehaviour {
 
     //do the hands deal damage?
     public bool attacking;
+    public bool dying;
 
 
     //SFX
@@ -60,6 +61,7 @@ public class ArmandBoss : MonoBehaviour {
         manager = GameObject.FindGameObjectWithTag("CameraManager");
         musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
         source = GetComponent<AudioSource>();
+        dying = false;
         InitHands();
         //for debugging
         if (!GameObject.Find("UIManager"))
@@ -92,9 +94,9 @@ public class ArmandBoss : MonoBehaviour {
         if (totalHealth <= 0)
         {
             bossAnimator.SetTrigger("Interrupt");
-            ParticleSystem p = Instantiate(bossExplosion) as ParticleSystem;
+            ParticleSystem p = Instantiate(bossExplosion, gameObject.transform.position, new Quaternion()) as ParticleSystem;
             Destroy(p, 10.0f);
-            Destroy(gameObject, 4f);
+            Destroy(gameObject, 3f);
         }
     }
 
@@ -131,6 +133,12 @@ public class ArmandBoss : MonoBehaviour {
         if (!attacking)
         {
             handHealth = 100;
+        }
+        if (dying)
+        {
+            SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
+            foreach(SpriteRenderer sr in srs)
+                sr.material.color = new Vector4(1.0f, 1.0f, 1.0f, Mathf.Lerp(1.0f, 0.0f, Time.deltaTime));
         }
 	}
 
