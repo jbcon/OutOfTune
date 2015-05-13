@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour {
 	public Animator settings;
 	public Animator Save;
 	public Animator Menureturn;
+	public Animator Quitbutton;
 	public Animator newgamebutton;
 	public Animator loadbutton;
 	public Animator level2button;
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour {
 			settings.enabled = true;
 			Save.enabled = true;
 			Menureturn.enabled = true;
+			Quitbutton.enabled = true;
 		}
 
 		buttonnames.Add("newgame");
@@ -72,7 +74,8 @@ public class UIManager : MonoBehaviour {
 				}else if (healthlist[i].sprite.name == "button_level2" ||healthlist[i].sprite.name =="button_newGame" ||
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
 				          healthlist[i].sprite.name == "button_load" || healthlist[i].sprite.name =="button_save" ||
-				          healthlist[i].sprite.name == "button_mainMenu" || healthlist[i].sprite.name == "button_credits"
+				          healthlist[i].sprite.name == "button_mainMenu" || healthlist[i].sprite.name == "button_credits"||
+				          healthlist[i].sprite.name == "button_quit"
 
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
@@ -115,7 +118,6 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void ShowCredit(){
-		Debug.Log("hit");
 		if(credithide == false){
 			Creditpage.SetActive(true);
 			credithide = true;
@@ -145,12 +147,17 @@ public class UIManager : MonoBehaviour {
 		settings.SetBool("escPressed",false);
 		Save.SetBool("escPressed",false);
 		Menureturn.SetBool("escPressed",false);
+		Quitbutton.SetBool("escPressed",false);
+		
 
 		GameObject temp = GameObject.FindGameObjectWithTag("Story");
 		temp.GetComponent<Story>().change();
 		Application.LoadLevel("MainMenu");
 		getanimators();
 		//Destroy(gameObject);
+	}
+	public void QuitGame(){
+		Application.Quit();
 	}
 	void checkinghealth(float playerhealth){
 		float temphealth = playerhealth;
@@ -220,6 +227,11 @@ public class UIManager : MonoBehaviour {
 				settings.SetBool("escPressed",clicked);
 				Save.SetBool("escPressed",clicked);
 				Menureturn.SetBool("escPressed",clicked);
+				Quitbutton.SetBool("escPressed",clicked);
+				settings.enabled = false;
+				Save.enabled = false;
+				Menureturn.enabled = false;
+				Quitbutton.enabled = false;
 			}
 			//Debug.Log("display settings" + clicked);
 
@@ -231,6 +243,10 @@ public class UIManager : MonoBehaviour {
 				level2button.SetBool("escPressed",clicked);
 				level3button.SetBool("escPressed",clicked);
 				creditbutton.SetBool("escPressed",clicked);
+				settings.enabled = true;
+				Save.enabled = true;
+				Menureturn.enabled = true;
+				Quitbutton.enabled = true;
 			}else{
 				//list all the enemies
 				enemies = GameObject.FindGameObjectsWithTag("enemy");
@@ -255,9 +271,16 @@ public class UIManager : MonoBehaviour {
 			}else{
 				//when go back to main menu set the focus back onto the newgame
 				if (uihide == false){
-					GameObject testbutton2 = GameObject.Find("newgame");
-					EventSystem tempevent = EventSystem.current;
-					EventSystem.current.SetSelectedGameObject(testbutton2, new BaseEventData(tempevent));
+					if(credithide == false){
+						GameObject testbutton3 = GameObject.Find("credits");
+						EventSystem tempevent = EventSystem.current;
+						EventSystem.current.SetSelectedGameObject(testbutton3, new BaseEventData(tempevent));
+					}else{
+						GameObject testbutton2 = GameObject.Find("newgame");
+						EventSystem tempevent = EventSystem.current;
+						EventSystem.current.SetSelectedGameObject(testbutton2, new BaseEventData(tempevent));
+					}
+
 				}else{
 					//reenabling all the enemies
 					for (int disable2 = 0; disable2 < enemies.Count(); disable2 ++){
@@ -278,7 +301,7 @@ public class UIManager : MonoBehaviour {
 			//if player exist in scene then grab the script and access its variables
 			playerobj = player.GetComponent<PlayerController>();
 			//call the functions to check the current player status
-			checkinghealth(playerobj.health);
+			checkinghealth(playerobj.gethealth());
 			highlightweapon(playerobj.weaponManager.weaponname);
 			//Debug.Log(playerobj.weaponManager.weaponname);
 		}
