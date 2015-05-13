@@ -135,6 +135,10 @@ public class Story : MonoBehaviour {
                     ArmandBoss a = boss.GetComponent<ArmandBoss>();
                     a.Initialize();
                 }
+				if(level3postboss){
+					GameObject temp = GameObject.FindGameObjectWithTag("uimanager");
+					temp.GetComponent<UIManager>().LoadMenu();
+				}
 				background.enabled = false;
                 
 				story_book.Clear();

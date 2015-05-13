@@ -97,6 +97,8 @@ public class ArmandBoss : MonoBehaviour {
             ParticleSystem p = Instantiate(bossExplosion, gameObject.transform.position, new Quaternion()) as ParticleSystem;
             Destroy(p, 10.0f);
             Destroy(gameObject, 3f);
+			GameObject temp = GameObject.FindGameObjectWithTag("displaythelastarc");
+			temp.GetComponent<DisplayStory>().LastConvo();
         }
     }
 
