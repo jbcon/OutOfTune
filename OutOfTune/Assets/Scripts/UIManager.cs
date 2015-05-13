@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour {
 	public bool clicked = false;
 	public bool activatestory;
 	public GameObject player;
+	public GameObject bgimg;
 	private List<string> buttonnames = new List<string>(); //possible use using keyboard input to select htings
 	private List<Image> healthlist;						//list of the health images- can be changed if creating them would be more cost efficent
 	private List<Image> weapons = new List<Image>();	//list of weapons
@@ -31,12 +32,14 @@ public class UIManager : MonoBehaviour {
 	private bool uihide;
 	private GameObject[] enemies;						//list of each enemy type for
 	private bool credithide;
-
+	private bool playerpause;
 	public void Awake(){
 		DontDestroyOnLoad(gameObject);					//making sure this gameobject doesn't get destroyed for each new level
 	}
 
 	public void Start(){
+		playerpause = false;
+		//bgimg.enabled = true;
 		credithide = false;
 		getanimators();
 		activatestory = false;
@@ -75,7 +78,7 @@ public class UIManager : MonoBehaviour {
 				          healthlist[i].sprite.name == "button_settings" ||healthlist[i].sprite.name =="button_level3" ||
 				          healthlist[i].sprite.name == "button_load" || healthlist[i].sprite.name =="button_save" ||
 				          healthlist[i].sprite.name == "button_mainMenu" || healthlist[i].sprite.name == "button_credits"||
-				          healthlist[i].sprite.name == "button_quit"
+				          healthlist[i].sprite.name == "button_quit" || healthlist[i].sprite.name == "titleScreen"
 
 				          ){										//ignore the setting buttons
 					//Debug.Log ("here");
@@ -128,16 +131,19 @@ public class UIManager : MonoBehaviour {
 	}
 	public void StartGame(){
 		uihide = true;
+		bgimg.SetActive(false);
 		Application.LoadLevel("Level 1");
 		loadUI ();
 	}
 	public void LoadLevel2(){
 		uihide = true;
+		bgimg.SetActive(false);
 		Application.LoadLevel("Level 2");
 		loadUI ();
 	}
 	public void LoadLevel3(){
 		uihide = true;
+		bgimg.SetActive(false);
 		Application.LoadLevel("Level 3");
 		loadUI ();
 	}
@@ -153,6 +159,7 @@ public class UIManager : MonoBehaviour {
 		GameObject temp = GameObject.FindGameObjectWithTag("Story");
 		temp.GetComponent<Story>().change();
 		Application.LoadLevel("MainMenu");
+		bgimg.SetActive(true);
 		getanimators();
 		//Destroy(gameObject);
 	}
@@ -190,10 +197,12 @@ public class UIManager : MonoBehaviour {
 	void getanimators(){
 		Creditpage = GameObject.FindGameObjectWithTag("CreditUI");
 		Creditpage.SetActive(false);
+		bgimg = GameObject.FindGameObjectWithTag("bg");
+		bgimg.SetActive(true);
 		GameObject grabanimators = GameObject.FindGameObjectWithTag("ButtonUI");
 		//Debug.Log("yeay"+ grabanimators);
 		if (grabanimators != null){
-			uihide = false;
+			//uihide = false;
 			mainmenuanimations = grabanimators.GetComponentsInChildren<Animator>();
 			for (int i = 0; i < mainmenuanimations.Count () ; i ++){
 				if(mainmenuanimations[i].name == "newgame"){
@@ -219,6 +228,17 @@ public class UIManager : MonoBehaviour {
 	public void Update(){
 
 		GameObject testbutton = GameObject.Find("Save");
+		if(player == null){
+			player = GameObject.FindGameObjectWithTag("Player");
+		}else{
+			//if player exist in scene then grab the script and access its variables
+			playerobj = player.GetComponent<PlayerController>();
+			//call the functions to check the current player status
+			checkinghealth(playerobj.gethealth());
+			highlightweapon(playerobj.weaponManager.weaponname);
+			//Debug.Log(playerobj.weaponManager.weaponname);
+		}
+
 		if (Input.GetKeyDown((KeyCode.Escape)))
 		{
 			//bringing down the setting menu
@@ -228,10 +248,11 @@ public class UIManager : MonoBehaviour {
 				Save.SetBool("escPressed",clicked);
 				Menureturn.SetBool("escPressed",clicked);
 				Quitbutton.SetBool("escPressed",clicked);
-				settings.enabled = false;
-				Save.enabled = false;
-				Menureturn.enabled = false;
-				Quitbutton.enabled = false;
+				//renenable use of these buttons
+				settings.enabled = true;
+				Save.enabled = true;
+				Menureturn.enabled = true;
+				Quitbutton.enabled = true;
 			}
 			//Debug.Log("display settings" + clicked);
 
@@ -243,10 +264,11 @@ public class UIManager : MonoBehaviour {
 				level2button.SetBool("escPressed",clicked);
 				level3button.SetBool("escPressed",clicked);
 				creditbutton.SetBool("escPressed",clicked);
-				settings.enabled = true;
-				Save.enabled = true;
-				Menureturn.enabled = true;
-				Quitbutton.enabled = true;
+				//disable buttons and move them off screen
+				settings.enabled = false;
+				Save.enabled = false;
+				Menureturn.enabled = false;
+				Quitbutton.enabled = false;
 			}else{
 				//list all the enemies
 				enemies = GameObject.FindGameObjectsWithTag("enemy");
@@ -272,6 +294,7 @@ public class UIManager : MonoBehaviour {
 				//when go back to main menu set the focus back onto the newgame
 				if (uihide == false){
 					if(credithide == false){
+						//during credit showing focus on only credirs
 						GameObject testbutton3 = GameObject.Find("credits");
 						EventSystem tempevent = EventSystem.current;
 						EventSystem.current.SetSelectedGameObject(testbutton3, new BaseEventData(tempevent));
@@ -290,21 +313,27 @@ public class UIManager : MonoBehaviour {
 				Cursor.visible = false;
 			}
 		}
+		if(clicked == true){
+			if(player != null){
+				//disable player movement
+				player.GetComponent<PlayerController>().setpause();
+				//tell program that the player paused the game
+				playerpause = true;
+			}
+		}else{
+			if (playerpause == true){
+				//unpause the player only if player hit upause button 
+				player.GetComponent<PlayerController>().unpause() ;
+				playerpause = false;
+			}
+		}
 		/*
 		//during setting menus make sure that the user can't select anything else other than save
 		if(clicked == true && EventSystem.current.gameObject != testbutton){
 			EventSystem.current.SetSelectedGameObject(testbutton, new BaseEventData(EventSystem.current));
 		}*/
 		//grab the player object
-		player = GameObject.FindGameObjectWithTag("Player");
-		if (player != null){
-			//if player exist in scene then grab the script and access its variables
-			playerobj = player.GetComponent<PlayerController>();
-			//call the functions to check the current player status
-			checkinghealth(playerobj.gethealth());
-			highlightweapon(playerobj.weaponManager.weaponname);
-			//Debug.Log(playerobj.weaponManager.weaponname);
-		}
+
 	}
 
 }
