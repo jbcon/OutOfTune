@@ -21,8 +21,10 @@ public class ArmandBoss : MonoBehaviour {
     public GameObject boss;
     public GameObject human;
 
+    public ParticleSystem bossExplosion;
+
     //triggers interrupt of the animation if recieves enough damage?
-    public float handHealth = 100f;
+    public float handHealth = 50f;
     public float totalHealth = 300f;
 
     //time between attacks
@@ -32,8 +34,19 @@ public class ArmandBoss : MonoBehaviour {
     //do the hands deal damage?
     public bool attacking;
 
+
+    //SFX
+    public AudioClip beat;
+    public AudioClip destroy;
+    public AudioClip coda;
+    public AudioClip tickle;
+
+    public AudioClip[] laughs;
+
     private Hand left;
     private Hand right;
+
+    private AudioSource source;
 
     private BossState[] possibleStates = { BossState.Clapping, BossState.Drumming, BossState.Pushing };
     private Animator bossAnimator;
@@ -46,7 +59,7 @@ public class ArmandBoss : MonoBehaviour {
         humanAnimator = human.GetComponentInChildren<Animator>();
         manager = GameObject.FindGameObjectWithTag("CameraManager");
         musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer");
-
+        source = GetComponent<AudioSource>();
         InitHands();
         //for debugging
         if (!GameObject.Find("UIManager"))
@@ -72,8 +85,16 @@ public class ArmandBoss : MonoBehaviour {
         handHealth -= dmg;
         if (handHealth <= 0)
         {
-            handHealth = 100;
+            handHealth = 50f;
             bossAnimator.SetTrigger("Interrupt");
+            source.PlayOneShot(tickle);
+        }
+        if (totalHealth <= 0)
+        {
+            bossAnimator.SetTrigger("Interrupt");
+            ParticleSystem p = Instantiate(bossExplosion) as ParticleSystem;
+            Destroy(p, 10.0f);
+            Destroy(gameObject, 4f);
         }
     }
 
@@ -116,16 +137,27 @@ public class ArmandBoss : MonoBehaviour {
     //determines action based on current state
     void evaluateState()
     {
+        //flip a coin, laugh or speak
+        int i = Random.Range(0, 2);
         switch (state)
         {
             case BossState.Clapping:
                 bossAnimator.SetTrigger("Clap");
+                if (i == 0)
+                    source.PlayOneShot(destroy);
+                if (i == 1)
+                {
+                    i = Random.Range(0, 4);
+                    source.PlayOneShot(laughs[i]);
+                }
                 break;
             case BossState.Drumming:
                 bossAnimator.SetTrigger("Drum");
+                source.PlayOneShot(beat);
                 break;
             case BossState.Pushing:
                 bossAnimator.SetTrigger("Push");
+                source.PlayOneShot(coda);
                 break;
             default:
                 break;

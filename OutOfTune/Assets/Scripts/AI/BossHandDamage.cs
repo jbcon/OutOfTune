@@ -5,11 +5,13 @@ public class BossHandDamage : MonoBehaviour {
 
     GameObject bossParent;
     ArmandBoss a;
+    bool hit;
 
 	// Use this for initialization
 	void Start () {
         bossParent = GameObject.FindGameObjectWithTag("Boss");
         a = bossParent.GetComponent<ArmandBoss>();
+        hit = false;
 	}
 
     public void InflictDamage(float dmg)
@@ -26,11 +28,15 @@ public class BossHandDamage : MonoBehaviour {
         GetComponent<BoxCollider2D>().isTrigger = !a.attacking;
         if (a.attacking)
         {
-            sr.material.color = new Vector4(0.8f, 0.5f, 0.0f, 1.0f);
+            if (hit)
+                sr.material.color = new Vector4(0.5f, 0.0f, 0.0f, 1.0f);
+            else
+                sr.material.color = new Vector4(0.8f, 0.5f, 0.0f, 1.0f);
         }
         else
         {
             sr.material.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
         }
+        hit = false;
 	}
 }
